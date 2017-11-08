@@ -1,0 +1,1477 @@
+
+/* PIED DE PAGE*/
+#nom_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*110px; /* la largeur du champ input*/
+}
+
+#prenom_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*140px; /* la largeur du champ input*/
+}
+
+#date_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*140px; /* la largeur du champ input*/
+}
+
+#sexe_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*70px; /* la largeur du champ input*/
+}
+
+#adresse_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*310px; /* la largeur du champ input*/
+}
+
+#idpatient_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*90px; /* la largeur du champ input*/
+}
+
+#effectuer_ input[type="text"]
+{ /*le input ou le textarea*/
+
+background-color: #fffffa; /*la couleur du champ*/
+
+height: 25px; /*la hauteur du champ input*/
+
+width: 100%;/*100px; /* la largeur du champ input*/
+}
+
+/* STYLE POUR LA LISTE DE SELECTION DE LA TABLE*/
+#listeDataTable{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: 0px;
+}
+
+
+.dataTables_paginate *
+{
+	background: #e9e8e8;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+    color: black;	
+	/*margin-top: 100px;*/
+	cursor: pointer;
+
+}
+
+div .dataTables_paginate
+{
+	margin-bottom: 30px;
+	margin-right: 45px;
+}
+
+.dataTables_paginate .first
+{
+	margin-right: 0px;
+}
+
+.dataTables_paginate .last
+{
+	margin-left: 0px;
+}
+
+.dataTables_paginate .previous
+{
+	margin-right: 2px;
+	border-left: 1px solid #bdb9b9;
+}
+
+.dataTables_paginate .next
+{
+	margin-left: 3px;
+	border-right: 1px solid #bdb9b9;
+}
+
+.dataTables_paginate a:hover
+{
+	text-decoration: none;
+	background-color: #c3c1c1;
+	color: white;
+}
+
+.dataTables_paginate .paginate_active
+{
+	text-decoration: none;
+	background-color: #b5b2b2;
+	color: white;
+}
+
+
+
+tr:hover
+{
+	background: white;
+}
+
+#titre, #titre2 {
+	height: 30px;
+    border: 2px solid #ccc;
+	border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 2px solid #cccccc;
+    background : #fff;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    padding-top : 13px;
+    box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.5);
+}
+
+#contenu {
+    background: #fff; max-height: 2000px;
+    border: 2px solid #ccc;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-top: 2px solid #cccccc;
+    padding-left: 25px;
+    box-shadow: 0pt 5pt 12px rgba(0, 0, 0, 0.5);
+}
+
+#declarer_deces {
+	max-height: 2000px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-top: 2px solid #cccccc;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0pt 5pt 12px rgba(0, 0, 0, 0.5);
+}
+
+#admission_urgence {
+	max-height: 2000px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-top: 2px solid #cccccc;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    box-shadow: 0pt 5pt 12px rgba(0, 0, 0, 0.5);
+}
+
+#accordionsUrgence {
+	min-height: 500px; 
+}
+
+#titre_info_deces{
+	font-style: italic;
+    font-family: Times  New Roman;
+    font-size: 18px;
+    color: green;
+    margin-top: 180px;
+    margin-left: 18%;
+}
+
+#barre_separateur {
+    border-bottom: 2px solid #ccc;
+    margin-top: 3px;
+    margin-left: 18%;
+}
+
+#barre_vertical{
+	width:2px;
+    height: 170px;
+    float: left;
+    margin-right: 2px;
+    margin-left: 10px;
+    background-color: #cccccc;
+    margin-top:30px;
+}
+
+#menu{
+	width:30px;
+    height: 150px;
+    float: left;
+    margin-right: 2px;
+    background-color: #ffffff;
+    margin-top:30px;
+}
+
+#terminer_annuler{
+	float: left;
+	width: 200px;
+    height: 40px;
+    margin-left: 490px;
+    margin-top: 25px;
+}
+
+.vider_formulaire,.modifer_donnees,.supprimer_photo,.ajouter_photo{
+              position:relative;
+              width:20px;
+              height:20px;
+              display: inline;float:left;border:transparent; margin-bottom: 10px;
+         } 
+.vider_formulaire {
+	          background: url("../images_icons/annuler1.PNG") no-repeat right top;
+               
+         }
+.modifer_donnees {
+	          background: url("../images_icons/modifier.png") no-repeat right top;
+               
+         }
+.supprimer_photo {
+	          background: url("../images_icons/mod.png") no-repeat right top;
+               
+         }
+.ajouter_photo {
+	          background: url("../images_icons/ajouterphoto.png") no-repeat right top;
+               
+         }
+.vider_formulaire input, .modifer_donnees input, .ajouter_photo input, .supprimer_photo input{
+              position:absolute;
+              right:0;
+              top:0;
+              font-size:100px;
+              opacity:0;
+              -moz-opacity:0;
+              filter:alpha(opacity=0);
+              cursor:pointer;
+              text-align:right; 
+              width:20px;
+              height:20px;
+         }
+
+#photo, #modifier_photo  /*photo*/
+{
+
+width: 100px;
+
+float: left;
+
+border-top-width: 10px;
+
+border-right-width: 10px;
+
+border-right-width-ltr-source: physical;
+
+border-right-width-rtl-source: physical;
+
+border-bottom-width: 10px;
+
+border-left-width: 10px;
+
+border-left-width-ltr-source: physical;
+
+border-left-width-rtl-source: physical;
+
+border-top-style: solid;
+
+border-right-style: solid;
+
+border-right-style-ltr-source: physical;
+
+border-right-style-rtl-source: physical;
+
+border-bottom-style: solid;
+
+border-left-style: solid;
+
+border-left-style-ltr-source: physical;
+
+border-left-style-rtl-source: physical;
+
+border-top-color: white;
+
+border-right-color: white;
+
+border-right-color-ltr-source: physical;
+
+border-right-color-rtl-source: physical;
+
+border-bottom-color: white;
+
+border-left-color: white;
+
+border-left-color-ltr-source: physical;
+
+border-left-color-rtl-source: physical;
+
+box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.2);
+
+}
+
+#vuePatientAdmission p
+{
+	margin-right: 15px;
+	max-height: 190px;
+	max-width: 200px;
+	overflow: auto;
+}
+
+#motif_constantes
+{
+	margin-left: 40px;
+	margin-right: 40px;
+}
+
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+#form_patient .comment-form-patient label, #form_patient .comment-form-email label, #form_patient .comment-form-url label, #form_patient .comment-form-comment label 
+
+{/* le label*/
+line-height: 1.5em;
+
+background-color: #eeeeee;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+border-top-right-radius: 15px;
+
+background-size: auto auto;
+
+box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
+
+color: black;
+
+display: inline-block;
+
+font-size: 17px;
+
+left: 0px; /*déplacer le label*/
+
+min-width: 60px;
+
+padding-top: 4px;
+
+padding-right: 10px;
+
+padding-bottom: 4px;
+
+padding-left: 10px;
+
+position: relative;
+
+top: 5px;
+
+z-index: 1;
+
+font-family: Goudy Old Style;
+}
+
+#form_patient select
+{
+	background-image: none;
+
+    background-repeat: repeat;
+
+    background-attachment: scroll;
+
+    background-position: 0% 0%;
+
+    background-clip: border-box;
+
+    background-origin: padding-box;
+
+    background-size: auto auto;
+
+    border-top-width: 4px;
+
+    border-right-width-value: 4px;
+
+	border-top-right-radius: 10px;
+	
+    border-right-width-ltr-source: physical;
+
+    border-right-width-rtl-source: physical;
+
+    border-bottom-width: 4px;
+
+    border-left-width-value: 4px;
+
+    border-left-width-ltr-source: physical;
+
+    border-left-width-rtl-source: physical;
+
+    border-top-style: solid;
+
+    border-right-style-value: solid;
+
+    border-right-style-ltr-source: physical;
+
+    border-right-style-rtl-source: physical;
+
+    border-bottom-style: solid;
+
+    border-left-style-value: solid;
+
+    border-left-style-ltr-source: physical;
+
+    border-left-style-rtl-source: physical;
+
+    border-top-color: #cccccc;
+
+    border-right-color-value: #eeeeee;
+
+    border-right-color-ltr-source: physical;
+
+    border-right-color-rtl-source: physical;
+
+    border-bottom-color: #cccccc;
+
+    border-left-color-value: #eeeeee;
+
+    border-left-color-ltr-source: physical;
+
+    border-left-color-rtl-source: physical;
+	
+	border-top-left-radius: 5px; 
+
+    border-top-right-radius: 10px;
+
+    border-bottom-right-radius: 5px;
+
+    border-bottom-left-radius: 5px;
+
+    box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
+
+    position: relative;
+	
+	/* les cotés des champs */
+
+    border-right-width: 1px;
+
+    border-left-width: 1px;
+
+    border-top-width: 2px;
+
+    border-bottom-width: 2px;
+	
+	border-left-color: #cccccc;
+	
+	border-right-color: #cccccc;
+	
+	margin-right: 25px;
+	
+	margin-bottom: 15px;
+
+	/*enlever l'icone select*/
+    /****-webkit-appearance: none;*****/
+}
+
+#form_patient option{ 
+   min-width:100px;
+   color:#00f;
+   background-color:#eee;
+   font-size: 13pt;
+   overflow: auto;
+
+}
+
+#form_patient input[type="text"], #form_patient textarea
+
+{ /*le input ou le textarea*/
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+background-size: auto auto;
+
+border-top-width: 2px;
+
+border-right-width-value: 2px;
+
+border-right-width-ltr-source: physical;
+
+border-right-width-rtl-source: physical;
+
+border-bottom-width: 2px;
+
+border-left-width-value: 2px;
+
+border-left-width-ltr-source: physical;
+
+border-left-width-rtl-source: physical;
+
+border-top-style: solid;
+
+border-right-style-value: solid;
+
+border-right-style-ltr-source: physical;
+
+border-right-style-rtl-source: physical;
+
+border-bottom-style: solid;
+
+border-left-style-value: solid;
+
+border-left-style-ltr-source: physical;
+
+border-left-style-rtl-source: physical;
+
+border-right-color-value: #eeeeee;
+
+border-right-color-ltr-source: physical;
+
+border-right-color-rtl-source: physical;
+
+border-left-color-value: #eeeeee;
+
+border-left-color-ltr-source: physical;
+
+border-left-color-rtl-source: physical;
+
+border-top-left-radius: 5px;
+
+border-top-right-radius: 10px;
+
+border-bottom-right-radius: 5px;
+
+border-bottom-left-radius: 5px;
+
+box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
+
+position: relative;
+
+/* le texte des champs*/
+padding-top: 5px;
+
+padding-right: 10px;
+
+padding-bottom: 5px;
+
+margin-bottom : 15px;
+
+margin-right: 25px;
+
+padding-left: 10px; /* padding du text dans le champ*/
+
+text-indent: 0px; /* alignement du text dans le champ input*/
+
+/* balise input text*/
+display: block;
+
+height: 30px; /*la hauteur du champ input*/
+
+width: 87%; /*225px; /* la largeur du champ input*/
+
+font-size: 16px;
+}
+
+#form_patient .comment-form-patient_radio label
+{
+line-height: 1.5em;
+
+background-color: #eeeeee;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+background-size: auto auto;
+
+box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
+
+color: black;
+
+display: inline-block;
+
+font-size: 17px;
+
+min-width: 100px;
+
+padding-bottom: 4px;
+
+padding-left: 5px;
+
+top: 5px;
+
+font-style: italic;
+	
+font-family: Iskoola Pota;
+	
+z-index: 1;
+	
+}
+
+#form_patient_radio input[type="radio"]
+{ 
+
+box-shadow: 0pt 1px 3px rgba(204, 204, 204, 0.95) inset;
+
+height: 20px; 
+
+width: 20px;
+
+font-size: 16px;
+	
+padding-top: 10px;
+	
+margin-right: 5px;
+}
+
+#form_patient_radio .comment-form-patient_radio label
+{ 
+
+padding-top: 10px;
+	
+padding-right: 10px;
+
+}
+
+#form_patient_radio {
+	vertical-align: top;
+	height: 110px;
+}
+
+
+#form_patient select
+{
+
+display: block;
+
+height: 30px;  /*la hauteur du champ input*/
+
+width: 87%;/*225px;   /*la largeur du champ input*/
+
+}
+
+#form_patient .taux select
+{
+	border-top-right-radius: 0px;
+	
+	width: 30%;
+}
+
+#form_patient textarea
+{
+	height: 55px;
+	max-height: 55px;
+	min-height: 55px;
+	max-width: 245px;
+	min-width: 245px;
+}
+
+
+/****************************BOUTON************************/
+#thoughtbot button
+{
+    width:auto;
+    padding:8px 0;
+    text-align:center;
+    display: inline-block;
+    float:left;
+    margin:0 8px 0 0;
+    border-radius:7px;
+    font-size: 0.85em;
+	font-weight: bold;
+    width:80px;
+    color:#000;
+    font-family: Arial,sans-serif;
+	box-shadow: 0 0 1px rgba( 0, 0, 0, 0.2), 0 -1px 0 rgba( 255, 255, 255, 0.1);
+    text-shadow: 0px 1px 0px rgba( 255, 255, 255, 0.3);
+}
+
+#thoughtbot button:hover
+{
+    background: #ccc;
+    background: -webkit-linear-gradient( #eee, #aaa);
+    background: -moz-linear-gradient( #eee, #aaa);
+    background: -ms-linear-gradient( #eee, #aaa);
+    background: -o-linear-gradient( #eee, #aaa);
+    background: linear-gradient( #eee, #aaa);
+}
+
+a{
+	color: black;
+}
+
+p{
+	font-family: Times  New Roman;
+	color: #065d10;
+}
+
+
+#zoneTexte{
+    height: 40px;
+	border: 2px solid #cccccc ;
+   /*  border-bottom-right-radius: 10px; */
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#zoneChampInfo{
+    height: 40px;
+	border: 2px solid #cccccc ;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#zoneChampInfo1{
+    min-height: 30px;
+	border: 2px solid #cccccc ;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+#zoneChampInfoVue{
+	width: 95%;
+    min-height: 25px;
+	font-size: 17px;
+	border: 1px solid #cccccc ;
+    border-bottom-left-radius: 10px;
+}
+
+#labelHeureLABEL
+{
+line-height: 1.4em;
+
+background-color: #eeeeee;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+border-top-right-radius: 15px;
+
+background-size: auto auto;
+
+box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
+
+color: #555555;
+
+display: inline-block;
+
+font-size: 13px;
+
+min-width: 60px;
+
+padding-top: 4px;
+
+padding-right: 5px;
+
+padding-bottom: 0px;
+
+padding-left: 10px;
+
+position: relative;
+
+top: 0px;
+
+z-index: 1;
+
+}
+
+#labelHeureLABELVue
+{
+line-height: 1.2em;
+
+background-color: #eeeeee;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+border-top-right-radius: 10px;
+
+background-size: auto auto;
+
+box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
+
+color: #555555;
+
+display: inline-block;
+
+font-size: 6px;
+
+width: 95%;
+
+padding-top: 4px;
+
+padding-bottom: 0px;
+
+padding-left: 10px;
+
+position: relative;
+
+top: 0px;
+
+z-index: 1;
+
+}
+
+
+
+.liste_patient tr{
+	background: #f5f5f5;
+}
+
+.liste_patient tr:hover{
+	background: #e4e4e4;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#gestCorrectionInfos{
+	width: 100%;
+	height: 20px;
+	margin-top: 10px;
+}
+
+#contenuCorrectionInfos{
+	width: 90%;
+	height: 20px;
+	margin-top: 15px;
+}
+
+.multiSelLine{
+	width: 90%;
+	height: 35px;
+}
+
+.multiSelLineTitre{
+	color: gray;
+	font-family: times new roman;
+}
+
+.multiSelLineListeMotifs select{
+	width: 75%;
+	height: 35px;
+	padding-left: 5px;
+}
+
+.multiSelLineListeMotifs .listeSelectAC{
+	width: 80%;
+}
+
+.multiSelLineListeMotifs .nouveauPathAC{
+	width: 10%;
+	float: right;
+	margin-top: -40px;
+}
+
+.multiSelLineListeMotifs .nouveauPathAC img{
+	margin-left: -120px;
+	cursor: pointer;
+}
+
+.multiSelLineSubmit{
+	margin-top: 10px;
+}
+
+.multiSelLineSubmit button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	width: 18%;
+	height: 32px;
+}
+
+.multiSelLineChargement img{
+	height: 30px;
+	width: 30px;
+}
+
+.multiSelLineChargement div{
+	color: gray;
+	font-family: times new roman;
+	margin-bottom: 7px;
+	margin-top: 7px;
+}
+
+.multiSelLineEffectuer div{
+	color: green;
+	font-family: times new roman;
+	margin-bottom: 7px;
+	margin-top: 10px;
+}
+
+.multiSelLineMessage{
+	color: red;
+	font-family: times new roman;
+	margin-bottom: 7px;
+}
+
+.infosConfirmation{
+	width: 100%; 
+	height: 10px; 
+}
+
+.infosConfirmation tr{
+	width: 100%; 
+	height: 10px;
+	font-size: 15px;
+}
+
+.infosConfirmation .col1Confirm{
+	width: 5%; 
+	height: 25px; 
+	font-style: italic;
+	color: gray;
+}
+
+.infosConfirmation .col2Confirm{
+	width: 95%; 
+	height: 25px; 
+	padding-left: 6px;
+}
+
+.infosConfirmation .ligneColorGray{
+	background: #f1f1f1;
+}
+
+.affichageMessageMultiSelectInfos{
+	width: 100%;
+}
+
+.affichageMessageInfos div{
+	color: gray;
+	margin-top: 13px;
+	margin-bottom: 13px;
+	font-size: 13px;
+}
+
+.affichageMessageInfosRemplace div{
+	color: green;
+	font-weight: bold;
+	margin-top: 2px;
+	margin-bottom: 10px;
+	font-size: 15px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#ajouterPathologies table, #ajouterPathologies table tr{
+	width: 100%;
+	vertical-align: top;
+}
+
+
+
+
+#ajouterPathologies .lignePathologiesExistantes td{
+	width: 50%; 
+	margin-left: 5px;
+}
+
+#ajouterPathologies .lignePathologiesExistantes td label{
+	width: 100%;
+	height: 25px;
+	font-size: 20px;
+	font-family: times new roman;
+	text-align: left;
+}
+#ajouterPathologies .lignePathologiesExistantes td div{
+	width: 96%;
+	height: 200px;
+	font-size: 17px;
+	font-family: times new roman;
+	border: 1px solid #cccccc;
+    background : #fdfdfd;
+    box-shadow: 0pt 0pt 5px rgba(0, 0, 0, 0.3);
+	margin-bottom: 5px;
+	overflow-y: auto;
+}
+
+#ajouterPathologies .listeTypePathologiesExistantes table tr{
+	width: 100%;
+	font-size: 17px;
+}
+
+#ajouterPathologies .listeTypePathologiesExistantes table td{
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #cccccc;
+}
+
+#ajouterPathologies .listeTypePathologiesExistantes table .LTPE1{
+	width: 8%;
+}
+
+#ajouterPathologies .listeTypePathologiesExistantes table .LTPE2{
+	width: 92%;
+}
+
+#ajouterPathologies .listeTypePathologiesExistantes table tr:hover{
+	background: #e1e1e1; 
+}
+
+.listeTypePathologiesExistantes table img{
+	margin-left: -3px;
+	cursor: pointer;
+}
+
+
+#ajouterPathologies .listePathologiesExistantes table tr{
+	width: 100%;
+	font-size: 17px;
+	cursor: pointer;
+}
+
+#ajouterPathologies .listePathologiesExistantes table td{
+	padding-left: 6px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	border: 1px solid #cccccc;
+}
+
+#ajouterPathologies .listePathologiesExistantes table .LPE1{
+	width: 0%;
+}
+
+#ajouterPathologies .listePathologiesExistantes table .LPE2{
+	width: 100%;
+}
+
+#ajouterPathologies .listePathologiesExistantes table tr:hover{
+	background: #e1e1e1; 
+}
+
+
+
+
+
+
+
+
+
+
+
+#ajouterPathologies .ligneBoutonsAjout td{
+	width: 50%; 
+	height: 50px;
+	margin-left: 5px;
+}
+
+#ajouterPathologies .ligneBoutonsAjout button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	height: 32px;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+.ligneBoutonsAjout .boutonATP button{
+	width: 70%;
+}
+
+.ligneBoutonsAjout .boutonAP button{
+	width: 55%;
+}
+
+#ajouterPathologies .ligneBoutonsAnnulerValiderAjout, #ajouterPathologies .ligneBoutonsAnnulerValiderAjout tr{
+	width: 100%;
+}
+
+
+
+
+
+
+
+
+
+
+#ajouterPathologies .ligneInfosAjoutPathologies, #ajouterPathologies .ligneInfosAjoutPathologies tr{
+	width: 100%;
+}
+
+#ajouterPathologies .ligneInfosAjoutPathologies td{
+	height: 35px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: left;
+	margin-left: 15px;
+}
+
+#ajouterPathologies .ligneInfosAjoutPathologies .LIATP, #ajouterPathologies .ligneInfosAjoutPathologies .LIAP{
+	width: 50%;
+}
+
+#ajouterPathologies .LIATP img, #ajouterPathologies .LIAP img{
+	margin-top: -15px;
+}
+
+
+
+
+
+
+.interfaceAjoutPathologies .contenuIAPath table, .interfaceAjoutPathologies .contenuIAPath table tr{
+	width: 100%;
+}
+
+.interfaceAjoutPathologies .contenuIAPath td{
+	width: 100%; 
+	margin-left: 5px;
+}
+
+.interfaceAjoutPathologies .contenuIAPath{
+	height: 220px;
+	overflow-y: auto;
+}
+
+.interfaceAjoutPathologies .contenuIAPath td input[type='text']{
+	width: 50%; 
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+}
+
+.contenuIAPath img{
+	cursor: pointer;
+}
+
+.contenuIAPath .champsAjoutP select{
+	width: 50%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+	float: left;
+}
+
+.contenuIAPath .champsAjoutP input[type='text']{
+	max-width: 48%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+	float: left;
+	margin-left: 4px;
+}
+
+
+
+#ajouterPathologies .ligneBoutonsAnnulerValiderAjout td{
+	width: 50%;
+	height: 50px;
+}
+
+#ajouterPathologies .ligneBoutonsAnnulerValiderAjout button{
+	border: 1px;
+	border-radius: 15px;
+	border: 1px solid #bdb9b9;
+	height: 32px;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+#ajouterPathologies .ligneBoutonsAnnulerValiderAjout .boutonAVAA{
+	float: right; 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#affichageInfosStatistiques .optionsTypeEtPathologie{
+	width: 100%;
+	height: 40px;
+}
+
+.optionsTypeEtPathologie .optionsTypePath{
+	width: 100%;
+}
+
+#affichageInfosStatistiques .optionsPeriode{
+	width: 100%;
+	height: 40px;
+	margin-bottom: 10px;
+}
+
+#affichageInfosStatistiques .zoneResultatsInfosStatiques{
+	width: 99%;
+	min-height: 10px;
+	border: 2px solid #cccccc;
+    box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#affichageInfosStatistiques .titreTableauInfosStatistiques{
+	padding-bottom: 5px;
+    padding-top : 13px;
+	width: 100%;
+	background: #f1f1f1;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#affichageInfosStatistiques .ligneTitreTableauInfos:hover{
+	background: #f1f1f1;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+#affichageInfosStatistiques .ligneTitreTableauInfos{
+	width: 100%;
+	border-bottom: 1px solid #cccccc;
+	font-size: 15px;
+	font-style: times new roman;
+	font-weight: bold;
+}
+
+#affichageInfosStatistiques .ligneTitreTableauInfos td{
+	padding-left: 10px;
+}
+
+
+#affichageInfosStatistiques .tableauInfosStatistiques{
+    padding-bottom: 5px;
+    padding-top : 13px;
+	width: 100%;
+}
+
+#affichageInfosStatistiques .tableauInfosStatistiques td{
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+}
+
+
+#affichageInfosStatistiques .infosPath{
+	padding-left: 10px;
+}
+
+
+.optionsTypeEtPathologie .listeZRI1, .optionsTypeEtPathologie .listeZRI2{
+	float: left;
+	width: 50%;
+	height: 40px;
+}
+
+.optionsTypeEtPathologie .listeZRI1{
+	margin-top: 5px;
+}
+
+.optionsTypeEtPathologie .listeZRI2{
+	margin-top: 5px;
+}
+
+.optionsTypeEtPathologie .listeZRI1 select, .optionsTypeEtPathologie .listeZRI2 select{
+	border: 2px solid #cccccc;
+    box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	height: 35px;
+	width: 97%;
+}
+
+
+
+
+
+#affichageInfosStatistiques .optionsPeriode{
+	width: 100%;
+	height: 40px;
+	margin-bottom: 20px;
+}
+
+.optionsPeriodePath .champOP1, .optionsPeriodePath .champOP2{
+	float: left;
+	width: 50%;
+	height: 40px;
+	margin-top: 5px;
+}
+
+.optionsPeriodePath .champOP1 input[type='date'], .optionsPeriodePath .champOP2 input[type='date']{
+	border: 2px solid #cccccc;
+    box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	height: 35px;
+	width: 95%;
+	padding-left: 10px;
+	font-size: 18px;
+}
+
+.optionsPeriodePath{
+	width: 55%;
+	height: 30px;
+}
+
+.champOP2 button{
+	position: absolute;
+	right: 70px;
+	box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+}
+
+.champOP1 img{
+	position: absolute;
+	left: 25px;
+	box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	border-radius: 20%;
+	cursor: pointer;
+}
+
+.LTPE2 .imgLTPE2{
+	height: 16px; 
+	width: 16px;
+	float: right;
+	visibility: hidden;
+}
+
+#ajouterPathologies .listeTypePathologiesExistantes table tr:hover .imgLTPE2{
+	float: right; 
+	height: 18px; 
+	width: 18px;
+	visibility: visible;
+}
+
+
+
+
+
+
+
+
+
+#infosConfirmationModification{
+	width: 100%; 
+	height: 10px; 
+}
+
+#infosConfirmationModification tr{
+	width: 100%; 
+	height: 10px;
+	font-size: 15px;
+	background: #f1f1f1;
+}
+
+#infosConfirmationModification td{
+	width: 95%; 
+	height: 25px; 
+	padding-left: 6px;
+}
+
+#affichageMessageInfosRemplaceModification input[type='text']{
+	margin-top: 2px;
+	margin-bottom: 10px;
+	width: 90%;
+	height: 40px;
+	padding-left: 8px;
+	font-size: 18px;
+	font-family: times new roman;
+	border: 2px solid #bdb9b9;
+}
