@@ -14,7 +14,6 @@ return array (
 										'constraints' => array (
 												'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
 												'val' => '[0-9]+',
-												//'val' => '[0-9]+'
 										),
 										'defaults' => array (
 												'controller' => 'Consultation\Controller\Consultation',

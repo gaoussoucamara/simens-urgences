@@ -26,6 +26,8 @@ use Urgence\Model\PathologieTable;
 use Urgence\Model\Pathologie;
 use Urgence\Model\TypePathologieTable;
 use Urgence\Model\TypePathologie;
+use Urgence\Model\PersonneTable;
+use Urgence\Model\Personne;
 
 class Module implements AutoloaderProviderInterface, ConfigProviderInterface, ServiceProviderInterface, ViewHelperProviderInterface {
 
@@ -167,6 +169,18 @@ class Module implements AutoloaderProviderInterface, ConfigProviderInterface, Se
 						},
 						
 
+						'Urgence\Model\PersonneTable' => function ($sm) {
+							$tableGateway = $sm->get('PersonneListeTableGateway');
+							$table = new PersonneTable($tableGateway);
+							return $table;
+						},
+						'PersonneListeTableGateway' => function($sm) {
+							$dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+							$resultSetPrototype = new ResultSet();
+							$resultSetPrototype->setArrayObjectPrototype(new Personne());
+							return new TableGateway('personne', $dbAdapter, null, $resultSetPrototype);
+						},
+						
 				)
 		);
 	}

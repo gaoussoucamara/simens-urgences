@@ -21,6 +21,7 @@ class UrgenceController extends AbstractActionController {
 	protected $motifAdmissionTable;
 	protected $pathologieTable;
 	protected $typePathologieTable;
+	protected $personneListeTable;
 	
 	public function getPatientTable() {
 		if (! $this->patientTable) {
@@ -86,6 +87,14 @@ class UrgenceController extends AbstractActionController {
 		return $this->typePathologieTable;
 	}
 	
+	public function getPersonneListeTable() {
+		if (! $this->personneListeTable) {
+			$sm = $this->getServiceLocator ();
+			$this->personneListeTable = $sm->get ( 'Urgence\Model\PersonneTable' );
+		}
+		return $this->personneListeTable;
+	}
+	
 	public function baseUrl() {
 		$baseUrl = $_SERVER ['REQUEST_URI'];
 		$tabURI = explode ( 'public', $baseUrl );
@@ -113,6 +122,35 @@ class UrgenceController extends AbstractActionController {
 		// $personne = $this->getPatientTable()->miseAJourAgePatient(4);
 		$user = $this->layout ()->user;
 		$id_employe = $user ['id_personne']; // L'utilisateur connecté
+		
+		
+		/***
+		 * TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
+		 * TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
+		 */
+		
+		//$timestart = microtime(true);
+		//$output = $this->getPatientTable ()->getListePatient ();
+		//var_dump($output); exit();
+		/*
+		$output = $this->getPersonneListeTable()->fetchAll()->toArray();
+		$listeAjax = array(
+				'iTotalDisplayRecords' => count($output),
+				'aaData' => $output
+		);
+		*/
+		
+		//$timeend = microtime(true);
+		//$time = $timeend-$timestart;
+
+		//var_dump(number_format($time,3)); exit();
+		
+		/***
+		 * ==============================================================
+		 * ==============================================================
+		 */
+		
+		
 		
 		
 		$layout = $this->layout ();
@@ -231,6 +269,15 @@ class UrgenceController extends AbstractActionController {
 	
 	public function listePatientAjaxAction() {
 		$output = $this->getPatientTable ()->getListePatient ();
+		
+		/*
+		$output = $this->getPersonneListeTable()->fetchAll()->toArray();
+		$listeAjax = array(
+				'iTotalDisplayRecords' => count($output),
+				'aaData' => $output
+		);
+		*/
+		
 		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
 				'enableJsonExprFinder' => true 
 		) ) );
@@ -466,41 +513,7 @@ class UrgenceController extends AbstractActionController {
     //Admission d' un patient aux urgences
 	public function admissionAction() {
 	
-		$layout = $this->layout ();
-		$layout->setTemplate ( 'layout/urgence' );		
-		
-		$nbPatientAdmisInfTriNonVu = $this->getPatientTable ()->nbPatientAdmisParInfirmierTri();
-		
-		//INSTANCIATION DU FORMULAIRE D'ADMISSION
-		$formAdmission = new AdmissionForm ();
-		
-		$listeModeTransport = $this->getPatientTable ()->listeModeTransport();
-		$formAdmission->get ( 'mode_transport' )->setValueOptions ($listeModeTransport);
-		
-		$listeSalles = $this->getPatientTable ()->listeSalles();
-		$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
-		
-		//A REVOIR DANS LA PARTIE AMELIORATION
-		//A REVOIR DANS LA PARTIE AMELIORATION
-// 		$listeLitsParSalles = $this->getPatientTable ()->listeLitsParSalle();
-// 		$liste_select = "";
-// 		for($tS = 0 ; $tS < count($listeLitsParSalles[0]) ; $tS++){
-// 			var_dump($listeLitsParSalles[1][$listeLitsParSalles[0][$tS]]); exit();
-// 			for($i = 0 ; $i < count($listeLitsParSalles[1][$listeLitsParSalles[0][$tS]]) ; $i++){
-// 				$liste_select.= "<option value=".$listeServices['Id_service'].">".$listeServices['Nom_service']."</option>";
-// 			}
-// 		}
-// 		var_dump($listeLitsParSalles); exit();
-//		var_dump($this->getPatientTable()->getListeLitsPourSalle(2)->current()); exit();
-
-		//Fin --- A REVOIR DANS LA PARTI AMELIORATION
-		//Fin --- A REVOIR DANS LA PARTI AMELIORATION
-
-		
 		if ($this->getRequest ()->isPost ()) {
-				
-			$today = new \DateTime ();
-			$dateAujourdhui = $today->format( 'Y-m-d' );
 				
 			$id = ( int ) $this->params ()->fromPost ( 'id', 0 );
 				
@@ -512,12 +525,8 @@ class UrgenceController extends AbstractActionController {
 			//*******************************
 			//*******************************
 				
-			$pat = $this->getPatientTable ();
-				
-			$unPatient = $pat->getInfoPatient( $id );
-	
-			$photo = $pat->getPhoto ( $id );
-	
+			$unPatient = $this->getPatientTable ()->getInfoPatient( $id );
+			$photo = $this->getPatientTable ()->getPhoto ( $id );
 				
 			$date = $unPatient['DATE_NAISSANCE'];
 			if($date){ $date = (new DateHelper())->convertDate( $unPatient['DATE_NAISSANCE'] ); }else{ $date = null;}
@@ -562,9 +571,47 @@ class UrgenceController extends AbstractActionController {
 				
 			$html .= "</div>";
 			
+			//Liste des actes et des examens complémentaires
+			$listeActes = $this->getAdmissionTable()->getListeActes();
+			$listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
+			
 			$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
-			return $this->getResponse ()->setContent ( Json::encode ( $html ) );
+			return $this->getResponse ()->setContent ( Json::encode ( array($html, $listeActes, $listeExamenComp) ) );
+		
+		}else{
+			
+			$layout = $this->layout ();
+			$layout->setTemplate ( 'layout/urgence' );
+			
+			//INSTANCIATION DU FORMULAIRE D'ADMISSION
+			$formAdmission = new AdmissionForm ();
+			
+			$listeModeTransport = $this->getPatientTable ()->listeModeTransport();
+			$formAdmission->get ( 'mode_transport' )->setValueOptions ($listeModeTransport);
+			
+			$listeSalles = $this->getPatientTable ()->listeSalles();
+			$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
+			
+			$nbPatientAdmisInfTriNonVu = $this->getPatientTable ()->nbPatientAdmisParInfirmierTri();
+			
+			
+			//A REVOIR DANS LA PARTIE AMELIORATION
+			//A REVOIR DANS LA PARTIE AMELIORATION
+			// 		$listeLitsParSalles = $this->getPatientTable ()->listeLitsParSalle();
+			// 		$liste_select = "";
+			// 		for($tS = 0 ; $tS < count($listeLitsParSalles[0]) ; $tS++){
+			// 			var_dump($listeLitsParSalles[1][$listeLitsParSalles[0][$tS]]); exit();
+			// 			for($i = 0 ; $i < count($listeLitsParSalles[1][$listeLitsParSalles[0][$tS]]) ; $i++){
+			// 				$liste_select.= "<option value=".$listeServices['Id_service'].">".$listeServices['Nom_service']."</option>";
+			// 			}
+			// 		}
+			// 		var_dump($listeLitsParSalles); exit();
+			//		var_dump($this->getPatientTable()->getListeLitsPourSalle(2)->current()); exit();
+			
+			//Fin --- A REVOIR DANS LA PARTI AMELIORATION
+			//Fin --- A REVOIR DANS LA PARTI AMELIORATION
 		}
+		
 		return array (
 				'form' => $formAdmission,
 				'nbPatientAdmisInfTriNonVu' => $nbPatientAdmisInfTriNonVu,
@@ -696,6 +743,14 @@ class UrgenceController extends AbstractActionController {
 		}
 	
 		if($role == "infirmier-service" || $role == "medecin"){
+			$tabDonnees = $this->params ()->fromPost();
+			//Les actes
+			$tabActesDemandes = explode(',', $tabDonnees['tabActesDemandes']);
+			$tabNotesActes = explode(':,,;', $tabDonnees['tabNotesActes']);
+			//Les examens complémentaires
+			$tabTypesExamensDemandes = explode(',', $tabDonnees['tabTypeExamenDemandesEC']);
+			$tabExamensDemandes = explode(',', $tabDonnees['tabExamenDemandesEC']);
+			
 			$id_admission = $this->params ()->fromPost( "id_admission" );
 			//Si c'est un patient déjà admis par l'infirmier de tri
 			//Si c'est un patient déjà admis par l'infirmier de tri
@@ -799,6 +854,11 @@ class UrgenceController extends AbstractActionController {
 					$this->getConsultationTable ()->deleteBandelette($id_cons);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
 				}
+				
+				//Insertion des demandes d'actes et examens complémentaires
+				//Insertion des demandes d'actes et examens complémentaires
+				$this->getMotifAdmissionTable ()->addDemandesActes($id_admission, $tabActesDemandes, $tabNotesActes, $id_Infirmier);
+				$this->getMotifAdmissionTable ()->addDemandesExamensComplementaire($id_admission, $id_Infirmier, $tabTypesExamensDemandes, $tabExamensDemandes);
 			}
 
 		}
@@ -1009,12 +1069,51 @@ class UrgenceController extends AbstractActionController {
         	$html .="<script> setTimeout(function(){ $('#bouton_motif_modifier, #bouton_constantes_modifier').trigger('click'); }, 500); </script>";
         }
         
+
+        /**
+         * Liste des actes et des examens complémentaires
+         */
+        //Liste des actes
+        $listeActes = $this->getAdmissionTable()->getListeActes();
         
+        //Liste des actes pour l'admission
+        $listeActesDemandes = $this->getMotifAdmissionTable ()->getDemandesActes($id_admission);
+        $nbListeActesDemandes = $listeActesDemandes->count();
+        $scriptDonnees = "";
+        $cmpti = 1;
+        foreach ($listeActesDemandes as $listeActesDem){
+        	$scriptDonnees .="<script> $('#type_analyse_name_".$cmpti."').val('".$listeActesDem['id_acte']."'); </script>";
+        	$scriptDonnees .="<script> $('#analyse_name_".$cmpti."').val('".str_replace("'", "\'",$listeActesDem['note'])."'); </script>";
+        	$cmpti++;
+        }
         
+        //Liste des examens complémentaires
+        $listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
         
+        $listeExamensDemandes = $this->getMotifAdmissionTable ()->getDemandesExamenComplementaire($id_admission);
+        $nbListeExamensDemandes = $listeExamensDemandes->count();
+        $scriptDonneesEC = "";
+        $cmptiec = 1;
+        foreach ($listeExamensDemandes as $listeExamenCompDem){
+        	$scriptDonneesEC .="<script> $('#type_analyse_name_ec_".$cmptiec."').val('".$listeExamenCompDem['type']."'); </script>";
+        	$scriptDonneesEC .="<script> $('#analyse_name_ec_".$cmptiec."').html('".$this->getListeExamensComplementairesParType($listeExamenCompDem['type'])."'); </script>";
+        	$scriptDonneesEC .="<script> $('#analyse_name_ec_".$cmptiec."').val('".$listeExamenCompDem['id_examen']."'); </script>";
+        	$cmptiec++;
+        }
         
 		$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
-		return $this->getResponse ()->setContent ( Json::encode ( $html ) );
+		return $this->getResponse ()->setContent ( Json::encode ( array($html, $listeActes, $nbListeActesDemandes, $scriptDonnees, $listeExamenComp, $nbListeExamensDemandes, $scriptDonneesEC) ) );
+	}
+	
+	public function getListeExamensComplementairesParType($id)
+	{
+		$liste_select = "";
+	
+		foreach($this->getMotifAdmissionTable ()->getLiteExamensComplementairesParType($id) as $listeExamensCompl){
+			$liste_select.= "<option value=".$listeExamensCompl['id'].">".$listeExamensCompl['libelle']."</option>";
+		}
+	
+		return $liste_select;
 	}
 	
 	public function enregistrementModificationAdmissionAction() {
@@ -1141,8 +1240,27 @@ class UrgenceController extends AbstractActionController {
 		}
 		
 		if($role == "infirmier-service" || $role == "medecin"){
-			
 			$id_admission = $this->params ()->fromPost( "id_admission" );
+			
+			$tabDonnees = $this->params ()->fromPost();
+
+			//Insertion des demandes d'actes
+			//Insertion des demandes d'actes
+			$tabActesDemandes = explode(',', $tabDonnees['tabActesDemandes']);
+			$tabNotesActes = explode(':,,;', $tabDonnees['tabNotesActes']);
+			
+			$this->getMotifAdmissionTable ()->deleteDemandesActes($id_admission);
+			$this->getMotifAdmissionTable ()->addDemandesActes($id_admission, $tabActesDemandes, $tabNotesActes, $id_Infirmier);
+			
+			//Insertion des demandes d'examens complémentaires
+			//Insertion des demandes d'examens complémentaires
+			$tabTypesExamensDemandes = explode(',', $tabDonnees['tabTypeExamenDemandesEC']);
+			$tabExamensDemandes = explode(',', $tabDonnees['tabExamenDemandesEC']);
+				
+			$this->getMotifAdmissionTable ()->deleteDemandesExamenComplementaire($id_admission);
+			$this->getMotifAdmissionTable ()->addDemandesExamensComplementaire($id_admission, $id_Infirmier, $tabTypesExamensDemandes, $tabExamensDemandes);
+
+			
 			if($id_admission){
 			
 				//Validation de l'admission par l'infirmier de service
@@ -1205,7 +1323,18 @@ class UrgenceController extends AbstractActionController {
 		
 	}
 	
+	public function getListeExamensComplementairesAction()
+	{
+		$id = (int)$this->params()->fromPost ('id');
+		$liste_select = "";
+		
+		foreach($this->getMotifAdmissionTable ()->getLiteExamensComplementairesParType($id) as $listeExamensCompl){
+			$liste_select.= "<option value=".$listeExamensCompl['id'].">".$listeExamensCompl['libelle']."</option>";
+		}
 	
+		$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+		return $this->getResponse ()->setContent(Json::encode ( $liste_select));
+	}
 	
 	public function suppressionAdmissionParInfirmiertriAction(){
 		
@@ -1832,9 +1961,91 @@ class UrgenceController extends AbstractActionController {
 		return $this->getResponse ()->setContent(Json::encode ( $html ));
 	}
 	
-	
+	//**************************************************************************************
+	//**************************************************************************************
+	//**************************************************************************************
+	//**************************************************************************************
+	/* ----- DOMAINE DE LA GESTION DES ACTES ET EXAMENS COMPLEMENTAIRES ------- */
+	/* ----- DOMAINE DE LA GESTION DES ACTES ET EXAMENS COMPLEMENTAIRES ------- */
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	//--------------------------------------------------------------------------------------
+	public function listeActesExamensComplementairesAjaxAction() {
+		$output = $this->getPatientTable ()->laListePatientsActesExamensAjax();
+		return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+				'enableJsonExprFinder' => true
+		) ) );
+	}
 
-    
+    public function getInfosActesExamensPatientAction() {
+    	
+    	$id_patient = ( int ) $this->params ()->fromPost ( 'id_patient', 0 );
+    	//$id_admission = ( int ) $this->params ()->fromPost ( 'id_admission', 0 );
+    	
+    	//MISE A JOUR DE L'AGE DU PATIENT
+    	//MISE A JOUR DE L'AGE DU PATIENT
+    	//MISE A JOUR DE L'AGE DU PATIENT
+    	//$this->getPatientTable()->miseAJourAgePatient($id_patient);
+    	//*******************************
+    	//*******************************
+    	//*******************************
+    	
+    	$pat = $this->getPatientTable ();
+    	
+    	$unPatient = $pat->getInfoPatient( $id_patient );
+    	
+    	$photo = $pat->getPhoto ( $id_patient );
+    	
+    	
+    	$date = $unPatient['DATE_NAISSANCE'];
+    	if($date){ $date = (new DateHelper())->convertDate( $unPatient['DATE_NAISSANCE'] ); }else{ $date = null;}
+    	
+    	$html  = "<div style='width:100%; height: 190px;'>";
+    	
+    	$html .= "<div style='width: 18%; height: 190px; float:left;'>";
+    	$html .= "<div id='photo' style='float:left; margin-top:10px; margin-right:30px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "' ></div>";
+    	$html .= "<div style='margin-left:20px; margin-top: 150px;'> <div style='text-decoration:none; font-size:14px; float:left; padding-right: 7px; '>Age:</div>  <div style='font-weight:bold; font-size:19px; font-family: time new romans; color: green; font-weight: bold;'>" . $unPatient['AGE'] . " ans</div></div>";
+    	$html .= "</div>";
+    	
+    	$html .= "<div id='vuePatientAdmission' style='width: 70%; height: 190px; float:left;'>";
+    	$html .= "<table style='margin-top:0px; float:left; width: 100%;'>";
+    	
+    	$html .= "<tr style='width: 100%;'>";
+    	$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nom:</a><br><div style='width: 150px; max-width: 160px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['NOM'] . "</p></div></td>";
+    	$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Date de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $date . "</p></div></td>";
+    	$html .= "<td style='width: 23%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>T&eacute;l&eacute;phone:</a><br><div style='width: 95%; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['TELEPHONE'] . "</p></div></td>";
+    	$html .= "<td style='width: 29%; '></td>";
+    	
+    	$html .= "</tr><tr style='width: 100%;'>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Pr&eacute;nom:</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['PRENOM'] . " </p></div></td>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Lieu de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nationalit&eacute; actuelle:</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Email:</a><br><div style='width: 100%; max-width: 235px; height:40px; overflow:auto;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['EMAIL'] . "</p></div></td>";
+    	
+    	$html .= "</tr><tr style='width: 100%;'>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Sexe:</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['SEXE'] . "</p></div></td>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Adresse:</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['ADRESSE'] . "</p></div></td>";
+    	$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Profession:</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" .  $unPatient['PROFESSION'] . "</p></div></td>";
+    	
+    	$html .= "<td style='width: 30%; height: 50px;'>";
+    	$html .= "</td>";
+    	$html .= "</tr>";
+    	$html .= "</table>";
+    	$html .= "</div>";
+    	
+    	$html .= "<div style='width: 12%; height: 190px; float:left;'>";
+    	$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "'></div>";
+    	$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:17px; font-family: time new romans; color: green; float:left; margin-top: 10px;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
+    	$html .= "</div>";
+    	
+    	$html .= "</div>";
+    	
+    	$html .= "<div id='titre_info_actes_examens'>Actes et examens compl&eacute;mentaires </div>
+		          <div id='barre_actes_examens'></div>";
+    	
+    	$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
+    	return $this->getResponse ()->setContent(Json::encode ( $html ));
+    }
     
     
     

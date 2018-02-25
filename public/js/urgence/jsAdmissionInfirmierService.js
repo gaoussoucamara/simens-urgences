@@ -342,6 +342,7 @@ function gestionDesChampsRequis(){
 }
 
 var entreIniMotif = 0;
+var entreIniActes = 0;
 function admettre(id_patient){ 
 
 	gestionDesChampsRequis();
@@ -351,9 +352,77 @@ function admettre(id_patient){
 	$("#annuleradmission" ).replaceWith("<button id='annuleradmission' style='height:35px;'>Annuler</button>");
 	$('#titre span').html('<span>ADMISSION</span>');
 	
+	// R�cup�ration des donn�es du patient
+	var chemin = tabUrl[0] + 'public/urgence/admission';
+	$.ajax({
+		type : 'POST',
+		url : chemin,
+		data : {'id':id_patient},
+		success : function(data) {
+			var result = jQuery.parseJSON(data);
+			
+			$("#info_patient").html(result[0]);
+			// PASSER A SUIVANT
+			$('#admission_urgence').animate({
+				height : 'toggle'
+			}, 1000);
+			$('#contenu').animate({
+				height : 'toggle'
+			}, 1000);
+			
+			var tabTypesActes = result[1];
+			var myArrayTypeActes = [''];
+    	    for(var i=1 ; i<=tabTypesActes.length ; i++){
+    	    	myArrayTypeActes[i] = tabTypesActes[i];
+    	    }
+    	    
+    	    var tabTypesExamenComp = result[2];
+			var myArrayTypeExamenComp = [''];
+    	    for(var i=1 ; i<=tabTypesExamenComp.length ; i++){
+    	    	myArrayTypeExamenComp[i] = tabTypesExamenComp[i];
+    	    }
+			
+    	    if(entreIniActes == 0){
+        	    partDefautActe(myArrayTypeActes, 1);
+    			partDefautActeEC(myArrayTypeExamenComp, 1);
+        	    entreIniActes = 1;
+    	    }
+			
+			$("#motif_admission_donnees").css({'height':'350px'});
+			$("#constantes_donnees").css({'height':'330px'});
+			$("#orientation_donnees").css({'height':'100px'});
+			$("#actes_examencomplementaire_donnees").css({'height':'400px'});
+			$("#actes_donnees").css({'height':'250px'});
+			$("#examens_complementaires_donnees").css({'height':'250px'});
+
+			//Reduction de linterface
+			$("#accordionsUrgence").css({'min-height':'100px'});
+			
+		},
+		error : function(e) {
+			alert("Une erreur interne est survenue!");
+		},
+		dataType : "html"
+	});
+	// Fin R�cup�ration des donn�es de la maman
+
+	// Annuler l'enregistrement d'une naissance
+	$("#annuleradmission").click( function() {
+
+		vart = tabUrl[0] + 'public/urgence/admission';
+		$(location).attr("href", vart);
+		return false;
+		
+	});
+	
 	//Envoyer le formulaire
 	$('#termineradmission').click(function(){
-
+		
+		//Appel de la fonction pour l'envoi des demandes 
+		//Appel de la fonction pour l'envoi des demandes
+		envoiDonneesAuClickSurTerminer();
+		envoiDonneesAuClickSurTerminerEC();
+		
 		if( /*$('#poids').val() && $('#taille').val() && */ $('#temperature').val() 
 		    && $('#tensionmaximale').val() && $('#tensionminimale').val() && $('#pouls').val()
 		    && $('#salle').val()){
@@ -377,7 +446,7 @@ function admettre(id_patient){
 				}
 			}
 			
-		}else{ 
+		}else{
 			if( /*!$('#poids').val() || !$('#taille').val() || */ !$('#temperature').val() ||
 				!$('#tensionmaximale').val() || !$('#tensionminimale').val() || !$('#pouls').val()){ 
 				$(".constantes_donnees_onglet").trigger('click');
@@ -395,48 +464,6 @@ function admettre(id_patient){
 				}
 			}
 		}
-		
-	});
-	
-	// R�cup�ration des donn�es du patient
-	var chemin = tabUrl[0] + 'public/urgence/admission';
-	$.ajax({
-		type : 'POST',
-		url : chemin,
-		data : {'id':id_patient},
-		success : function(data) {
-			var result = jQuery.parseJSON(data);
-			$("#info_patient").html(result);
-			// PASSER A SUIVANT
-			$('#admission_urgence').animate({
-				height : 'toggle'
-			}, 1000);
-			$('#contenu').animate({
-				height : 'toggle'
-			}, 1000);
-			
-			$("#motif_admission_donnees").css({'height':'350px'});
-			$("#constantes_donnees").css({'height':'330px'});
-			$("#orientation_donnees").css({'height':'100px'});
-
-			//Reduction de linterface
-			$("#accordionsUrgence").css({'min-height':'100px'});
-			
-		},
-		error : function(e) {
-			console.log(e);
-			alert("Une erreur interne est survenue!");
-		},
-		dataType : "html"
-	});
-	// Fin R�cup�ration des donn�es de la maman
-
-	// Annuler l'enregistrement d'une naissance
-	$("#annuleradmission").click( function() {
-
-		vart = tabUrl[0] + 'public/urgence/admission';
-		$(location).attr("href", vart);
-		return false;
 		
 	});
 
