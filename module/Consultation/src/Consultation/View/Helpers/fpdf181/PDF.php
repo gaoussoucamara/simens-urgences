@@ -422,7 +422,7 @@ class PDF extends fpdf
 			//Affichage des actes et examens complémentaires après le motif s'il y en a
 			//Affichage des actes et examens complémentaires après le motif s'il y en a
 			//Affichage des actes et examens complémentaires après le motif s'il y en a
-			if($i == 0){
+			if($i == 4){
 				if($this->getTabInfosActesExamens()[0]['texte']){
 					$this->Ln(2.3);
 					$this->SetFont('zap','',13);

@@ -334,10 +334,144 @@ class AdmissionTable {
 		return $options;
 	}
 	
+	/**
+	 * Récuperer la liste des dates aux quelles il y a des actes  
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesDatesDesActesDuPatient($id_patient)
+	{
+
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('dau'=>'demande_acte_urg'))->columns(array ('id_acte_dem' => 'id_acte'));
+		$select->join(array('lau'=>'liste_acte_urg') , 'lau.id = dau.id_acte' , array('libelle_acte' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = dau.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient));
+		$select->order('au.date DESC');
+		$select->group('date_admission');
+		
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+		
+		$listeDateAdmission = array();
+		
+		foreach ($result as $data) {
+				
+			if(!in_array($data['date_admission'], $listeDateAdmission)){
+				$date_admission = $data['date_admission'];
+				$listeDateAdmission[] = $date_admission;
+			}
+		}
+		
+		return $listeDateAdmission;
+		
+	}
+	
+	/**
+	 * Recuperer la liste des actes de d'une date d'admission d'un patient
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesActesDuPatient($id_patient, $date_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('dau'=>'demande_acte_urg'))->columns(array ('id_acte_dem' => 'id_acte'));
+		$select->join(array('lau'=>'liste_acte_urg') , 'lau.id = dau.id_acte' , array('libelle_acte' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = dau.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient, 'au.date' => $date_admission));
+		
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$listeDesActes = array();
+		
+		foreach ($result as $data) {
+			$listeDesActes[] = $data['libelle_acte'];
+		}
+		
+		return $listeDesActes;
+	}
 	
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Recuperer la liste des dates des examens complementaires du patient
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesDatesDesExamensComplementairesDuPatient($id_patient)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('deu'=>'demande_examen_urg'))->columns(array ('id_examen_dem' => 'id_examen'));
+		$select->join(array('leu'=>'liste_examencomp_urg') , 'leu.id = deu.id_examen' , array('libelle_examen' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = deu.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient));
+		$select->order('au.date DESC');
+		$select->group('date_admission');
+	
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$listeDateAdmission = array();
+	
+		foreach ($result as $data) {
+	
+			if(!in_array($data['date_admission'], $listeDateAdmission)){
+				$date_admission = $data['date_admission'];
+				$listeDateAdmission[] = $date_admission;
+			}
+	
+		}
+	
+		return $listeDateAdmission;
+	}
+	
+	/**
+	 * Recuperer la liste des examens complémentaires d'une date d'admission d'un patient
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesExamensComplementairesDuPatient($id_patient, $date_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('deu'=>'demande_examen_urg'))->columns(array ('id_examen_dem' => 'id_examen'));
+		$select->join(array('leu'=>'liste_examencomp_urg') , 'leu.id = deu.id_examen' , array('libelle_examen' => 'libelle'));
+		$select->join(array('ltu'=>'liste_typeexamencomp_urg') , 'ltu.id = leu.type' , array('libelle_type' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = deu.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient, 'au.date' => $date_admission));
+	
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$listeTypesDesExamens = array();
+		$listeDesExamens = array();
+	
+		foreach ($result as $data) {
+			$listeTypesDesExamens[] = $data['libelle_type'];
+			$listeDesExamens[] = $data['libelle_examen'];
+		}
+	
+		return array($listeTypesDesExamens, $listeDesExamens);
+	}
 	
 	
 	

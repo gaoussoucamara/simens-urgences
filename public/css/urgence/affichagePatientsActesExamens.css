@@ -243,3 +243,175 @@ canvas {
 	font-family: Times  New Roman;
 	color: #065d10;
 }
+
+
+#contenuInfoPatientActesExamensComplementaire #labelHeureLABEL
+{
+line-height: 1.5em;
+
+background-color: #ececec;
+
+background-image: none;
+
+background-repeat: repeat;
+
+background-attachment: scroll;
+
+background-position: 0% 0%;
+
+background-clip: border-box;
+
+background-origin: padding-box;
+
+border-top-right-radius: 10px;
+
+background-size: auto auto;
+
+box-shadow: 1px 2px 2px rgba(204, 204, 204, 0.8);
+
+color: black;
+
+display: inline-block;
+
+font-size: 16px;
+
+min-width: 60px;
+
+padding-top: 4px;
+
+padding-right: 5px;
+
+padding-bottom: 0px;
+
+padding-left: 10px;
+
+position: relative;
+	
+font-family: Goudy Old Style;
+
+top: 0px;
+
+z-index: 1;
+
+}
+
+#contenuInfoPatientActesExamensComplementaire #zoneChampInfo1{
+    min-height: 30px;
+	border: 1px solid #cccccc ;
+    border-bottom-left-radius: 10px;
+    border-top-right-radius: 10px;
+	margin-right: 8px;
+	font-family: Iskoola Pota;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 
+ GESTION DE L'INTERFACE DE GENERATION DE REGISTRES 
+ GESTION DE L'INTERFACE DE GENERATION DE REGISTRES 
+ GESTION DE L'INTERFACE DE GENERATION DE REGISTRES 
+*/
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodeMG{
+	width: 100%;
+	height: 40px;
+	margin-bottom: 20px;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodePathMG .champOP1MG, 
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodePathMG .champOP2MG{
+	float: left;
+	width: 45%;
+	height: 40px;
+	margin-top: 5px;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodePathMG .champOP1MG{
+	margin-right: -30px; 
+} 
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodePathMG .champOP1MG input[type='date'], 
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodePathMG .champOP2MG input[type='date']{
+	border: 2px solid #cccccc;
+    box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	height: 35px;
+	width: 80%;
+	padding-left: 10px;
+	font-size: 18px;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .optionsPeriodePathMG{
+	width: 55%;
+	height: 30px;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .champOP2MG button{
+	position: absolute;
+	right: 70px;
+	box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	border-radius: 50%;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .champOP1MG img{
+	position: absolute;
+	left: 25px;
+	box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	border-radius: 20%;
+	cursor: pointer;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .zoneGenerationDesRegistresDesPatientsAdmis{
+	width: 99%;
+	min-height: 10px;
+	border: 2px solid #cccccc;
+    box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	max-height: 475px;
+	overflow-y: auto;
+}
+
+#listePatientsAdmisPourLeRegistre th input{
+	width: 100%;
+	height: 30px;
+}
+
+.zoneGenerationDesRegistresDesPatientsAdmis #listeDataTable{
+   visibility: hidden;  
+   margin-bottom: -1000px; 
+}
+
+.zoneGenerationDesRegistresDesPatientsAdmis table{
+	margin-top: -12px;
+}

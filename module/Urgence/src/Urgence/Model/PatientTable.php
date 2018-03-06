@@ -3189,6 +3189,20 @@ class PatientTable {
 		return $options;
 	}
 	
+	
+	public function getDerniereAdmissionDuPatient($id_patient){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('au' => 'admission_urgence'))->columns(array('date_admission' => 'date'))
+		->where( array('au.id_patient' => $id_patient ) )
+		->order(array('date_admission DESC'));
+		$result = $sql->prepareStatementForSqlObject($sQuery)->execute()->current();
+		
+		return $result['date_admission'];
+	}
+	
+	
 	public function laListePatientsActesExamensAjax(){
 	
 		$db = $this->tableGateway->getAdapter();
@@ -3227,14 +3241,55 @@ class PatientTable {
 	
 		$date = new \DateTime ("now");
 		$dateDuJour = $date->format ( 'Y-m-d' );
+		
+		$aujourdhui = $date->format ( 'Y-m-d' );
+		$hier = date("Y-m-d", strtotime('-1 day'));
+		$avanthier = date("Y-m-d", strtotime('-2 day'));
+		
+		
+		
+		$listePatientsAyantActesEtExamen = array(null);
+		/*
+		 * Liste des patients ayant des actes demandés
+		 */
+		$sql2 = new Sql ($db );
+		$listePatientsAyantDesActes = $sql2->select ()
+		->from ( array ('pat' => 'patient') )->columns (array ( 'idDuPatient' => 'ID_PERSONNE' ) )
+		->join( array('au'=>'admission_urgence') , 'au.id_patient = pat.ID_PERSONNE' )
+		->join( array('dau'=>'demande_acte_urg') , 'dau.id_admission = au.id_admission' )
+		->group(array('pat.ID_PERSONNE'));
+		$resultListePAA = $sql2->prepareStatementForSqlObject($listePatientsAyantDesActes)->execute();
 	
+		foreach ($resultListePAA as $listePAA){
+			$listePatientsAyantActesEtExamen [] = $listePAA['idDuPatient'];
+		}
+		
+		
+		/*
+		 * Liste des patients ayant des examens demandés
+		 */
+		$sql3 = new Sql ($db );
+		$listePatientsAyantDesExamens = $sql3->select ()
+		->from ( array ('pat' => 'patient') )->columns (array ( 'idDuPatient' => 'ID_PERSONNE' ) )
+		->join( array('au'=>'admission_urgence') , 'au.id_patient = pat.ID_PERSONNE' )
+		->join( array('deu'=>'demande_examen_urg') , 'deu.id_admission = au.id_admission' )
+		->group(array('pat.ID_PERSONNE'));
+		$resultListePAE = $sql3->prepareStatementForSqlObject($listePatientsAyantDesExamens)->execute();
+		
+		foreach ($resultListePAE as $listePAE){
+			if(!in_array($listePAE['idDuPatient'] , $listePatientsAyantActesEtExamen)){
+				$listePatientsAyantActesEtExamen [] = $listePAE['idDuPatient'];
+			}
+		}
+		
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('Numero_dossier' => 'NUMERO_DOSSIER'))
 		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Age'=>'AGE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
-		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('*'))
+		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('date_admission' => 'date', 'Id_admission' => 'id_admission'))
+		->where( array ( new In ( 'pat.ID_PERSONNE', $listePatientsAyantActesEtExamen ), ) )
 		->group(array('pat.ID_PERSONNE'))
-		->order('au.date DESC');
+		->order(array('au.id_admission DESC'));
 	
 		/* Data set length after filtering */
 		$stat = $sql->prepareStatementForSqlObject($sQuery);
@@ -3289,9 +3344,23 @@ class PatientTable {
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='javascript:visualiserListeActesExamensComp(".$aRow[ $aColumns[$i] ].")' >";
+						$html  ="<infoBulleVue> <a href='javascript:visualiserListeActesExamensComp(".$aRow[ $aColumns[$i] ].")' >";
 						$html .="<img style='margin-left: 5%; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
-	
+
+						$date_admission = $this->getDerniereAdmissionDuPatient($aRow[ $aColumns[$i] ]);
+						
+						if($date_admission == $aujourdhui){
+							$html .="<span style='font-size:0px;'> pat_admis_aujourdhui </span>";
+						}else
+							if($date_admission == $hier){
+								$html .="<span style='font-size:0px;'> admission_pat_hier </span>";
+							}else 
+								if($date_admission == $avanthier){
+									$html .="<span style='font-size:0px;'> patient_adm_avanthier </span>";
+								}else{
+									$html .="<span style='font-size:0px;'> autres_admissions_patients </span>";
+								}
+						
 						$row[] = $html;
 					}
 	
@@ -3307,11 +3376,290 @@ class PatientTable {
 	}
 	
 	
+	/**
+	 * Recuperer la liste des actes de d'une date d'admission d'un patient
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesActesDuPatient($id_patient, $date_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('dau'=>'demande_acte_urg'))->columns(array ('id_acte_dem' => 'id_acte'));
+		$select->join(array('lau'=>'liste_acte_urg') , 'lau.id = dau.id_acte' , array('libelle_acte' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = dau.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient, 'au.date' => $date_admission));
 	
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
 	
+		$listeDesActes = array();
 	
+		foreach ($result as $data) {
+			$listeDesActes[] = $data['libelle_acte'];
+		}
 	
+		return $listeDesActes;
+	}
 	
+	/**
+	 * Recuperer la liste des examens complémentaires d'une date d'admission d'un patient
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesExamensComplementairesDuPatient($id_patient, $date_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('deu'=>'demande_examen_urg'))->columns(array ('id_examen_dem' => 'id_examen'));
+		$select->join(array('leu'=>'liste_examencomp_urg') , 'leu.id = deu.id_examen' , array('libelle_examen' => 'libelle'));
+		$select->join(array('ltu'=>'liste_typeexamencomp_urg') , 'ltu.id = leu.type' , array('libelle_type' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = deu.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient, 'au.date' => $date_admission));
+	
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$listeTypesDesExamens = array();
+		$listeDesExamens = array();
+	
+		foreach ($result as $data) {
+			$listeTypesDesExamens[] = $data['libelle_type'];
+			$listeDesExamens[] = $data['libelle_examen'];
+		}
+	
+		return array($listeTypesDesExamens, $listeDesExamens);
+	}
+	
+	public function laListePatientsAdmisRegistreAjax(){
+	
+		$db = $this->tableGateway->getAdapter();
+	
+		$aColumns = array('Numero_dossier', 'Nom', 'Prenom', 'Age', 'Adresse', 'id', 'Idpatient');
+	
+		/* Indexed column (used for fast and accurate table cardinality) */
+		$sIndexColumn = "id";
+	
+		/*
+		 * Paging
+		*/
+		$sLimit = array();
+		if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
+		{
+			$sLimit[0] = $_GET['iDisplayLength'];
+			$sLimit[1] = $_GET['iDisplayStart'];
+		}
+	
+		/*
+		 * Ordering
+		*/
+		if ( isset( $_GET['iSortCol_0'] ) )
+		{
+			$sOrder = array();
+			$j = 0;
+			for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
+			{
+				if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
+				{
+					$sOrder[$j++] = $aColumns[ intval( $_GET['iSortCol_'.$i] ) ]."
+								 	".$_GET['sSortDir_'.$i];
+				}
+			}
+		}
+	
+		$date = new \DateTime ("now");
+		$dateDuJour = $date->format ( 'Y-m-d' );
+	
+		$aujourdhui = $date->format ( 'Y-m-d' );
+		$hier = date("Y-m-d", strtotime('-1 day'));
+		$avanthier = date("Y-m-d", strtotime('-2 day'));
+	
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('pat' => 'patient'))->columns(array('Numero_dossier' => 'NUMERO_DOSSIER'))
+		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Age'=>'AGE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
+		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('date_admission' => 'date', 'Id_admission' => 'id_admission'))
+		->where( array ( 'au.date' => $aujourdhui) )
+		
+		->group(array('pat.ID_PERSONNE'))
+		->order(array('au.id_admission DESC'));
+	
+		/* Data set length after filtering */
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$rResultFt = $stat->execute();
+		$iFilteredTotal = count($rResultFt);
+	
+		$rResult = $rResultFt;
+	
+		$output = array(
+				"iTotalDisplayRecords" => $iFilteredTotal,
+				"aaData" => array()
+		);
+	
+		/*
+		 * $Control pour convertir la date en franï¿½ais
+		*/
+		$Control = new DateHelper();
+	
+		/*
+		 * ADRESSE URL RELATIF
+		*/
+		$baseUrl = $_SERVER['REQUEST_URI'];
+		$tabURI  = explode('public', $baseUrl);
+	
+		/*
+		 * Prï¿½parer la liste
+		*/
+		foreach ( $rResult as $aRow )
+		{
+			$row = array();
+			for ( $i=0 ; $i<count($aColumns) ; $i++ )
+			{
+				if ( $aColumns[$i] != ' ' )
+				{
+					/* General output */
+					if ($aColumns[$i] == 'Numero_dossier'){
+						$row[] = "<div style='min-width: 90px; font-size: 17px;'>".$aRow[ $aColumns[$i]]."</div>";
+					}
+					
+					else if ($aColumns[$i] == 'Nom'){
+						$row[] = "<khass id='nomMaj' style='font-size: 15px;' >".$aRow[ $aColumns[$i]]."</khass>";
+					}
+					
+					else if ($aColumns[$i] == 'Prenom'){
+						$row[] = "<div style='font-size: 15px;' >".$aRow[ $aColumns[$i]]."</div>";
+					}
+	
+					
+					else if ($aColumns[$i] == 'Age'){
+						$row[] = "<span style='font-size: 17px; min-width: 40px;'>".$aRow[ $aColumns[$i]]."</span>";
+					}
+					
+					else if ($aColumns[$i] == 'Datenaissance') {
+						$date_naissance = $aRow[ $aColumns[$i] ];
+						if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
+					}
+	
+					else if ($aColumns[$i] == 'Adresse') {
+						$id_patient = $aRow[ 'id' ];
+						$date_admission = $aRow[ 'date_admission' ];
+						$listeActesDemandes = $this->getListeDesActesDuPatient($id_patient, $date_admission);
+						$html = "";
+						for($iacte = 0 ; $iacte < count($listeActesDemandes) ; $iacte++){
+							if($iacte == 0){
+								$html = "<div style='font-size: 15px; max-height: 25px; overflow: hidden;' >";
+							}
+								
+							$html .=" <span style='font-size: 13px;'>&#10148;</span> <span style='font-size: 14px;'>".$listeActesDemandes[$iacte]."</span></br>";
+
+							if($iacte+1 == count($listeActesDemandes)){
+								$html .= "</div>";
+							}
+						}
+						
+						if($html){
+							$row[] = $html;
+						}else{
+							$row[] = 'N&eacute;ant ';
+						}
+
+					}
+					
+					else if ($aColumns[$i] == 'id') {
+						$id_patient = $aRow[ 'id' ];
+						$date_admission = $aRow[ 'date_admission' ];
+						$listeExamensDemandes = $this->getListeDesExamensComplementairesDuPatient($id_patient, $date_admission);
+						$html = "";
+						for($iexam = 0 ; $iexam < count($listeExamensDemandes[1]) ; $iexam++){
+						
+							if($iexam == 0){
+								$html = "<div style='font-size: 15px; max-height: 25px; overflow: hidden;' >";
+							}
+							
+							$html .="<span style='font-size: 13px;'>&#10148;</span> <i style='font-size: 13px;'>".$listeExamensDemandes[0][$iexam]."</i> <span style='font-size: 14px; font-weight: bold;'>".$listeExamensDemandes[1][$iexam]."</span></br>";
+						
+							if($iexam+1 == count($listeExamensDemandes[1])){
+								$html .= "</div>";
+							}
+							
+						}
+						
+						if($html){
+							$row[] = $html;
+						}else{
+							$row[] = 'N&eacute;ant ';
+						}
+					
+					}
+	
+					else if ($aColumns[$i] == 'Idpatient') {
+						$html = "<div style='max-width: 150px; font-size: 14px;'> Le diagnostic </div>";
+						
+						if($html){
+							$row[] = $html;
+						}else{
+							$row[] = '---';
+						}
+					}
+					
+					else {
+						$row[] = $aRow[ $aColumns[$i] ];
+					}
+	
+				}
+			}
+			$output['aaData'][] = $row;
+		}
+		return $output;
+	}
+	
+	public function getListePatientsAdmisRegistre($date_debut=null, $date_fin=null){
+		
+		$date = new \DateTime ("now");
+		$dateDuJour = $date->format ( 'Y-m-d' );
+		
+		$aujourdhui = $date->format ( 'Y-m-d' );
+		$hier = date("Y-m-d", strtotime('-1 day'));
+		$avanthier = date("Y-m-d", strtotime('-2 day'));
+		
+		$aColumns = array('Numero_dossier', 'Nom', 'Prenom', 'Age', 'Adresse', 'id', 'Idpatient');
+		
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('pat' => 'patient'))->columns(array('Numero_dossier' => 'NUMERO_DOSSIER'))
+		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Age'=>'AGE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
+		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('date_admission' => 'date', 'Id_admission' => 'id_admission'))
+		->where( array ( 'au.date' => $aujourdhui) )
+		
+		->group(array('pat.ID_PERSONNE'))
+		->order(array('au.id_admission DESC'));
+		
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$rResultFt = $stat->execute();
+		$iFilteredTotal = count($rResultFt);
+		
+		$rResult = $rResultFt;
+		
+		$output = array(
+				"iTotalDisplayRecords" => $iFilteredTotal,
+				"aaData" => array()
+		);
+		
+		foreach ( $rResult as $aRow )
+		{
+			$row = array();
+			for ( $i=0 ; $i<count($aColumns) ; $i++ )
+			{
+				if ( $aColumns[$i] != ' ' )
+				{
+					$row[] = $aRow[ $aColumns[$i] ];
+				}
+			}
+			$output['aaData'][] = $row;
+		}
+		
+		return $output;
+		
+	}
 	
 	
 	

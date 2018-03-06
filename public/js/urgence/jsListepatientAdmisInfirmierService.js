@@ -301,8 +301,12 @@
         	    	myArrayTypeAnalyse[i] = tabTypesAnalyses[i];
         	    }
         	    
-    			partDefautActe(myArrayTypeAnalyse, result[2]);
-    			$('#scriptChargementInfosActesDemandes').html(result[3]);
+        	    if(result[2] == 0){
+        			partDefautActe(myArrayTypeAnalyse, 1);
+        	    }else{
+        			partDefautActe(myArrayTypeAnalyse, result[2]);
+        			$('#scriptChargementInfosActesDemandes').html(result[3]);
+        	    }
     			
     			//LISTE DES EXAMENS COMPLEMENTAIRES
     			var tabTypesExamenComp = result[4];
@@ -311,8 +315,12 @@
     				myArrayTypeExamenComp[i] = tabTypesExamenComp[i];
     			}
 
-    			partDefautActeEC(myArrayTypeExamenComp, result[5]);
-    			$('#scriptChargementInfosExamensDemandes').html(result[6]);
+    			if(result[5] == 0){
+        			partDefautActeEC(myArrayTypeExamenComp, 1);
+    			}else{
+        			partDefautActeEC(myArrayTypeExamenComp, result[5]);
+        			$('#scriptChargementInfosExamensDemandes').html(result[6]);    				
+    			}
     			
     			
     			$(".chargementPageModification").fadeOut(function(){
