@@ -181,8 +181,9 @@ return array(
     								
     								'liste-actes-examens-complementaires-ajax' => array('infirmier-service','medecin'),
     								'get-infos-actes-examens-patient' => array('infirmier-service','medecin'),
-    								
     								'get-liste-examens-complementaires' => array('infirmier-service','medecin'),
+    								'liste-patients-admis-registre-ajax' => array('infirmier-service','medecin'),
+    								'impression-registre-patients-admis' => array('infirmier-service','medecin'),
     						),
     						
     						

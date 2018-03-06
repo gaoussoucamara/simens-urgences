@@ -601,7 +601,8 @@ class AdmissionForm extends Form{
 				),
 				'attributes' => array(
 						'id' => 'examens_complementaires',
-						//'maxlength' => 1000,
+						'readonly' => true,
+						'style' => '{font-size: 14px}'
 				),
 		));
 		
