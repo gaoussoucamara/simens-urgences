@@ -271,4 +271,136 @@ class MotifAdmissionTable{
 			}
 		}
 	}
+	
+	
+	
+	
+	
+	
+	//ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES
+	//ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES --- ACTES
+	
+	public function addDemandesActes($id_admission, $tabActesDemandes, $notesActes, $idemplye){
+		
+		$donnees = array();
+		for( $i=1 ; $i< count($tabActesDemandes) ; $i++ ){
+			$donnees['id_admission'] = $id_admission;
+			$donnees['id_acte'] = $tabActesDemandes[$i];
+			$donnees['note'] = $notesActes[$i];
+			$donnees['idemploye'] = $idemplye;
+
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->insert() ->into('demande_acte_urg') ->values( $donnees );
+			$stat = $sql->prepareStatementForSqlObject($sQuery)->execute();
+		}
+		
+	}
+	
+	public function getDemandesActes($id_admission){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from('demande_acte_urg')->columns(array('*'));
+		$select->where(array('id_admission' => $id_admission));
+		return $sql->prepareStatementForSqlObject($select)->execute();
+	}
+	
+	public function deleteDemandesActes($id_admission){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->delete('demande_acte_urg');
+		$select->where(array('id_admission' => $id_admission));
+		return $sql->prepareStatementForSqlObject($select)->execute();
+	}
+	
+	public function getListeActesDemandes($id_admission){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('dau' => 'demande_acte_urg'))->columns(array('*'));
+		$select->join(array('lau' =>'liste_acte_urg') ,'lau.id = dau.id_acte', array('libelle'));
+		$select->where(array('id_admission' => $id_admission));
+		$listeActesDemandes = $sql->prepareStatementForSqlObject($select)->execute();
+
+		$i = 0;
+		$donneesActes = '';
+		foreach ($listeActesDemandes as $listeActesDem){
+			if($i == 0){
+				$donneesActes .= $listeActesDem['libelle'];
+				$i++;
+			}else{
+				$donneesActes .= ' ; '.$listeActesDem['libelle'];
+			}
+		}
+		
+		return $donneesActes;
+	}
+	
+	//EXAMEN COMPLEMENTAIRE --- EXAMEN COMPLEMENTAIRE --- EXAMEN COMPLEMENTAIRE
+	//EXAMEN COMPLEMENTAIRE --- EXAMEN COMPLEMENTAIRE --- EXAMEN COMPLEMENTAIRE
+	
+	public function getLiteExamensComplementairesParType($id){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from('liste_examencomp_urg')->columns(array('*'));
+		$select->where(array('type' => $id));
+		return $sql->prepareStatementForSqlObject($select)->execute();
+	}
+	
+	public function addDemandesExamensComplementaire($id_admission, $idemplye, $tabTypesExamensDemandes, $tabExamensDemandes){
+	
+		$donnees = array();
+		for( $i=1 ; $i< count($tabExamensDemandes) ; $i++ ){
+			$donnees['id_examen'] = $tabExamensDemandes[$i];
+			$donnees['id_admission'] = $id_admission;
+			$donnees['idemploye'] = $idemplye;
+	
+			$db = $this->tableGateway->getAdapter();
+			$sql = new Sql($db);
+			$sQuery = $sql->insert() ->into('demande_examen_urg') ->values( $donnees );
+			$stat = $sql->prepareStatementForSqlObject($sQuery)->execute();
+		}
+	
+	}
+	
+	public function getDemandesExamenComplementaire($id_admission){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('deu'=>'demande_examen_urg'))->columns(array('*'));
+		$select->join(array('leu' =>'liste_examencomp_urg') ,'leu.id = deu.id_examen', array('type'));
+		$select->where(array('id_admission' => $id_admission));
+		return $sql->prepareStatementForSqlObject($select)->execute();
+	}
+	
+	public function deleteDemandesExamenComplementaire($id_admission){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->delete('demande_examen_urg');
+		$select->where(array('id_admission' => $id_admission));
+		return $sql->prepareStatementForSqlObject($select)->execute();
+	}
+	
+	public function getListeExamensDemandes($id_admission){
+		$adapter = $this->tableGateway->getAdapter();
+		$sql = new Sql($adapter);
+		$select = $sql->select();
+		$select->from(array('deu'=>'demande_examen_urg'))->columns(array('*'));
+		$select->join(array('leu' =>'liste_examencomp_urg') ,'leu.id = deu.id_examen', array('libelleExamen'=>'libelle'));
+		$select->join(array('lteu' =>'liste_typeexamencomp_urg') ,'lteu.id = leu.type', array('libelleType'=>'libelle'));
+		$select->where(array('id_admission' => $id_admission));
+		$select->order(array('leu.type' => 'ASC'));
+		$listeExamensDemandes = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$tabListeTypesEtExamens = array();
+		
+		foreach ($listeExamensDemandes as $listeExamensDem){
+			$tabListeTypesEtExamens [] = array($listeExamensDem['libelleType'], $listeExamensDem['libelleExamen']); 
+		}
+	
+		return $tabListeTypesEtExamens;
+	}
+	
 }

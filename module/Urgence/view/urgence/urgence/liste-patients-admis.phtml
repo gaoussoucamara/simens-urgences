@@ -30,7 +30,6 @@ $(window).load(function () {
 	<iS style='font-size: 25px;'>&curren;</iS>
 	<span>LISTE DES PATIENTS</span>
 	
-	<!-- div class="chargementPageModification" align="center" style="margin-top: -35px;"> </div-->
 </div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
 <div id="contenuDesInterfaces">
@@ -420,6 +419,111 @@ $(window).load(function () {
 					</script>
 					
 				  </div>
+				  
+				  
+				  
+				  <div class="actes_donnees_onglet" style='font-family: police2; font-size: 17px; font-weight: bold;'> Actes & examens compl&eacute;mentaires</div>
+				  <div id="actes_examencomplementaire_donnees">
+
+				    <div id="accordionActes">
+				       <div style='font-family: police2; font-size: 17px; font-weight: bold;'>Actes</div>
+				       <div id="actes_donnees">
+				       
+						  <!-- TABLEAU DE LA SELECTION DES DEMANDES  -->
+ 						  <!-- TABLEAU DE LA SELECTION DES DEMANDES  -->
+ 						  <?php echo  $this->headScript()->appendFile($this->basePath().'/js/urgence/ajoutDemandesActes.js'); ?>
+						  <div id="lesDemandesAnalyses" style="width: 100%; height:400px;">
+						                  
+						    <table class="table table-bordered" style="width: 100%; margin-bottom: 0px; margin-left: 0px; ">
+					             <thead style="width: 100%;">
+						            <tr style="width: 100%; height: 40px; font-family: police2;">
+						              <th style="width:  4%; font-weight: bold; font-size: 17px; ">N&ordm;</th>
+						              <th style="width: 55%; font-weight: bold; font-size: 17px; text-align: left;">Actes</th>
+						              <th style="width: 32%; font-weight: bold; font-size: 17px; text-align: left;">Note</th>
+						              <th style="width:  9%; font-weight: bold; font-size: 17px; ">Options</th>
+						            </tr>
+						          </thead>
+					        </table>
+					                         
+						    <div id="Acte_0">
+							 <!-- A ne pas enlever -->
+							</div>
+							<input type='hidden' id='diagnostic_demande_text' >
+							<!--********************* BOUTON AJOUTER-SUPPRIMER ************************-->
+							<!--********************* BOUTON AJOUTER-SUPPRIMER ************************-->
+							<div id="controls_acte" style="margin-top: 20px; width: 100%;">
+							     <div style="width: 100%;">
+							         <div style="width: 3%; float: left; cursor: pointer; " id="supprimer_acte">
+							            <img style='margin-left: 5px;' src='../images_icons/moin-green.png' title='supprimer' />
+							         </div>
+							         <div style="width: 3%; float: left; cursor: pointer; " id="ajouter_acte">
+							            <img style='margin-left: 5px;' src='../images_icons/plus-green.png' title='ajouter' />
+							         </div>
+							     </div>
+						    </div>
+						                
+						    <input type="hidden" id="tabActesDemandes" name="tabActesDemandes">       
+						    <input type="hidden" id="tabNotesActes" name="tabNotesActes">       
+						     
+		     		      </div>
+						  <!-- FIN FIN TABLEAU DE LA SELECTION DES DEMANDES  -->
+				          <!-- FIN FIN TABLEAU DE LA SELECTION DES DEMANDES  -->     
+				       
+				       </div>
+				       
+				       <div style='font-family: police2; font-size: 17px; font-weight: bold;'>Examens compl&eacute;mentaires</div>
+				       <div id="examens_complementaires_donnees">
+				       
+				          <!-- TABLEAU DE LA SELECTION DES DEMANDES  -->
+ 						  <!-- TABLEAU DE LA SELECTION DES DEMANDES  -->
+ 						  <?php echo  $this->headScript()->appendFile($this->basePath().'/js/urgence/ajoutDemandesExamensComplementaires.js'); ?>
+						  <div id="lesDemandesAnalysesEC" style="width: 100%; height:400px;">
+						                  
+						    <table class="table table-bordered" style="width: 100%; margin-bottom: 0px; margin-left: 0px; ">
+					             <thead style="width: 100%;">
+						            <tr style="width: 100%; height: 40px; font-family: police2;">
+						              <th style="width:  4%; font-weight: bold; font-size: 17px; ">N&ordm;</th>
+						              <th style="width: 32%; font-weight: bold; font-size: 17px; text-align: left;">Types</th>
+						              <th style="width: 55%; font-weight: bold; font-size: 17px; text-align: left;">Examens compl&eacute;mentaires</th>
+						              <th style="width:  9%; font-weight: bold; font-size: 17px; ">Options</th>
+						            </tr>
+						          </thead>
+					        </table>
+					                         
+						    <div id="Acte_EC_0">
+							 <!-- A ne pas enlever -->
+							</div>
+							
+							<!--********************* BOUTON AJOUTER-SUPPRIMER ************************-->
+							<!--********************* BOUTON AJOUTER-SUPPRIMER ************************-->
+							<div id="controls_acte_ec" style="margin-top: 20px; width: 100%;">
+							     <div style="width: 100%;">
+							         <div style="width: 3%; float: left; cursor: pointer; " id="supprimer_acte_ec">
+							            <img style='margin-left: 5px;' src='../images_icons/moin-green.png' title='supprimer' />
+							         </div>
+							         <div style="width: 3%; float: left; cursor: pointer; " id="ajouter_acte_ec">
+							            <img style='margin-left: 5px;' src='../images_icons/plus-green.png' title='ajouter' />
+							         </div>
+							     </div>
+						    </div>
+						                
+						    <input type="hidden" id="tabTypeExamenDemandesEC" name="tabTypeExamenDemandesEC">       
+						    <input type="hidden" id="tabExamenDemandesEC" name="tabExamenDemandesEC">       
+						     
+		     		      </div>
+						  <!-- FIN FIN TABLEAU DE LA SELECTION DES DEMANDES  -->
+				          <!-- FIN FIN TABLEAU DE LA SELECTION DES DEMANDES  -->     
+				       
+				       
+				       </div>
+				       
+				      
+				       
+				    </div>
+				    
+				  </div>
+				  <div style="display: none" id="scriptChargementInfosActesDemandes" ></div>
+				  <div style="display: none" id="scriptChargementInfosExamensDemandes" ></div>
 				<?php } ?>
 
 				
@@ -676,7 +780,7 @@ getAutoCompletionListeMotifsAdmission();
 initialisationListeTypePathologie();
 
 $('#admission_urgence, .chargementPageModification').toggle(false);
-$('#accordionsUrgence').accordion();
+$('#accordionsUrgence, #accordionActes').accordion();
 
 $(function(){
 	initialisation();

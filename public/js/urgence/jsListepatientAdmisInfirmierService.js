@@ -235,6 +235,11 @@
     	
     	//Envoyer le formulaire
     	$('#termineradmission').click(function(){
+    		
+    		//Appel de la fonction pour l'envoi des demandes 
+    		//Appel de la fonction pour l'envoi des demandes
+    		envoiDonneesAuClickSurTerminer();
+    		envoiDonneesAuClickSurTerminerEC();
     	  	
     		if( /*$('#poids').val() && $('#taille').val() && */ $('#temperature').val() 
     		    && $('#tensionmaximale').val() && $('#tensionminimale').val() && $('#pouls').val()
@@ -288,31 +293,58 @@
     		data : {'id_patient' : id_patient, 'id_admission' : id_admission},
     		success : function(data) {
     			var result = jQuery.parseJSON(data);
+    			
+    			//LISTE DES ACTES
+    			var tabTypesAnalyses = result[1];
+    			var myArrayTypeAnalyse = [''];
+        	    for(var i=1 ; i<=tabTypesAnalyses.length ; i++){
+        	    	myArrayTypeAnalyse[i] = tabTypesAnalyses[i];
+        	    }
+        	    
+    			partDefautActe(myArrayTypeAnalyse, result[2]);
+    			$('#scriptChargementInfosActesDemandes').html(result[3]);
+    			
+    			//LISTE DES EXAMENS COMPLEMENTAIRES
+    			var tabTypesExamenComp = result[4];
+    			var myArrayTypeExamenComp = [''];
+    			for(var i=1 ; i<=tabTypesExamenComp.length ; i++){
+    				myArrayTypeExamenComp[i] = tabTypesExamenComp[i];
+    			}
+
+    			partDefautActeEC(myArrayTypeExamenComp, result[5]);
+    			$('#scriptChargementInfosExamensDemandes').html(result[6]);
+    			
+    			
     			$(".chargementPageModification").fadeOut(function(){
     				$('#admission_urgence').fadeIn();
         				
     				$("#motif_admission_donnees").css({'height':'350px'});
     				$("#constantes_donnees").css({'height':'330px'});
     				$("#orientation_donnees").css({'height':'100px'});
+    				$("#actes_examencomplementaire_donnees").css({'height':'400px'});
+    				$("#actes_donnees").css({'height':'250px'});
+    				$("#examens_complementaires_donnees").css({'height':'250px'});
 
     				//Reduction de l'interface
     				$("#accordionsUrgence").css({'min-height':'100px'});
+    				
+    				$("#info_patient").html(result[0]);
+        			
+        			$('#annuleradmission').click(function() {
+        	    		$("#titre span").html("LISTE DES PATIENTS");
+        	    		
+        	    		$('#admission_urgence').fadeOut(function(){
+        		    		$('#contenu').fadeIn();
+        		    		vart=tabUrl[0]+'public/urgence/liste-patients-admis';
+        		    	    $(location).attr("href",vart);
+        		    	});
+        	    		
+        	    		return false;
+        	    		
+        	    	});
     			});
     				
-    			$("#info_patient").html(result);
     			
-    			$('#annuleradmission').click(function() {
-    	    		$("#titre span").html("LISTE DES PATIENTS");
-    	    		
-    	    		$('#admission_urgence').fadeOut(function(){
-    		    		$('#contenu').fadeIn();
-    		    		vart=tabUrl[0]+'public/urgence/liste-patients-admis';
-    		    	    $(location).attr("href",vart);
-    		    	});
-    	    		
-    	    		return false;
-    	    		
-    	    	});
     		}
     	});
     }

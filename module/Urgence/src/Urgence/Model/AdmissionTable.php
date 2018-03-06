@@ -300,4 +300,64 @@ class AdmissionTable {
 		$requete->execute();
 	}
 	
+	public function getListeActes()
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('au'=>'liste_acte_urg'));
+		$select->columns(array ('id','libelle'));
+		$select->order('id asc');
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+
+		$options = array(0 => '');
+		foreach ($result as $data) {
+			$options[$data['id']] = $data['libelle'];
+		}
+		return $options;
+	}
+	
+	public function getListeExamenComp()
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('au'=>'liste_typeexamencomp_urg'));
+		$select->columns(array ('id','libelle'));
+		$select->order('id asc');
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$options = array(0 => '');
+		foreach ($result as $data) {
+			$options[$data['id']] = $data['libelle'];
+		}
+		return $options;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

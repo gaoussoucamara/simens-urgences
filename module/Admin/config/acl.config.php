@@ -178,6 +178,11 @@ return array(
     								'infos-statistiques-optionnelles-periode' => array('infirmier-service','medecin'),
     								'imprimer-informations-statistiques' => array('infirmier-service','medecin'),
     								'modifier-type-pathologie' => array('infirmier-service','medecin'),
+    								
+    								'liste-actes-examens-complementaires-ajax' => array('infirmier-service','medecin'),
+    								'get-infos-actes-examens-patient' => array('infirmier-service','medecin'),
+    								
+    								'get-liste-examens-complementaires' => array('infirmier-service','medecin'),
     						),
     						
     						

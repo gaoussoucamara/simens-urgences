@@ -126,6 +126,18 @@ class PDF extends fpdf
 	protected $infosComp;
 	protected $listeLits;
 	protected $listeSalles;
+	protected $tabInfosActesExamens;
+	
+	
+	public function setTabInfosActesExamens($tabInfosActesExamens)
+	{
+		$this->tabInfosActesExamens = $tabInfosActesExamens;
+	}
+	
+	public function getTabInfosActesExamens()
+	{
+		return $this->tabInfosActesExamens;
+	}
 	
 	public function setTabInformations($tabInformations)
 	{
@@ -385,6 +397,7 @@ class PDF extends fpdf
 		$this->AddFont('zap','','zapfdingbats.php');
 		
 		for($i = 0 ; $i < $this->getNbInformations() ; $i++){
+			
 			if($this->getTabInformations()[$i]['texte']){
 				$this->Ln(2.3);
 				if($this->getTabInformations()[$i]['type'] == 1){
@@ -405,6 +418,50 @@ class PDF extends fpdf
 						$this->MultiCell(0, 5, $this->getTabInformations()[$i]['texte']);
 					}
 			}
+			
+			//Affichage des actes et examens complémentaires après le motif s'il y en a
+			//Affichage des actes et examens complémentaires après le motif s'il y en a
+			//Affichage des actes et examens complémentaires après le motif s'il y en a
+			if($i == 0){
+				if($this->getTabInfosActesExamens()[0]['texte']){
+					$this->Ln(2.3);
+					$this->SetFont('zap','',13);
+					$this->Cell(4,5,"o",0,0,'L'); //le 'b' est interessant
+						
+					$this->SetFont('Times','',12);
+					$this->WriteHTML('<B><U>'.$this->getTabInfosActesExamens()[0]['titre'].' :</U></B>');
+					$this->Ln(6);
+					$this->MultiCell(0, 6.8, $this->getTabInfosActesExamens()[0]['texte']);
+				}
+				if($this->getTabInfosActesExamens()[1]['tableau']){
+					$tabInfosExamensDonnes = $this->getTabInfosActesExamens()[1]['tableau'];
+					
+					$this->Ln(2.3);
+					$this->SetFont('zap','',13);
+					$this->Cell(4,5,"o",0,0,'L'); //le 'b' est interessant
+								
+					$this->SetFont('Times','',12);
+					$this->WriteHTML('<B><U>'.$this->getTabInfosActesExamens()[1]['titre'].' :</U></B>');
+					$this->Ln(6);
+					
+					for($iec = 0 ; $iec < count($tabInfosExamensDonnes) ; $iec++){
+						
+						$this->Ln(2.3);
+						$this->SetFont('Times','',12);
+						$this->Cell(4,5," ",0,0,'L'); //le 'b' est interessant
+						
+						$this->SetFont('zap','',13);
+						$this->Cell(4,5,'*',0,0,'L'); //le 'b' est interessant
+						
+						$this->SetFont('Times','',12);
+						$this->WriteHTML('  <i>'.$tabInfosExamensDonnes[$iec][0].' :  </i>'.$tabInfosExamensDonnes[$iec][1]);
+						$this->Ln(6);
+					}
+					
+				}
+			}				
+				
+			
 		}
 	}
 	

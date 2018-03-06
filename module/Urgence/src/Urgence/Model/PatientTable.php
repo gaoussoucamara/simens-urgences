@@ -3189,6 +3189,122 @@ class PatientTable {
 		return $options;
 	}
 	
+	public function laListePatientsActesExamensAjax(){
+	
+		$db = $this->tableGateway->getAdapter();
+	
+		$aColumns = array('Numero_dossier', 'Nom', 'Prenom', 'Age', 'Adresse', 'id', 'Idpatient');
+	
+		/* Indexed column (used for fast and accurate table cardinality) */
+		$sIndexColumn = "id";
+	
+		/*
+		 * Paging
+		*/
+		$sLimit = array();
+		if ( isset( $_GET['iDisplayStart'] ) && $_GET['iDisplayLength'] != '-1' )
+		{
+			$sLimit[0] = $_GET['iDisplayLength'];
+			$sLimit[1] = $_GET['iDisplayStart'];
+		}
+	
+		/*
+		 * Ordering
+		*/
+		if ( isset( $_GET['iSortCol_0'] ) )
+		{
+			$sOrder = array();
+			$j = 0;
+			for ( $i=0 ; $i<intval( $_GET['iSortingCols'] ) ; $i++ )
+			{
+				if ( $_GET[ 'bSortable_'.intval($_GET['iSortCol_'.$i]) ] == "true" )
+				{
+					$sOrder[$j++] = $aColumns[ intval( $_GET['iSortCol_'.$i] ) ]."
+								 	".$_GET['sSortDir_'.$i];
+				}
+			}
+		}
+	
+		$date = new \DateTime ("now");
+		$dateDuJour = $date->format ( 'Y-m-d' );
+	
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('pat' => 'patient'))->columns(array('Numero_dossier' => 'NUMERO_DOSSIER'))
+		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Age'=>'AGE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
+		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('*'))
+		->group(array('pat.ID_PERSONNE'))
+		->order('au.date DESC');
+	
+		/* Data set length after filtering */
+		$stat = $sql->prepareStatementForSqlObject($sQuery);
+		$rResultFt = $stat->execute();
+		$iFilteredTotal = count($rResultFt);
+	
+		$rResult = $rResultFt;
+	
+		$output = array(
+				//"sEcho" => intval($_GET['sEcho']),
+				//"iTotalRecords" => $iTotal,
+				"iTotalDisplayRecords" => $iFilteredTotal,
+				"aaData" => array()
+		);
+	
+		/*
+		 * $Control pour convertir la date en fran�ais
+		*/
+		$Control = new DateHelper();
+	
+		/*
+		 * ADRESSE URL RELATIF
+		*/
+		$baseUrl = $_SERVER['REQUEST_URI'];
+		$tabURI  = explode('public', $baseUrl);
+	
+		/*
+		 * Pr�parer la liste
+		*/
+		foreach ( $rResult as $aRow )
+		{
+			$row = array();
+			for ( $i=0 ; $i<count($aColumns) ; $i++ )
+			{
+				if ( $aColumns[$i] != ' ' )
+				{
+					/* General output */
+					if ($aColumns[$i] == 'Nom'){
+						$row[] = "<khass id='nomMaj'>".$aRow[ $aColumns[$i]]."</khass>";
+					}
+	
+					else if ($aColumns[$i] == 'Numero_dossier'){
+						$row[] = "<span style='font-size: 19px;'>".$aRow[ $aColumns[$i]]."<span style='display: none;'> ".str_replace(' ', '' ,$aRow[ $aColumns[$i]])."</span></span>";
+					}
+					else if ($aColumns[$i] == 'Datenaissance') {
+						$date_naissance = $aRow[ $aColumns[$i] ];
+						if($date_naissance){ $row[] = $Control->convertDate($aRow[ $aColumns[$i] ]); }else{ $row[] = null;}
+					}
+	
+					else if ($aColumns[$i] == 'Adresse') {
+						$row[] = $this->adresseText($aRow[ $aColumns[$i] ]);
+					}
+	
+					else if ($aColumns[$i] == 'id') {
+						$html ="<infoBulleVue> <a href='javascript:visualiserListeActesExamensComp(".$aRow[ $aColumns[$i] ].")' >";
+						$html .="<img style='margin-left: 5%; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
+	
+						$row[] = $html;
+					}
+	
+					else {
+						$row[] = $aRow[ $aColumns[$i] ];
+					}
+	
+				}
+			}
+			$output['aaData'][] = $row;
+		}
+		return $output;
+	}
 	
 	
 	

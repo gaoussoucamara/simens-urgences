@@ -1,0 +1,245 @@
+/* PIED DE PAGE*/
+
+#actesExamensComplementairesPatients .search_init_mg{ 
+
+	background-color: #fffffa; /*la couleur du champ*/
+
+	height: 25px; /*la hauteur du champ input*/
+
+	width: 100%;/*110px; /* la largeur du champ input*/
+	
+}
+
+
+/* STYLE POUR LA LISTE DE SELECTION DE LA TABLE*/
+#listeDataTable{
+	margin-top: 0px;
+	margin-bottom: 0px;
+	margin-left: -10px;
+}
+
+#contenuListePatientTableau .dataTables_paginate *
+{
+	background: #e9e8e8;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	padding-left: 6px;
+	padding-right: 6px;
+    color: black;	
+	/*margin-top: 100px;*/
+	cursor: pointer;
+
+}
+
+#contenuListePatientTableau div .dataTables_paginate
+{
+	margin-bottom: 20px;
+}
+
+#contenuListePatientTableau .dataTables_paginate .first
+{
+	margin-right: 0px;
+}
+
+#contenuListePatientTableau .dataTables_paginate .last
+{
+	margin-left: 0px;
+}
+
+#contenuListePatientTableau .dataTables_paginate .previous
+{
+	margin-right: 2px;
+	border-left: 1px solid #bdb9b9;
+}
+
+#contenuListePatientTableau .dataTables_paginate .next
+{
+	margin-left: 3px;
+	border-right: 1px solid #bdb9b9;
+}
+
+#contenuListePatientTableau .dataTables_paginate a:hover
+{
+	text-decoration: none;
+	background-color: #c3c1c1;
+	color: white;
+}
+
+#contenuListePatientTableau .dataTables_paginate .paginate_active
+{
+	text-decoration: none;
+	background-color: #b5b2b2;
+	color: white;
+}
+
+#contenuListePatientTableau .liste_patient tr{
+	background: #f5f5f5;
+}
+
+#contenuListePatientTableau .liste_patient tr:hover{
+	background: #e4e4e4;
+}
+
+
+#photo, #modifier_photo  /*photo*/
+{
+
+width: 105px;
+
+float: left;
+
+border-top-width: 10px;
+
+border-right-width: 10px;
+
+border-right-width-ltr-source: physical;
+
+border-right-width-rtl-source: physical;
+
+border-bottom-width: 10px;
+
+border-left-width: 10px;
+
+border-left-width-ltr-source: physical;
+
+border-left-width-rtl-source: physical;
+
+border-top-style: solid;
+
+border-right-style: solid;
+
+border-right-style-ltr-source: physical;
+
+border-right-style-rtl-source: physical;
+
+border-bottom-style: solid;
+
+border-left-style: solid;
+
+border-left-style-ltr-source: physical;
+
+border-left-style-rtl-source: physical;
+
+border-top-color: white;
+
+border-right-color: white;
+
+border-right-color-ltr-source: physical;
+
+border-right-color-rtl-source: physical;
+
+border-bottom-color: white;
+
+border-left-color: white;
+
+border-left-color-ltr-source: physical;
+
+border-left-color-rtl-source: physical;
+
+box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.2);
+
+}
+
+canvas {
+   position: relative;
+   background-color: #ffffff;
+   background-image: none;
+   background-repeat: repeat;
+   background-attachment: scroll;
+   background-position: 0% 0%;
+   background-clip: border-box;
+   background-origin: padding-box;
+   background-size: auto auto;             
+   box-shadow: #dddddd;
+   padding-top: 0px;
+   padding-right: 0px;
+   padding-bottom: 0px;
+   padding-left: 0px;
+                      
+   height: auto;
+   width: auto;
+             
+}
+
+/*****LA PHOTO*******/
+        .photo_patient {
+              position:relative;
+              width:105px;
+              height:105px;
+              float: left;
+              margin-right:40px;
+              overflow:hidden;
+              background:#dddddd url("../../images_icons/identite.png") no-repeat left top;
+        }
+  
+        .photo_patient input {
+              position:absolute;
+              right:0;
+              top:0;
+              font-size:0px;
+              opacity:0;
+              -moz-opacity:0;
+              filter:alpha(opacity=0);
+              cursor:pointer;
+              text-align:right; 
+              width:105px;
+              height:105px;
+         }
+         
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+/*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
+
+         
+
+#contenuInfoPatientActesExamensComplementaire #barre_actes_examens
+{
+	width: 100%;
+	padding-bottom:20px; /*Pour s�parer le contenu de la bordure du bas du bloc*/
+	magin-bottom:15px; /*Pour s�parer la bordure du prochain �l�ment*/
+	border-bottom: 3px solid gray;/*Pour faire un trait gris horizontal*/
+	margin-top: -14px;
+}
+
+#titre_info_actes_examens
+{
+	font-family: times new roman;
+	font-size: 20px;
+	color: green;
+}
+
+#contenuInfoPatientActesExamensComplementaire table td 
+{
+	vertical-align: top;
+}
+
+#contenuInfoPatientActesExamensComplementaire table td p
+{
+	margin-right: 15px;
+	max-height: 44px;
+	max-width: 90%;
+	overflow: auto;
+}
+
+#contenuInfoPatientActesExamensComplementaire #etat_civil{
+	width: 70%;
+}
+
+#contenuInfoPatientActesExamensComplementaire #etat_civil tr{
+	width: 70%;
+}
+
+
+#contenuInfoPatientActesExamensComplementaire tr:hover
+{
+	background: white;
+}
+
+#contenuInfoPatientActesExamensComplementaire a{
+	color: black;
+}
+
+#contenuInfoPatientActesExamensComplementaire p{
+	font-family: Times  New Roman;
+	color: #065d10;
+}

@@ -2044,7 +2044,7 @@ class ConsultationController extends AbstractActionController {
 		$tabInformations[2]['type' ] = 1;
 		$tabInformations[2]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'hypotheses_diagnostiques' ));
 		
-		$tabInformations[3]['titre'] = 'Examens complémentaires';
+		$tabInformations[3]['titre'] = 'Notes sur les examens complémentaires';
 		$tabInformations[3]['type' ] = 1;
 		$tabInformations[3]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'examens_complementaires' ));
 		
@@ -2080,6 +2080,26 @@ class ConsultationController extends AbstractActionController {
 		$tabInformations[10]['titre'] = 'Avis du spécialiste';
 		$tabInformations[10]['type' ] = 1;
 		$tabInformations[10]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'avis_specialiste' ));
+		
+		
+		//Récupération des actes et examens complémentaires
+		//Récupération des actes et examens complémentaires
+		$tabInfosActesExamens = array();
+		
+		$listeActesDemandes = $this->getMotifAdmissionTable ()->getListeActesDemandes($id_admission);
+		
+		$tabInfosActesExamens[0]['titre'] = 'Les actes';
+		$tabInfosActesExamens[0]['type' ] = 1;
+		$tabInfosActesExamens[0]['texte'] = iconv ('UTF-8' , 'windows-1252', $listeActesDemandes);
+		
+		$listeExamensDemandes = $this->getMotifAdmissionTable ()->getListeExamensDemandes($id_admission);
+		
+		$tabInfosActesExamens[1]['titre'] = 'Les examens complémentaires';
+		$tabInfosActesExamens[1]['type' ] = 1;
+		$tabInfosActesExamens[1]['tableau'] = $listeExamensDemandes;
+		
+		//var_dump($listeExamensDemandes); exit();
+		
 		
 		//Recuperer les infos du medecin si c'est le specialiste qui est connecte
 		//Recuperer les infos du medecin si c'est le specialiste qui est connecte
@@ -2127,6 +2147,7 @@ class ConsultationController extends AbstractActionController {
 		
 		$pdf->setNbInformations(count($tabInformations));
 		$pdf->setTabInformations($tabInformations);
+		$pdf->setTabInfosActesExamens($tabInfosActesExamens);
 		$pdf->setNomService($nomService);
 		$pdf->setInfosMedecin($infosMedecin);
 		$pdf->setInfosInfirmiers($infosInfirmiers);
@@ -2315,11 +2336,32 @@ class ConsultationController extends AbstractActionController {
 			$infosComp['dateConsultation'] = $date;
 		}
 		
+		
+		
+		//Récupération des actes et examens complémentaires
+		//Récupération des actes et examens complémentaires
+		$tabInfosActesExamens = array();
+		
+		$listeActesDemandes = $this->getMotifAdmissionTable ()->getListeActesDemandes($id_admission);
+		
+		$tabInfosActesExamens[0]['titre'] = 'Les actes';
+		$tabInfosActesExamens[0]['type' ] = 1;
+		$tabInfosActesExamens[0]['texte'] = iconv ('UTF-8' , 'windows-1252', $listeActesDemandes);
+		
+		$listeExamensDemandes = $this->getMotifAdmissionTable ()->getListeExamensDemandes($id_admission);
+		
+		$tabInfosActesExamens[1]['titre'] = 'Les examens complémentaires';
+		$tabInfosActesExamens[1]['type' ] = 1;
+		$tabInfosActesExamens[1]['tableau'] = $listeExamensDemandes;
+		
+		
+		
 		$pdf = new PDF();
 		$pdf->SetMargins(13.5,13.5,13.5);
 		
 		$pdf->setNbInformations(count($tabInformations));
 		$pdf->setTabInformations($tabInformations);
+		$pdf->setTabInfosActesExamens($tabInfosActesExamens);
 		$pdf->setNomService($nomService);
 		$pdf->setInfosMedecin($infosMedecin);
 		$pdf->setInfosInfirmiers($infosInfirmiers);
