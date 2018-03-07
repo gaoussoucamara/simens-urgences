@@ -281,7 +281,11 @@ class infosRegistrePatientAdmisPdf extends fpdf
 			$hauteurLigneTete = 7;
 			$this->SetFont('timesbi','',9);
 			$this->Cell(8,$hauteurLigneTete,'Ord',1,0,'L',1);
-			$this->SetFont('Timesbi','',10);
+			
+			//$this->SetFont('zap','',6);
+			//$this->Cell(3,$hauteurLigneTete,'t','BLT',0,'L',1);
+			
+			$this->SetFont('timesb','',10);
 			$this->Cell(24,$hauteurLigneTete,'N° DOSSIER',1,0,'L',1);
 			$this->Cell(38,$hauteurLigneTete,'PRENOM',1,0,'L',1);
 			$this->Cell(28,$hauteurLigneTete,'NOM',1,0,'L',1);
