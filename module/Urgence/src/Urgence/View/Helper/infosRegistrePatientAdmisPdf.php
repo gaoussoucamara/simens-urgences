@@ -15,13 +15,13 @@ class infosRegistrePatientAdmisPdf extends fpdf
 		$this->Cell(0,0.3,"",0,1,'C',true);
 		$this->SetTextColor(0,0,0);
 		$this->SetFont('Times','',9.5);
-		$this->Cell(81,5,'Téléphone: 33 961 00 21 ',0,0,'L',false);
+		$this->Cell(125,5,'Téléphone: 33 961 00 21 ',0,0,'L',false);
 		$this->SetTextColor(128);
 		$this->SetFont('Times','I',9);
 		$this->Cell(20,8,'Page '.$this->PageNo(),0,0,'C',false);
 		$this->SetTextColor(0,0,0);
 		$this->SetFont('Times','',9.5);
-		$this->Cell(81,5,'SIMENS+: www.simens.sn',0,0,'R',false);
+		$this->Cell(125,5,'SIMENS+: www.simens.sn',0,0,'R',false);
 	}
 	
 	protected $B = 0;
@@ -116,10 +116,13 @@ class infosRegistrePatientAdmisPdf extends fpdf
 	
 	
 	
-	protected $tabInformations ;
+	protected $tabInformations;
 	protected $nomService;
 	protected $infosComp;
 	protected $periodeConsultation;
+	protected $dateAdmission;
+	protected $listePatientsAdmis;
+	
 	
 	public function setTabInformations($tabInformations)
 	{
@@ -161,13 +164,33 @@ class infosRegistrePatientAdmisPdf extends fpdf
 		$this->infosComp = $infosComp;
 	}
 	
+	public function getListePatientsAdmis()
+	{
+		return $this->listePatientsAdmis;
+	}
+	
+	public function setListePatientsAdmis($listePatientsAdmis)
+	{
+		$this->listePatientsAdmis = $listePatientsAdmis;
+	}
+	
+	public function getDateAdmission()
+	{
+		return $this->dateAdmission;
+	}
+	
+	public function setDateAdmission($dateAdmission)
+	{
+		$this->dateAdmission = $dateAdmission;
+	}
+	
 	function EnTetePage()
 	{
 		$this->SetFont('Times','',10.3);
 		$this->SetTextColor(0,0,0);
 		$this->Cell(0,4,"République du Sénégal");
 		$this->SetFont('Times','',8.5);
-		$this->Cell(0,4,"Saint-Louis, le ".$this->getInfosComp()['dateConsultation'],0,0,'R');
+		$this->Cell(0,4,"Saint-Louis, le ".(new \DateTime ())->format( 'd/m/Y' ),0,0,'R');
 		$this->SetFont('Times','',10.3);
 		$this->Ln(5.4);
 		$this->Cell(100,4,"Ministère de la santé et de l'action sociale");
@@ -181,32 +204,31 @@ class infosRegistrePatientAdmisPdf extends fpdf
 		$this->SetFont('Times','',10.3);
 		$this->Cell(86,4,$this->getNomService(),0,0,'L');
 		
-		$this->Ln(8);
-		$this->SetFont('Times','',14.3);
-		$this->SetTextColor(0,128,0);
-		$this->Cell(0,5,"RAPPORT NOSOLOGIQUE ( HOSPITALISATION )",0,0,'C');
-		$this->Ln(6);
+		$this->Ln(5);
 		$this->SetFont('Times','',12.3);
 		$this->SetTextColor(0,128,0);
-		$this->Cell(0,5,"LES CAUSES DE MORBIDITE",0,0,'C');
-		$this->Ln(4);
-	
+		$this->Cell(270,5,"LISTE DES PATIENTS ADMIS",0,0,'C');
+		$this->Ln(5.5);
+		$this->SetFillColor(0,128,0);
+		$this->Cell(0,0.3,"",0,1,'C',true);
+		
 		// EMPLACEMENT DU LOGO
 		// EMPLACEMENT DU LOGO
 		$baseUrl = $_SERVER['SCRIPT_FILENAME'];
 		$tabURI  = explode('public', $baseUrl);
-		$this->Image($tabURI[0].'public/images_icons/hrsl.png', 162, 19, 35, 15);
+		$this->Image($tabURI[0].'public/images_icons/hrsl.png', 249, 19, 35, 15);
 		
 	}
 	
 	function CorpsDocument()
 	{
-		if($this->getPeriodeConsultation()){
-			$dateConvert = new DateHelper();
-			$date_debut = $dateConvert->convertDate($this->getPeriodeConsultation()[0]);
-			$date_fin   = $dateConvert->convertDate($this->getPeriodeConsultation()[1]);
+		/*
+		if($this->getDateAdmission()){
+			//$dateConvert = new DateHelper();
+			//$date_debut = $dateConvert->convertDate($this->getPeriodeConsultation()[0]);
+			//$date_fin   = $dateConvert->convertDate($this->getPeriodeConsultation()[1]);
 			
-			$this->Ln(5.4);
+			$this->Ln(2);
 			$this->SetFillColor(220,220,220);
 			$this->SetDrawColor(205,193,197);
 			$this->SetTextColor(0,0,0);
@@ -214,98 +236,153 @@ class infosRegistrePatientAdmisPdf extends fpdf
 			$this->SetFont('zap','',13);
 			
 			$this->SetFillColor(255,255,255);
-			$this->Cell(55,7,'','',0,'L',1);
+			$this->Cell(103.5 ,7,'',0,0,'L',1);
 			
 			$this->SetFillColor(220,220,220);
-			$this->SetLineWidth(1);
-			$this->Cell(5,8,'B','BLT',0,'L',1);
+			$this->SetLineWidth(0.5);
+			$this->Cell(5,6,'B','BLT',0,'L',1); //BLT
 			
 			$this->AddFont('timesb','','timesb.php');
 			$this->AddFont('timesi','','timesi.php');
 			$this->AddFont('times','','times.php');
 			
-			$this->SetFont('times','',12.5);
-			$this->Cell(70,8,"Periode du ".$date_debut." au ".$date_fin,'BRT',0,'L',1);
+			$this->SetFont('times','',11);
+			$this->Cell(58,6,"Date d'admission : ".$this->getDateAdmission(),'BRT',0,'C',1);
 			
 			$this->SetFillColor(255,255,255);
-			$this->Cell(53,7,'','L',0,'L',1);
+			$this->Cell(103.5 ,6,'','L',0,'L',1); //L
 			
-			$this->Ln(7);
+			$this->Ln(3);
 			$this->SetLineWidth(0);
 		}
+		*/
 
-		$tabInformations = $this->getTabInformations(); 
-		if($tabInformations){
-			$diffTypePathologie = $tabInformations[0];
-			$diffPathologieVerifType = $tabInformations[1];
-			$diffLibelleTypePathologie = $tabInformations[2];
-			$touteTypePathologieNbVal = $tabInformations[3];
-			$toutePathologieNbVal = $tabInformations[4];
-			$totalService = 0;
-			
-			for($i=0 ; $i<count($diffTypePathologie) ; $i++){
-			
-				$prem = 1;
-				$indice = 1;
-			
-				for($j=0 ; $j<count($diffPathologieVerifType) ; $j++){
-					if($diffTypePathologie[$i] == $diffPathologieVerifType[$j][1]){
-			
-						if($prem == 1){
-							$this->Ln(5.4);
-							$this->SetFillColor(220,220,220);
-							$this->SetDrawColor(205,193,197);
-							$this->SetTextColor(0,0,0);
-							$this->AddFont('zap','','zapfdingbats.php');
-							$this->SetFont('zap','',13);
-							$this->Cell(5,7,'b','BT',0,'L',1);
-			
-							$this->AddFont('timesb','','timesb.php');
-							$this->AddFont('timesi','','timesi.php');
-							$this->AddFont('times','','times.php');
-			
-							$this->SetFont('times','',12.5);
-							$this->Cell(178,7,iconv ('UTF-8' , 'windows-1252', $diffLibelleTypePathologie[$i])." (nombre = ".$touteTypePathologieNbVal[$diffTypePathologie[$i]].")",'BT',0,'L',1);
+		
+		$listePatientsAdmis = $this->getListePatientsAdmis(); 
+	
+		if($listePatientsAdmis['iTotalDisplayRecords'] != 0){
 			
 			
-							$this->Ln(8);
-							$this->SetFillColor(249,249,249);
-							$this->SetDrawColor(220,220,220);
+			//EN TETE DE LA LISTE DES PATIENTS ADMIS
+			//EN TETE DE LA LISTE DES PATIENTS ADMIS
+			//EN TETE DE LA LISTE DES PATIENTS ADMIS
 			
-							$prem++;
-							
-							$totalService += $touteTypePathologieNbVal[$diffTypePathologie[$i]];
-						}
-			
-						$this->SetFont('timesi','',11.3);
-						$this->Cell(10,7,$indice++.'.','BT',0,'C');
-						$this->SetFont('times','',11.3);
-						$this->Cell(142,7,iconv ('UTF-8' , 'windows-1252', $diffPathologieVerifType[$j][0]),'BT',0,'L',1);
-						$this->SetFont('times','',13.3);
-						$this->Cell(31,7,$toutePathologieNbVal[$diffPathologieVerifType[$j][0]].' ','BT',0,'R',1);
-						$this->Ln(7);
-			
-					}
-			
-				}
-			
-			}
-			
-			$this->Ln(6);
+			$this->Ln(2.5);
 			$this->SetDrawColor(205,193,197);
 			$this->SetFillColor(220,220,220);
-			$this->SetFont('timesi','',11.3);
-			$this->Cell(115,7,'','',0,'C');
-			$this->SetFont('times','',11.3);
-			$this->Cell(37,7,'TOTAL SERVICE','BT',0,'L',1);
-			$this->SetFont('times','',13.3);
-			$this->Cell(31,7,$totalService.' ','BT',0,'R',1);
 			
-		}else{
-			echo  "<div align='center' style='font-size: 30px; font-family: times new roman;'>Choisir une période avec une <span style='color: red;'>date de début</span> et une <span style='color: red;'>date de fin</span> </div>"; exit();
+			$this->SetTextColor(0,0,0);
+			$this->AddFont('zap','','zapfdingbats.php');
+			$this->AddFont('timesb','','timesb.php');
+			$this->AddFont('timesbi','','timesbi.php');
+			$this->AddFont('timesi','','timesi.php');
+			$this->AddFont('times','','times.php');
+			
+			$hauteurLigneTete = 7;
+			$this->SetFont('timesbi','',9);
+			$this->Cell(8,$hauteurLigneTete,'Ord',1,0,'L',1);
+			$this->SetFont('Timesbi','',10);
+			$this->Cell(24,$hauteurLigneTete,'N° DOSSIER',1,0,'L',1);
+			$this->Cell(38,$hauteurLigneTete,'PRENOM',1,0,'L',1);
+			$this->Cell(28,$hauteurLigneTete,'NOM',1,0,'L',1);
+			$this->Cell(10,$hauteurLigneTete,'AGE',1,0,'L',1);
+			$this->Cell(42,$hauteurLigneTete,'ACTES',1,0,'L',1);
+			$this->Cell(72,$hauteurLigneTete,'EXAMENS COMPLEMENTAIRES',1,0,'L',1);
+			$this->Cell(48,$hauteurLigneTete,'DIAGNOSTIC',1,0,'L',1);
+			
+			$this->Ln(8);
+			
+			for($i=0 ; $i<$listePatientsAdmis['iTotalDisplayRecords'] ; $i++){
+				
+				$donneesPatientsAdmis = $listePatientsAdmis['aaData'];
+				
+				//Recuperer le nombre d'actes et d'examens
+				$listeDesActes = $donneesPatientsAdmis[$i][4];
+				$listeDesExamens = $donneesPatientsAdmis[$i][5];
+				$nbActes = count($listeDesActes);
+				$nbExamens = count($listeDesExamens);
+				$maxNbActeExamen = max(array($nbActes, $nbExamens));
+				$hauteurLigne = 5;
+				if($maxNbActeExamen != 0){
+					$hauteurLigne = 5*$maxNbActeExamen;
+				}
+				
+				if($i%2 == 0){
+					$this->SetFillColor(249,249,249);
+					$this->SetDrawColor(220,220,220);
+				}else{
+					$this->SetDrawColor(205,193,197);
+					$this->SetFillColor(220,220,220);
+				}
+				
+				$this->SetFont('Timesi','',9.5);
+				$this->Cell(8,$hauteurLigne,($i+1).'.',1,0,'L');
+					
+				$this->SetFont('Times','',9.5,1);
+				$this->Cell(24,$hauteurLigne,$donneesPatientsAdmis[$i][0],'BLT',0,'L',1); //BLT
+				$this->Cell(38,$hauteurLigne,$donneesPatientsAdmis[$i][2],'BT',0,'L',1); //BT
+				$this->Cell(28,$hauteurLigne,$donneesPatientsAdmis[$i][1],'BT',0,'L',1);
+				$this->Cell(10,$hauteurLigne,$donneesPatientsAdmis[$i][3],'BT',0,'C',1);
+				
+				//Affichage des actes
+				$this->Cell(42,$hauteurLigne,'','BT',0,'L',1);
+				$interLigne = 0;
+				for($iacte=0 ; $iacte<$nbActes ; $iacte++){
+					$y = $this->GetY()+3.5+$interLigne;
+					$this->Text(123, $y, iconv ('UTF-8' , 'windows-1252', '- '.$listeDesActes[$iacte]));
+					
+					$interLigne += 5;
+				}
+				
+				//Affichage des examens 
+				$this->Cell(72,$hauteurLigne,'','BT',0,'L',1);
+				$interLigne = 0;
+				for($iexam=0 ; $iexam<$nbExamens ; $iexam++){
+					$y = $this->GetY()+3.5+$interLigne;
+					
+					$this->Text(165, $y, iconv ('UTF-8' , 'windows-1252', '- '));
+					
+					//Libelle type d'examen
+					$libelleTypeExamen = $listeDesExamens[$iexam][0];
+					$this->SetFont('Timesi','',7);
+					$this->Text(167, $y, iconv ('UTF-8' , 'windows-1252', $libelleTypeExamen));
+
+					//Id type examen
+					$idTypeExamen = $listeDesExamens[$iexam][2];
+					
+					//Libelle examen
+					if($idTypeExamen == 1){
+						$this->SetFont('Times','',7.5);
+						$this->Text(185, $y, iconv ('UTF-8' , 'windows-1252', ' : '.$listeDesExamens[$iexam][1]));
+					}else if($idTypeExamen == 2){
+						$this->SetFont('Times','',7.5);
+						$this->Text(193, $y, iconv ('UTF-8' , 'windows-1252', ' : '.$listeDesExamens[$iexam][1]));
+					}else if($idTypeExamen == 3){
+						$this->SetFont('Times','',7.5);
+						$this->Text(184, $y, iconv ('UTF-8' , 'windows-1252', ' : '.$listeDesExamens[$iexam][1]));
+					}else if($idTypeExamen == 4){
+						$this->SetFont('Times','',7.5);
+						$this->Text(175, $y, iconv ('UTF-8' , 'windows-1252', ' : '.$listeDesExamens[$iexam][1]));
+					}else if($idTypeExamen == 5){
+						$this->SetFont('Times','',7.5);
+						$this->Text(180, $y, iconv ('UTF-8' , 'windows-1252', ' : '.$listeDesExamens[$iexam][1]));
+					}else{
+						$this->SetFont('Times','',7.5);
+						$this->Text(195, $y, iconv ('UTF-8' , 'windows-1252', ' : '.$listeDesExamens[$iexam][1]));						
+					}
+					
+					$interLigne += 5;
+				}
+				
+				
+				
+				$this->SetFont('Times','',7.5);
+				$this->Cell(48,$hauteurLigne,' ---','BTR',1,'L',1);
+				$this->Ln(1);
+			}
+			
+				
 		}
-		
-		
 	}
 	
 	//IMPRESSION DES INFOS STATISTIQUES
@@ -314,7 +391,7 @@ class infosRegistrePatientAdmisPdf extends fpdf
 	{
 		$this->AddPage();
 		$this->EnTetePage();
-		//$this->CorpsDocument();
+		$this->CorpsDocument();
 	}
 
 }

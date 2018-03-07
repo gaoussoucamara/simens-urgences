@@ -179,11 +179,11 @@ return array(
     								'imprimer-informations-statistiques' => array('infirmier-service','medecin'),
     								'modifier-type-pathologie' => array('infirmier-service','medecin'),
     								
-    								'liste-actes-examens-complementaires-ajax' => array('infirmier-service','medecin'),
-    								'get-infos-actes-examens-patient' => array('infirmier-service','medecin'),
-    								'get-liste-examens-complementaires' => array('infirmier-service','medecin'),
-    								'liste-patients-admis-registre-ajax' => array('infirmier-service','medecin'),
-    								'impression-registre-patients-admis' => array('infirmier-service','medecin'),
+    								'liste-actes-examens-complementaires-ajax' => array('infirmier-tri','infirmier-service','medecin'),
+    								'get-infos-actes-examens-patient' => array('infirmier-tri','infirmier-service','medecin'),
+    								'get-liste-examens-complementaires' => array('infirmier-tri','infirmier-service','medecin'),
+    								'liste-patients-admis-registre-ajax' => array('infirmier-tri','infirmier-service','medecin'),
+    								'impression-registre-patients-admis' => array('infirmier-tri','infirmier-service','medecin'),
     						),
     						
     						

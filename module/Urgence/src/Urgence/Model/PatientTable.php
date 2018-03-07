@@ -3429,6 +3429,39 @@ class PatientTable {
 		return array($listeTypesDesExamens, $listeDesExamens);
 	}
 	
+	
+	/**
+	 * Recuperer la liste des examens complémentaires d'une date d'admission d'un patient
+	 * @param id du patient $id_patient
+	 */
+	public function getListeDesExamensComplementairesDuPatientAvecIdTypeExamen($id_patient, $date_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('deu'=>'demande_examen_urg'))->columns(array ('id_examen_dem' => 'id_examen'));
+		$select->join(array('leu'=>'liste_examencomp_urg') , 'leu.id = deu.id_examen' , array('id_examen_comp' => 'id','libelle_examen' => 'libelle'));
+		$select->join(array('ltu'=>'liste_typeexamencomp_urg') , 'ltu.id = leu.type' , array('id_type' => 'id', 'libelle_type' => 'libelle'));
+		$select->join(array('au'=>'admission_urgence') , 'au.id_admission = deu.id_admission' , array('date_admission' => 'date'));
+		$select->where(array('au.id_patient' => $id_patient, 'au.date' => $date_admission));
+	
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+	
+		$listeTypesDesExamens = array();
+		$listeDesExamens = array();
+		$listeIdTypeDesExamens = array();
+		$listeIdDesExamens = array();
+	
+		foreach ($result as $data) {
+			$listeTypesDesExamens[] = $data['libelle_type'];
+			$listeDesExamens[] = $data['libelle_examen'];
+			$listeIdTypeDesExamens[] = $data['id_type'];
+			$listeIdDesExamens[] = $data['id_examen_comp'];
+		}
+	
+		return array($listeTypesDesExamens, $listeDesExamens, $listeIdTypeDesExamens, $listeIdDesExamens);
+	}
+	
 	public function laListePatientsAdmisRegistreAjax(){
 	
 		$db = $this->tableGateway->getAdapter();
@@ -3517,20 +3550,20 @@ class PatientTable {
 				{
 					/* General output */
 					if ($aColumns[$i] == 'Numero_dossier'){
-						$row[] = "<div style='min-width: 90px; font-size: 17px;'>".$aRow[ $aColumns[$i]]."</div>";
+						$row[] = "<div style='min-width: 100px; font-size: 17px; '>".$aRow[ $aColumns[$i]]."</div>";
 					}
 					
 					else if ($aColumns[$i] == 'Nom'){
-						$row[] = "<khass id='nomMaj' style='font-size: 15px;' >".$aRow[ $aColumns[$i]]."</khass>";
+						$row[] = "<khass id='nomMaj' style='font-size: 15px; max-width: 100px; max-height: 23px; overflow: hidden; ' >".$aRow[ $aColumns[$i]]."</khass>";
 					}
 					
 					else if ($aColumns[$i] == 'Prenom'){
-						$row[] = "<div style='font-size: 15px;' >".$aRow[ $aColumns[$i]]."</div>";
+						$row[] = "<div style='font-size: 15px; min-width: 100px; max-width: 100px; max-height: 23px; overflow: hidden;' >".$aRow[ $aColumns[$i]]."</div>";
 					}
 	
 					
 					else if ($aColumns[$i] == 'Age'){
-						$row[] = "<span style='font-size: 17px; min-width: 40px;'>".$aRow[ $aColumns[$i]]."</span>";
+						$row[] = "<span style='font-size: 17px; min-width: 40px; max-width: 40px; max-height: 23px; overflow: hidden;'>".$aRow[ $aColumns[$i]]."</span>";
 					}
 					
 					else if ($aColumns[$i] == 'Datenaissance') {
@@ -3545,10 +3578,14 @@ class PatientTable {
 						$html = "";
 						for($iacte = 0 ; $iacte < count($listeActesDemandes) ; $iacte++){
 							if($iacte == 0){
-								$html = "<div style='font-size: 15px; max-height: 25px; overflow: hidden;' >";
+								$html = "<div style='font-size: 15px; max-height: 23px; min-width: 170px; max-width: 170px; overflow: hidden;' >";
 							}
 								
-							$html .=" <span style='font-size: 13px;'>&#10148;</span> <span style='font-size: 14px;'>".$listeActesDemandes[$iacte]."</span></br>";
+							if(count($listeActesDemandes) > 1){
+								$html .=" <span style='font-size: 13px;'>&#10148;</span> <span style='font-size: 14px;'>".$listeActesDemandes[$iacte]." <span style=''> +</span></span></br>";
+							}else{
+								$html .=" <span style='font-size: 13px;'>&#10148;</span> <span style='font-size: 14px;'>".$listeActesDemandes[$iacte]."</span></br>";
+							}
 
 							if($iacte+1 == count($listeActesDemandes)){
 								$html .= "</div>";
@@ -3571,7 +3608,7 @@ class PatientTable {
 						for($iexam = 0 ; $iexam < count($listeExamensDemandes[1]) ; $iexam++){
 						
 							if($iexam == 0){
-								$html = "<div style='font-size: 15px; max-height: 25px; overflow: hidden;' >";
+								$html = "<div style='font-size: 15px; max-height: 23px; overflow: hidden;' >";
 							}
 							
 							$html .="<span style='font-size: 13px;'>&#10148;</span> <i style='font-size: 13px;'>".$listeExamensDemandes[0][$iexam]."</i> <span style='font-size: 14px; font-weight: bold;'>".$listeExamensDemandes[1][$iexam]."</span></br>";
@@ -3651,7 +3688,39 @@ class PatientTable {
 			{
 				if ( $aColumns[$i] != ' ' )
 				{
-					$row[] = $aRow[ $aColumns[$i] ];
+					
+					if ($aColumns[$i] == 'Adresse') {
+						$id_patient = $aRow[ 'id' ];
+						$date_admission = $aRow[ 'date_admission' ];
+						$listeActesDemandes = $this->getListeDesActesDuPatient($id_patient, $date_admission);
+
+						$tabListeActesDemandes = array();
+						for($iacte = 0 ; $iacte < count($listeActesDemandes) ; $iacte++){
+							$tabListeActesDemandes[] = $listeActesDemandes[$iacte];
+						}
+
+						$row[] = $tabListeActesDemandes;
+					
+					}
+					
+					else if ($aColumns[$i] == 'id') {
+						$id_patient = $aRow[ 'id' ];
+						$date_admission = $aRow[ 'date_admission' ];
+						$listeExamensDemandes = $this->getListeDesExamensComplementairesDuPatientAvecIdTypeExamen($id_patient, $date_admission);
+						
+						$tabListeExamensDemandes = array();
+						for($iexam = 0 ; $iexam < count($listeExamensDemandes[1]) ; $iexam++){
+							$tabListeExamensDemandes[] = array($listeExamensDemandes[0][$iexam],$listeExamensDemandes[1][$iexam], $listeExamensDemandes[2][$iexam], $listeExamensDemandes[3][$iexam]);
+						}
+					
+						$row[] = $tabListeExamensDemandes;
+							
+					}
+					
+					else{
+						$row[] = $aRow[ $aColumns[$i] ];
+					}
+	
 				}
 			}
 			$output['aaData'][] = $row;

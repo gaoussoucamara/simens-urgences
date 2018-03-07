@@ -2124,31 +2124,23 @@ class UrgenceController extends AbstractActionController {
     
     public function impressionRegistrePatientsAdmisAction() {
     	
-    	$liste_patients_admis = $this->getPatientTable ()->getListePatientsAdmisRegistre();
-    	//var_dump($liste_patients_admis); exit();
-    	
-    	
-    	
-    	
-
-
     	$user = $this->layout()->user;
     	$nomService = $user['NomService'];
-    	$infosComp['dateConsultation'] = (new \DateTime ())->format( 'd/m/Y' );
+    	$aujourdhui = (new \DateTime ())->format( 'd/m/Y' );
     	
-    	//$date_debut = $this->params ()->fromPost (  'date_debut' );
-    	//$date_fin = $this->params ()->fromPost (  'date_fin' );
+    	$date_admisssion = $this->params ()->fromPost (  'date_admission' );
+    	
+    	$listePatientsAdmis = $this->getPatientTable ()->getListePatientsAdmisRegistre();
+    	//var_dump($listePatientsAdmis['aaData'][0]); exit();
     	
     	//******************************************************
     	//******************************************************
     	
-    	$pdf = new infosRegistrePatientAdmisPdf();
-    	$pdf->SetMargins(13.5,13.5,13.5);
-    	//$pdf->setTabInformations($infosStatistique);
-    	
+    	$pdf = new infosRegistrePatientAdmisPdf('L','mm','A4');
     	$pdf->setNomService($nomService);
-    	//$pdf->setInfosComp($infosComp);
-    	//$pdf->setPeriodeConsultation($periodeConsultation);
+    	$pdf->SetMargins(13.5,13.5,13.5);
+    	$pdf->setDateAdmission($aujourdhui);
+    	$pdf->setListePatientsAdmis($listePatientsAdmis);
     	
     	$pdf->ImpressionInfosStatistiques();
     	$pdf->Output('I');

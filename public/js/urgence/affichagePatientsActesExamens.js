@@ -260,8 +260,6 @@ function imprimerRegistreDesPatientsAdmisParPeriode(){
 	*/
 	
 	$("#imprimerRegistreDesPatientsAdmisPdf button").trigger('click');
-	
-	alert(3);
 }
 
 
