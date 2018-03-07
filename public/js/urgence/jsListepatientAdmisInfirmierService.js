@@ -158,6 +158,7 @@
     		}
     	} );
 
+    	$('#patient thead th').unbind('click');
     }
     
 

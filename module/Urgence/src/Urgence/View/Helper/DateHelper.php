@@ -37,6 +37,11 @@ class DateHelper extends AbstractHelper{
 		return $date." - ".$time;
 	}
 	
+	public function convertChaineInDateAnglais($date){
+		$nouv_date = substr($date, 0, 4).'-'.substr($date, 4, 2).'-'.substr($date, 6, 2);
+		return $nouv_date;
+	}
+	
 	/**
 	 * Recuperer la date dans le format datetime avec date, heure et minute
 	 * @param $datetime

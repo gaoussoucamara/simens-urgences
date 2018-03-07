@@ -190,7 +190,7 @@ class infosRegistrePatientAdmisPdf extends fpdf
 		$this->SetTextColor(0,0,0);
 		$this->Cell(0,4,"République du Sénégal");
 		$this->SetFont('Times','',8.5);
-		$this->Cell(0,4,"Saint-Louis, le ".(new \DateTime ())->format( 'd/m/Y' ),0,0,'R');
+		$this->Cell(0,4,"Date d'admission : ".(new DateHelper())->convertDate($this->getDateAdmission()),0,0,'R');
 		$this->SetFont('Times','',10.3);
 		$this->Ln(5.4);
 		$this->Cell(100,4,"Ministère de la santé et de l'action sociale");
