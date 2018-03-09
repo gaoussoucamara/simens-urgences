@@ -9,6 +9,7 @@ use Urgence\Form\AdmissionForm;
 use Urgence\View\Helper\DateHelper;
 use Zend\Json\Json;
 use Urgence\View\Helper\infosStatistiquePdf;
+use Urgence\View\Helper\infosRegistrePatientAdmisPdf;
 
 class UrgenceController extends AbstractActionController {
 	protected $patientTable;
@@ -885,6 +886,26 @@ class UrgenceController extends AbstractActionController {
 		
 		$listeSalles = $this->getPatientTable ()->listeSalles();
 		$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
+		
+		
+		//$listeActesExamensComp = $this->getAdmissionTable()->getListeDesDatesDesActesDuPatient(915);
+		//var_dump($listeActesExamensComp); exit();
+		//$listeExamensComp = $this->getAdmissionTable()->getListeDesDatesDesExamensComplementairesDuPatient(915);
+		//var_dump($listeExamensComp); exit();
+		
+		//$fusion_tab = array_unique(array_merge($listeActesExamensComp, $listeExamensComp));
+		//rsort($fusion_tab);
+		//var_dump($fusion_tab); exit();
+		
+		//$listeActesDemandes = $this->getAdmissionTable()->getListeDesActesDuPatient(914, '2018-02-24');
+		//var_dump($listeActesDemandes); exit();
+		
+		//$listeExamensDemandes = $this->getAdmissionTable()->getListeDesExamensComplementairesDuPatient(915, '2018-02-24');
+		//var_dump($listeExamensDemandes); exit();
+		
+		
+		//$output = $this->getPatientTable ()->laListePatientsActesExamensAjax();
+		
 		
 		return array (
 				'form' => $formAdmission
@@ -1980,21 +2001,12 @@ class UrgenceController extends AbstractActionController {
     public function getInfosActesExamensPatientAction() {
     	
     	$id_patient = ( int ) $this->params ()->fromPost ( 'id_patient', 0 );
-    	//$id_admission = ( int ) $this->params ()->fromPost ( 'id_admission', 0 );
     	
-    	//MISE A JOUR DE L'AGE DU PATIENT
-    	//MISE A JOUR DE L'AGE DU PATIENT
-    	//MISE A JOUR DE L'AGE DU PATIENT
-    	//$this->getPatientTable()->miseAJourAgePatient($id_patient);
-    	//*******************************
-    	//*******************************
-    	//*******************************
+    	$Control = new DateHelper ();
     	
-    	$pat = $this->getPatientTable ();
+    	$unPatient = $this->getPatientTable ()->getInfoPatient( $id_patient );
     	
-    	$unPatient = $pat->getInfoPatient( $id_patient );
-    	
-    	$photo = $pat->getPhoto ( $id_patient );
+    	$photo = $this->getPatientTable ()->getPhoto ( $id_patient );
     	
     	
     	$date = $unPatient['DATE_NAISSANCE'];
@@ -2043,13 +2055,98 @@ class UrgenceController extends AbstractActionController {
     	$html .= "<div id='titre_info_actes_examens'>Actes et examens compl&eacute;mentaires </div>
 		          <div id='barre_actes_examens'></div>";
     	
+    	//LES ACTES ET EXAMENS COMPLEMENTAIRES DU PATIENT DONNES
+    	//LES ACTES ET EXAMENS COMPLEMENTAIRES DU PATIENT DONNES
+    	
+    	$html .="<div style='width: 100%; margin-right: 10px; margin-top: 5px; max-height: 280px; overflow: auto;'>";
+
+    	$listeActesExamensComp = $this->getAdmissionTable()->getListeDesDatesDesActesDuPatient($id_patient);
+    	$listeExamensComp = $this->getAdmissionTable()->getListeDesDatesDesExamensComplementairesDuPatient($id_patient);
+    	$listeDatesDesActesDesExamens = array_unique(array_merge($listeActesExamensComp, $listeExamensComp));
+    	rsort($listeDatesDesActesDesExamens);
+    	
+    	for($iae = 0 ; $iae < count($listeDatesDesActesDesExamens) ; $iae++){
+    		$date_admission = $listeDatesDesActesDesExamens[$iae];
+    		
+    		$html .="<span id='labelHeureLABEL' style='padding-left: 5px;'> ".$Control->convertDate($date_admission)." </span>
+    		         <p id='zoneChampInfo1' style='background:#f8faf8; padding-left: 15px; padding-right: 25px; margin-right: 35px; padding-top: 5px; font-size:19px; width: 95%;'>";
+    			
+    		//LISTE DES ACTES
+    		$listeActesDemandes = $this->getAdmissionTable()->getListeDesActesDuPatient($id_patient, $date_admission);
+    		for($iacte = 0 ; $iacte < count($listeActesDemandes) ; $iacte++){
+    			if($iacte == 0){
+    				$html .="&#9883; <span style='font-weight: bold; text-decoration: underline; line-height: 30px;'> Les actes :</span><br>
+    			                 <span style='color: black; margin-left: 20px;'>";
+    			}
+    			$html .="<span style='margin-right: 20px'> <span style='font-size: 13px;'>&#10148;</span> <span style='font-size: 16px;'>".$listeActesDemandes[$iacte]."</span></span>";
+    		}
+    		
+    		$html .="</span>";
+    		
+    		if(count($listeActesDemandes)){
+    			$html .="<br>";
+    		}
+    		
+    		//LISTE DES EXAMENS
+    		$listeExamensDemandes = $this->getAdmissionTable()->getListeDesExamensComplementairesDuPatient($id_patient, $date_admission);
+    		for($iexam = 0 ; $iexam < count($listeExamensDemandes[1]) ; $iexam++){
+    				
+    			if($iexam == 0){
+    				$html .="&#9883; <span style='font-weight: bold;  text-decoration: underline; line-height: 30px;'> Les examens compl&eacute;mentaires :</span><br>
+    			            <span style='color: black; margin-left: 20px;'>";
+    			}
+    				
+    			$html .="<span style='margin-right: 20px'> <span style='font-size: 13px;'>&#10148;</span> <i style='font-size: 13px;'>".$listeExamensDemandes[0][$iexam]."</i> <span style='font-size: 14px; font-weight: bold;'>".$listeExamensDemandes[1][$iexam]."</span></span>";
+    		}
+    		
+    		$html .="</span>
+    			      </br>
+    			     </p>";
+    	}
+    	
+    	
+    			
+    	$html .="</div>";
+    		
+    	
+    	
+    	
     	$this->getResponse()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html' );
     	return $this->getResponse ()->setContent(Json::encode ( $html ));
     }
     
+    public function listePatientsAdmisRegistreAjaxAction() {
+    	$output = $this->getPatientTable ()->laListePatientsAdmisRegistreAjax();
+    	return $this->getResponse ()->setContent ( Json::encode ( $output, array (
+    			'enableJsonExprFinder' => true
+    	) ) );
+    }
     
-    
-    
+    public function impressionRegistrePatientsAdmisAction() {
+    	
+    	$user = $this->layout()->user;
+    	$nomService = $user['NomService'];
+    	$aujourdhui = (new \DateTime ())->format( 'd/m/Y' );
+    	
+    	$date_admisssion = $this->params ()->fromPost (  'date_admission' );
+    	
+    	$listePatientsAdmis = $this->getPatientTable ()->getListePatientsAdmisRegistre();
+    	//var_dump($listePatientsAdmis['aaData'][0]); exit();
+    	
+    	//******************************************************
+    	//******************************************************
+    	
+    	$pdf = new infosRegistrePatientAdmisPdf('L','mm','A4');
+    	$pdf->setNomService($nomService);
+    	$pdf->SetMargins(13.5,13.5,13.5);
+    	$pdf->setDateAdmission($aujourdhui);
+    	$pdf->setListePatientsAdmis($listePatientsAdmis);
+    	
+    	$pdf->ImpressionInfosStatistiques();
+    	$pdf->Output('I');
+    	
+    	
+    }
     
     
     

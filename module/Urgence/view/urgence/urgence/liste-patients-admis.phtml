@@ -775,9 +775,17 @@ $(window).load(function () {
 </div>
 
 
+
+<?php if($role == 'infirmier-service' || $role =='medecin'){ ?>
+
+  <script type="text/javascript">
+    getAutoCompletionListeMotifsAdmission();
+    initialisationListeTypePathologie();
+  </script>
+
+<?php } ?>
+
 <script type="text/javascript">
-getAutoCompletionListeMotifsAdmission();
-initialisationListeTypePathologie();
 
 $('#admission_urgence, .chargementPageModification').toggle(false);
 $('#accordionsUrgence, #accordionActes').accordion();

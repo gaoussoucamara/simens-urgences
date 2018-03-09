@@ -58,6 +58,8 @@ $(window).load(function () {
 	<li>
 	   <div style="margin-left: 15px; border: 0.5px dashed gray; width: 80%; margin-top: 25px;"> </div>
 	   <img onclick="affichagePatientsActesExamens();" style="margin-left: 15px; margin-top: 5px; margin-bottom: 5px; display: inline; cursor: pointer;" title="Actes et examens des patients" src='<?php echo $this->basePath().'/images_icons/infos.png'?>' />
+	   <img onclick="imprimerRegistreDesPatientsAdmis();" style="margin-left: 10px; margin-top: 5px; margin-bottom: 5px; display: inline; cursor: pointer;" title="R&eacute;gistre &agrave; imprimer" src='<?php echo $this->basePath().'/images_icons/button_pdf.png'?>' />
+	   	   
 	</li>
 
 </ul>
@@ -256,6 +258,11 @@ return false;
 
 
 
+
+
+
+
+
 <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/urgence/affichagePatientsActesExamens.css');?>
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/urgence/affichagePatientsActesExamens.js'); ?>
 
@@ -266,6 +273,13 @@ return false;
 <div id="affichagePatientsActesExamensMenuGauche" title="Actes et examens compl&eacute;mentaires des patients" style="display: none;" >
 
   <div id="contenuListePatientTableau">
+  <div style='margin-right: 40px; float:right; font-family: Times New Roman; font-size: 15px; color: green;'> 
+	<i style='cursor:pointer;' id='afficherPatientAujourdhui'> Aujourd'hui </i> | 
+	<i style='cursor:pointer;' id='afficherPatientHier'> Hier </i> |
+	<i style='cursor:pointer;' id='afficherPatientAvantHier'> Avant hier </i> | 
+	<i style='cursor:pointer;' id='afficherPatientAutresJour'> Autres .. </i>
+  </div>  
+  
   <table style="width: 100%;  align: center" class="table table-bordered tab_list_mini" id="actesExamensComplementairesPatients">
 	<thead>
 		<tr>
@@ -273,19 +287,19 @@ return false;
 			  <input type="text" name="search_browser" value=" N&deg; dossier" class="search_init_mg" />
 			</th>
 			<th id="nomMG_" style='width: 15%;'>
-			  <input type="text" type="text" name="search_browser" value=" Nom" class="search_init_mg" />
+			  <input type="text"  name="search_browser" value=" Nom" class="search_init_mg" />
 			</th>
 			<th id="prenomMG_" style='width: 22%;'>
-			  <input type="text" type="text" name="search_browser" value=" Pr&eacute;nom" class="search_init_mg" />
+			  <input type="text" name="search_browser" value=" Pr&eacute;nom" class="search_init_mg" />
 			</th>
 			<th id="ageMG_" style='width: 5%;'>
-			  <input type="text" type="text" name="search_browser" value=" Age" class="search_init_mg" />
+			  <input type="text" name="search_browser" value=" Age" class="search_init_mg" />
 			</th>
 			<th id="adresseMG_" style='width: 43%;'>
-			  <input type="text" type="text" name="search_browser" value=" Adresse" class="search_init_mg" />
+			  <input type="text"  name="search_browser" value=" Adresse" class="search_init_mg" />
 			</th>
 			<th id="optionsMG_" style='width: 5%;'>
-			  <input type="hidden" type="text" class="optionsAffichage"/>Options
+			  <input type="hidden" class="optionsAffichage"/>Options
 			</th>
 		</tr>
 
@@ -303,7 +317,7 @@ return false;
   
   <div id="contenuInfoPatientActesExamen" style="display: none;">
   
-    <div style="width: 100%; height: 30px;"><span style="float: left;" onclick="retourVersListePatientsActesExamens();" > dh </span></div>
+    <div style="width: 100%; height: 30px;"><span style="float: left; font-size: 25px; cursor: pointer;" onclick="retourVersListePatientsActesExamens();" title="Pr&eacute;c&eacute;dent"> &#129092; </span></div>
     <div style="width: 100%;" id="contenuInfoPatientActesExamensComplementaire" >
   
     </div>
@@ -313,4 +327,88 @@ return false;
 
 <script>
    initialisationActesExamensComplementaires();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- GESTION DE L'INTERFACE DE GENERATION DE REGISTRES -->
+<!-- GESTION DE L'INTERFACE DE GENERATION DE REGISTRES -->
+<!-- GESTION DE L'INTERFACE DE GENERATION DE REGISTRES -->
+
+<div id="generationDesRegistresDesPatientsAdmisMenuGauche" title="G&eacute;n&eacute;rer la liste des patients admis (R&eacute;gistre)" style="display: none;" >
+
+
+  <div class="optionsPeriodeMG" align="center">
+    <div class="optionsPeriodePathMG" align="center">
+           <div class="champOP1MG"><img onclick='imprimerRegistreDesPatientsAdmisParPeriode();' src='../images_icons/Apps-Pdf-B-icon-2.png' title='imprimer'><!-- input type="date"--></div> 
+           <div class="champOP2MG"><input type="date"><button onclick="getRegistreDesPatientsAdmisPourPeriode();">Afficher</button></div>
+    </div>    
+  </div>
+
+  
+  <div class="zoneGenerationDesRegistresDesPatientsAdmis">
+  
+  
+    <table style="width: 100%;" class="table table-bordered tab_list_mini" id="listePatientsAdmisPourLeRegistre">
+	  
+	  <thead style="width: 100%;">
+		
+		<tr style="width: 100%;">
+		
+			<th id="numeroDossierRegMG_" style='width: 10px;'>
+			  <input type="text" name="search_browser" value=" N&deg; dossier" class="search_init_reg_mg" />
+			</th>
+			<th id="nomRegMG_" style='width: 10%;'>
+			  <input type="text" name="search_browser" value=" Nom" class="search_init_reg_mg" />
+			</th>
+			<th id="prenomRegMG_" style='width: 20%;'>
+			  <input type="text"  name="search_browser" value=" Pr&eacute;nom" class="search_init_reg_mg" />
+			</th>
+			<th id="ageRegMG_" style='width: 50px;'>
+			  <input type="text"  name="search_browser" value=" Age" class="search_init_reg_mg" />
+			</th>
+			<th id="actesRegMG_" style='width: 20%;'>
+			  <input type="text"  name="search_browser" value=" Actes" class="search_init_reg_mg" />
+			</th>
+			<th id="examensRegMG_" style='width: 20%;'>
+			  <input type="text" name="search_browser" value=" Examens" class="search_init_reg_mg" />
+			</th>
+			<th id="diagnosticsRegMG_" style='width: 110px;'>
+			  <input type="text" name="search_browser" value=" Diagnostics" class="search_init_reg_mg" />
+			</th>
+			
+		</tr>
+
+	  </thead>
+
+	  <tbody id="donnees" class="liste_patient" style="font-family: times new roman; font-size: 19px;">
+
+            <?php /* AFFICHAGE DE LA LISTE DES PATIENTS */?>
+
+	  </tbody>
+
+    </table>
+  
+  
+  </div>
+
+</div>
+
+
+<div  style="display: none;">
+<form id="imprimerRegistreDesPatientsAdmisPdf"> <button></button> </form>
+</div>
+
+
+<script>
+  initialisationListePatientsAdmisRegistre();
 </script>

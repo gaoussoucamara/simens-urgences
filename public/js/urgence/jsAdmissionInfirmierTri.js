@@ -307,17 +307,15 @@ function admettre(id){
 	  	$('#envoyerDonneesForm').trigger('click');
 	});
 	
-	// R�cup�ration des donn�es du patient
 	var cle = id;
 	var chemin = tabUrl[0] + 'public/urgence/admission';
 	$.ajax({
 		type : 'POST',
 		url : chemin,
-		data : $(this).serialize(),
 		data : 'id=' + cle,
 		success : function(data) {
 			var result = jQuery.parseJSON(data);
-			$("#info_patient").html(result);
+			$("#info_patient").html(result[0]);
 			// PASSER A SUIVANT
 			$('#admission_urgence').animate({
 				height : 'toggle'

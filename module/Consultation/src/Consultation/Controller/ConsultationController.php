@@ -362,6 +362,15 @@ class ConsultationController extends AbstractActionController {
 		}
 		
 		
+		//Gestion des examens complémentaires
+		//Gestion des examens complémentaires
+		$listeExamensDemandes = $this->getMotifAdmissionTable ()->getListeExamensDemandes($id_admission);
+		$infosExamenComp = "";
+		for($iec = 0 ; $iec < count($listeExamensDemandes) ; $iec++){
+			$infosExamenComp .= ($iec+1).') '.$listeExamensDemandes[$iec][0].' ( '.$listeExamensDemandes[$iec][1].' ) \n';
+		}
+		
+		
 		//Récupération du rpu_hospitalisation
 		//Récupération du rpu_hospitalisation
 		$rpu_hospitalisation = $this->getConsultationTable ()->getRpuHopitalisation($id_admission);
@@ -369,7 +378,7 @@ class ConsultationController extends AbstractActionController {
 		if($rpu_hospitalisation){
 			if($rpu_hospitalisation['resume_syndromique'] ){ $html .="<script> $('#resume_syndromique').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['resume_syndromique']))."'); </script>"; }
 			if($rpu_hospitalisation['hypotheses_diagnostiques'] ){ $html .="<script> $('#hypotheses_diagnostiques').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['hypotheses_diagnostiques']))."'); </script>"; }
-			if($rpu_hospitalisation['examens_complementaires'] ){ $html .="<script> $('#examens_complementaires').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['examens_complementaires']))."'); </script>"; }
+			if($listeExamensDemandes){ $html .="<script>alert(); $('#examens_complementaires').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$infosExamenComp))."'); </script>"; }
 			if($rpu_hospitalisation['traitement'] ){ $html .="<script> $('#traitement').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['traitement']))."'); </script>"; }
 			if($rpu_hospitalisation['resultats_examens_complementaires'] ){ $html .="<script> $('#resultats_examens_complementaires').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['resultats_examens_complementaires']))."'); </script>"; }
 			if($rpu_hospitalisation['mise_a_jour_1'] ){ $html .="<script> $('#mise_a_jour_1').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['mise_a_jour_1']))."'); </script>"; }
@@ -379,6 +388,8 @@ class ConsultationController extends AbstractActionController {
 			if($rpu_hospitalisation['mutation'] ){ $html .="<script> $('#mutation').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$rpu_hospitalisation['mutation']))."'); </script>"; }
 		
 			$html .="<script> var rpu_hospitalisation = 1;  </script>";
+		}else{
+			if($listeExamensDemandes){ $html .="<script> $('#examens_complementaires').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$infosExamenComp))."'); </script>"; }
 		}
 	
 		//Récupération du rpu_traumatisme
