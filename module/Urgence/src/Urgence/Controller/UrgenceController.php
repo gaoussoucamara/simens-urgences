@@ -887,24 +887,43 @@ class UrgenceController extends AbstractActionController {
 		$listeSalles = $this->getPatientTable ()->listeSalles();
 		$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
 		
-		
-		//$listeActesExamensComp = $this->getAdmissionTable()->getListeDesDatesDesActesDuPatient(915);
-		//var_dump($listeActesExamensComp); exit();
-		//$listeExamensComp = $this->getAdmissionTable()->getListeDesDatesDesExamensComplementairesDuPatient(915);
-		//var_dump($listeExamensComp); exit();
-		
 		//$fusion_tab = array_unique(array_merge($listeActesExamensComp, $listeExamensComp));
 		//rsort($fusion_tab);
 		//var_dump($fusion_tab); exit();
-		
-		//$listeActesDemandes = $this->getAdmissionTable()->getListeDesActesDuPatient(914, '2018-02-24');
-		//var_dump($listeActesDemandes); exit();
-		
-		//$listeExamensDemandes = $this->getAdmissionTable()->getListeDesExamensComplementairesDuPatient(915, '2018-02-24');
-		//var_dump($listeExamensDemandes); exit();
+
 		
 		
-		//$output = $this->getPatientTable ()->laListePatientsActesExamensAjax();
+		
+		
+		/***
+		 * TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
+		* TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
+		*/
+		
+		//$timestart = microtime(true);
+		//$output = $this->getPatientTable ()->getListePatient ();
+		//var_dump($output); exit();
+		//UTILISER LA TABLE 'ListePatientsAdmisTable()' 
+		/*
+		$output = $this->getPersonneListeTable()->fetchAll()->toArray();
+		$listeAjax = array(
+				'iTotalDisplayRecords' => count($output),
+				'aaData' => $output
+		);
+		
+		var_dump($listeAjax); exit();
+		*/
+		//$timeend = microtime(true);
+		//$time = $timeend-$timestart;
+		
+		//var_dump(number_format($time,3)); exit();
+		
+		/***
+		 * ==============================================================
+		* ==============================================================
+		*/
+		
+		
 		
 		
 		return array (

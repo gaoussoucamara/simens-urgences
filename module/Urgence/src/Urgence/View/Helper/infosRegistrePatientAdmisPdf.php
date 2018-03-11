@@ -324,8 +324,8 @@ class infosRegistrePatientAdmisPdf extends fpdf
 					
 				$this->SetFont('Times','',9.5,1);
 				$this->Cell(24,$hauteurLigne,$donneesPatientsAdmis[$i][0],'BLT',0,'L',1); //BLT
-				$this->Cell(38,$hauteurLigne,$donneesPatientsAdmis[$i][2],'BT',0,'L',1); //BT
-				$this->Cell(28,$hauteurLigne,$donneesPatientsAdmis[$i][1],'BT',0,'L',1);
+				$this->Cell(38,$hauteurLigne,iconv ('UTF-8' , 'windows-1252', $donneesPatientsAdmis[$i][2]),'BT',0,'L',1); //BT
+				$this->Cell(28,$hauteurLigne,iconv ('UTF-8' , 'windows-1252', $donneesPatientsAdmis[$i][1]),'BT',0,'L',1);
 				$this->Cell(10,$hauteurLigne,$donneesPatientsAdmis[$i][3],'BT',0,'C',1);
 				
 				//Affichage des actes
