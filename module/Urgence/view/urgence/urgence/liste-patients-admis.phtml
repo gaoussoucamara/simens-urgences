@@ -77,6 +77,11 @@ $(window).load(function () {
 					</tr>
 				</tfoot>
 			</table>
+			
+			
+			<script>
+              initialisation();
+            </script>
 </div>
 <div class="chargementPageModification" align="center" style="margin-top: 25px;">
   <table> 
@@ -598,9 +603,6 @@ $(window).load(function () {
 
 
 
-
-
-
 <div id="modifierMotifsAdmission" title="Corriger les motifs d'admission" style="display: none;" >
 
    <div id="gestionInfosACorriger" class="gestionInfosACorriger" >
@@ -775,28 +777,10 @@ $(window).load(function () {
 </div>
 
 
-
-<?php if($role == 'infirmier-service' || $role =='medecin'){ ?>
-
-  <script type="text/javascript">
-    getAutoCompletionListeMotifsAdmission();
-    initialisationListeTypePathologie();
-  </script>
-
-<?php } ?>
-
 <script type="text/javascript">
 
 $('#admission_urgence, .chargementPageModification').toggle(false);
 $('#accordionsUrgence, #accordionActes').accordion();
-
-$(function(){
-	initialisation();
-	setTimeout(function() {
-		infoBulle();
-	}, 1000);
-});
-
 
 
 $(function(){
@@ -841,3 +825,14 @@ $("#admission").replaceWith("<li id='admission' style='background:#4a5765;'><a h
 dep_admission1();
 $('#liste_admission_style').css({'font-weight':'bold','color':'white','font-size':'19px'});
 </script>
+
+
+
+<?php if($role == 'infirmier-service' || $role =='medecin'){ ?>
+
+  <script type="text/javascript">
+    getAutoCompletionListeMotifsAdmission();
+    initialisationListeTypePathologie();
+  </script>
+
+<?php } ?>

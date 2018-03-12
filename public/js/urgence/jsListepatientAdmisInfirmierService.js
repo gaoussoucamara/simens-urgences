@@ -158,6 +158,7 @@
     		}
     	} );
 
+    	$('#patient thead th').unbind('click');
     }
     
 
@@ -190,7 +191,7 @@
     		visualiser(id);
     	});
     	
-    	$('a,img,hass').tooltip({ animation: true, html: true, placement: 'bottom', show: { effect: "slideDown", delay: 250 }} );
+    	$('a,img,span').tooltip({ animation: true, html: true, placement: 'bottom', show: { effect: "slideDown", delay: 250 }} );
     }
 
     function getListeLits(id_salle){ 

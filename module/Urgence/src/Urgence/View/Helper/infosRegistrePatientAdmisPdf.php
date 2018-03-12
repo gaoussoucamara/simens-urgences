@@ -190,7 +190,7 @@ class infosRegistrePatientAdmisPdf extends fpdf
 		$this->SetTextColor(0,0,0);
 		$this->Cell(0,4,"République du Sénégal");
 		$this->SetFont('Times','',8.5);
-		$this->Cell(0,4,"Saint-Louis, le ".(new \DateTime ())->format( 'd/m/Y' ),0,0,'R');
+		$this->Cell(0,4,"Date d'admission : ".(new DateHelper())->convertDate($this->getDateAdmission()),0,0,'R');
 		$this->SetFont('Times','',10.3);
 		$this->Ln(5.4);
 		$this->Cell(100,4,"Ministère de la santé et de l'action sociale");
@@ -324,8 +324,8 @@ class infosRegistrePatientAdmisPdf extends fpdf
 					
 				$this->SetFont('Times','',9.5,1);
 				$this->Cell(24,$hauteurLigne,$donneesPatientsAdmis[$i][0],'BLT',0,'L',1); //BLT
-				$this->Cell(38,$hauteurLigne,$donneesPatientsAdmis[$i][2],'BT',0,'L',1); //BT
-				$this->Cell(28,$hauteurLigne,$donneesPatientsAdmis[$i][1],'BT',0,'L',1);
+				$this->Cell(38,$hauteurLigne,iconv ('UTF-8' , 'windows-1252', $donneesPatientsAdmis[$i][2]),'BT',0,'L',1); //BT
+				$this->Cell(28,$hauteurLigne,iconv ('UTF-8' , 'windows-1252', $donneesPatientsAdmis[$i][1]),'BT',0,'L',1);
 				$this->Cell(10,$hauteurLigne,$donneesPatientsAdmis[$i][3],'BT',0,'C',1);
 				
 				//Affichage des actes

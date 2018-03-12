@@ -3462,7 +3462,7 @@ class PatientTable {
 		return array($listeTypesDesExamens, $listeDesExamens, $listeIdTypeDesExamens, $listeIdDesExamens);
 	}
 	
-	public function laListePatientsAdmisRegistreAjax(){
+	public function laListePatientsAdmisRegistreAjax($date_admission){
 	
 		$db = $this->tableGateway->getAdapter();
 	
@@ -3504,13 +3504,15 @@ class PatientTable {
 		$aujourdhui = $date->format ( 'Y-m-d' );
 		$hier = date("Y-m-d", strtotime('-1 day'));
 		$avanthier = date("Y-m-d", strtotime('-2 day'));
+		
+		if($date_admission == null){$date_admission = $aujourdhui;}
 	
 		$sql = new Sql($db);
 		$sQuery = $sql->select()
 		->from(array('pat' => 'patient'))->columns(array('Numero_dossier' => 'NUMERO_DOSSIER'))
 		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Age'=>'AGE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
 		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('date_admission' => 'date', 'Id_admission' => 'id_admission'))
-		->where( array ( 'au.date' => $aujourdhui) )
+		->where( array ( 'au.date' => $date_admission) )
 		
 		->group(array('pat.ID_PERSONNE'))
 		->order(array('au.id_admission DESC'));
@@ -3595,7 +3597,7 @@ class PatientTable {
 						if($html){
 							$row[] = $html;
 						}else{
-							$row[] = 'N&eacute;ant ';
+							$row[] = "<div style='font-size: 15px;'>Néant </span>";
 						}
 
 					}
@@ -3608,7 +3610,7 @@ class PatientTable {
 						for($iexam = 0 ; $iexam < count($listeExamensDemandes[1]) ; $iexam++){
 						
 							if($iexam == 0){
-								$html = "<div style='font-size: 15px; max-height: 23px; overflow: hidden;' >";
+								$html = "<div style='font-size: 15px; max-height: 23px; min-width: 300px; max-width: 300px; overflow: hidden;' >";
 							}
 							
 							$html .="<span style='font-size: 13px;'>&#10148;</span> <i style='font-size: 13px;'>".$listeExamensDemandes[0][$iexam]."</i> <span style='font-size: 14px; font-weight: bold;'>".$listeExamensDemandes[1][$iexam]."</span></br>";
@@ -3622,7 +3624,7 @@ class PatientTable {
 						if($html){
 							$row[] = $html;
 						}else{
-							$row[] = 'N&eacute;ant ';
+							$row[] = "<div style='font-size: 15px;'>Néant </span>";
 						}
 					
 					}
@@ -3648,7 +3650,7 @@ class PatientTable {
 		return $output;
 	}
 	
-	public function getListePatientsAdmisRegistre($date_debut=null, $date_fin=null){
+	public function getListePatientsAdmisRegistre($date_select){
 		
 		$date = new \DateTime ("now");
 		$dateDuJour = $date->format ( 'Y-m-d' );
@@ -3665,7 +3667,7 @@ class PatientTable {
 		->from(array('pat' => 'patient'))->columns(array('Numero_dossier' => 'NUMERO_DOSSIER'))
 		->join(array('pers' => 'personne'), 'pat.ID_PERSONNE = pers.ID_PERSONNE', array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE','Age'=>'AGE','Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE','Idpatient'=>'ID_PERSONNE'))
 		->join(array('au' => 'admission_urgence'), 'au.id_patient = pers.ID_PERSONNE', array('date_admission' => 'date', 'Id_admission' => 'id_admission'))
-		->where( array ( 'au.date' => $aujourdhui) )
+		->where( array ( 'au.date' => $date_select) )
 		
 		->group(array('pat.ID_PERSONNE'))
 		->order(array('au.id_admission DESC'));

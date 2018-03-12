@@ -205,7 +205,7 @@ function imprimerRegistreDesPatientsAdmis(){
 
 
 var oTableListePatientsAdmisRegistre;
-function initialisationListePatientsAdmisRegistre() {
+function initialisationListePatientsAdmisRegistre($date) {
 
 	var asInitPatientsAdmisRegistreMG = new Array();
 	oTableListePatientsAdmisRegistre = $('#listePatientsAdmisPourLeRegistre').dataTable( {
@@ -226,7 +226,7 @@ function initialisationListePatientsAdmisRegistre() {
 			}
 		},
 		
-		"sAjaxSource" : "" + tabUrl[0] + "public/urgence/liste-patients-admis-registre-ajax",
+		"sAjaxSource" : "" + tabUrl[0] + "public/urgence/liste-patients-admis-registre-ajax/"+$date,
 		
 		"fnDrawCallback" : function() {
 			// markLine();
@@ -236,7 +236,32 @@ function initialisationListePatientsAdmisRegistre() {
 	});
 	
 	
-	
+	$("#listePatientsAdmisPourLeRegistre thead input").keyup(function() {
+		/* Filter on the column (the index) of this element */
+		oTableListePatientsAdmisRegistre.fnFilter(this.value, $("#listePatientsAdmisPourLeRegistre thead input").index(this));
+	});
+
+	/*
+	 * Support functions to provide a little bit of 'user friendlyness' to the
+	 * textboxes in the footer
+	 */
+	$("#listePatientsAdmisPourLeRegistre thead input").each(function(i) {
+		asInitPatientsAdmisRegistreMG[i] = this.value;
+	});
+
+	$("#listePatientsAdmisPourLeRegistre thead input").focus(function() {
+		if (this.className == "search_init_reg_mg") {
+			this.className = "";
+			this.value = "";
+		}
+	});
+
+	$("#listePatientsAdmisPourLeRegistre thead input").blur(function(i) {
+		if (this.value == "") {
+			this.className = "search_init_reg_mg";
+			this.value = asInitPatientsAdmisRegistreMG[$("#listePatientsAdmisPourLeRegistre thead input").index(this)];
+		}
+	});
 	
 	$('#listePatientsAdmisPourLeRegistre thead th').unbind('click');
 }
@@ -250,20 +275,34 @@ function imprimerRegistreDesPatientsAdmisParPeriode(){
 	imprimerRegistreDesPatientsAdmisPdf.setAttribute("method", "POST");
 	imprimerRegistreDesPatientsAdmisPdf.setAttribute("target", "_blank");
 	
-	/*
+	var $date_select = $('#generationDesRegistresDesPatientsAdmisMenuGauche .champOP2MG input').val();
+	
 	// Ajout dynamique de champs dans le formulaire
 	var champ = document.createElement("input");
 	champ.setAttribute("type", "hidden");
-	champ.setAttribute("name", 'idpatient');
-	champ.setAttribute("value", idpatient);
+	champ.setAttribute("name", 'date_select');
+	champ.setAttribute("value", $date_select);
 	imprimerRegistreDesPatientsAdmisPdf.appendChild(champ);
-	*/
 	
 	$("#imprimerRegistreDesPatientsAdmisPdf button").trigger('click');
 }
 
+var empTabVide = "";
+function emplacementTableauVide(){
+	empTabVide = $('.zoneGenerationDesRegistresDesPatientsAdmis').html();
+}
+
 
 function getRegistreDesPatientsAdmisPourPeriode(){
-	alert(22);
+	var $date_select = $('#generationDesRegistresDesPatientsAdmisMenuGauche .champOP2MG input').val();
+	$date_select = $date_select.replace('-','');
+	$date_select = $date_select.replace('-','');
+	
+	setTimeout(function(){ 
+		$('.zoneGenerationDesRegistresDesPatientsAdmis table').remove();
+		$('.zoneGenerationDesRegistresDesPatientsAdmis').html(empTabVide);
+		oTableListePatientsAdmisRegistre = "";
+		initialisationListePatientsAdmisRegistre($date_select);
+	},1000);
 }
 

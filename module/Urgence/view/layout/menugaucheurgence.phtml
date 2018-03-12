@@ -343,6 +343,7 @@ return false;
 <!-- GESTION DE L'INTERFACE DE GENERATION DE REGISTRES -->
 <!-- GESTION DE L'INTERFACE DE GENERATION DE REGISTRES -->
 <!-- GESTION DE L'INTERFACE DE GENERATION DE REGISTRES -->
+<?php $dateDefautCalendrier = (new \DateTime ("now"))->format ( 'Y-m-d' ); ?>
 
 <div id="generationDesRegistresDesPatientsAdmisMenuGauche" title="G&eacute;n&eacute;rer la liste des patients admis (R&eacute;gistre)" style="display: none;" >
 
@@ -350,7 +351,7 @@ return false;
   <div class="optionsPeriodeMG" align="center">
     <div class="optionsPeriodePathMG" align="center">
            <div class="champOP1MG"><img onclick='imprimerRegistreDesPatientsAdmisParPeriode();' src='../images_icons/Apps-Pdf-B-icon-2.png' title='imprimer'><!-- input type="date"--></div> 
-           <div class="champOP2MG"><input type="date"><button onclick="getRegistreDesPatientsAdmisPourPeriode();">Afficher</button></div>
+           <div class="champOP2MG"><input type="date" value="<?php echo $dateDefautCalendrier; ?>"><button onclick="getRegistreDesPatientsAdmisPourPeriode();">Afficher</button></div>
     </div>    
   </div>
 
@@ -390,7 +391,7 @@ return false;
 
 	  </thead>
 
-	  <tbody id="donnees" class="liste_patient" style="font-family: times new roman; font-size: 19px;">
+	  <tbody id="donnees" class="liste_patient" style="font-family: times new roman; font-size: 19px; width: 100%;">
 
             <?php /* AFFICHAGE DE LA LISTE DES PATIENTS */?>
 
@@ -400,7 +401,7 @@ return false;
   
   
   </div>
-
+  
 </div>
 
 
@@ -408,7 +409,9 @@ return false;
 <form id="imprimerRegistreDesPatientsAdmisPdf"> <button></button> </form>
 </div>
 
+<?php $dateDuJour = (new \DateTime ("now"))->format ( 'Ymd' ); ?>
 
 <script>
-  initialisationListePatientsAdmisRegistre();
+  emplacementTableauVide();
+  initialisationListePatientsAdmisRegistre('<?php echo $dateDuJour; ?>');
 </script>

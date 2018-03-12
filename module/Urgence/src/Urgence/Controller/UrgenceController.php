@@ -887,24 +887,43 @@ class UrgenceController extends AbstractActionController {
 		$listeSalles = $this->getPatientTable ()->listeSalles();
 		$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
 		
-		
-		//$listeActesExamensComp = $this->getAdmissionTable()->getListeDesDatesDesActesDuPatient(915);
-		//var_dump($listeActesExamensComp); exit();
-		//$listeExamensComp = $this->getAdmissionTable()->getListeDesDatesDesExamensComplementairesDuPatient(915);
-		//var_dump($listeExamensComp); exit();
-		
 		//$fusion_tab = array_unique(array_merge($listeActesExamensComp, $listeExamensComp));
 		//rsort($fusion_tab);
 		//var_dump($fusion_tab); exit();
-		
-		//$listeActesDemandes = $this->getAdmissionTable()->getListeDesActesDuPatient(914, '2018-02-24');
-		//var_dump($listeActesDemandes); exit();
-		
-		//$listeExamensDemandes = $this->getAdmissionTable()->getListeDesExamensComplementairesDuPatient(915, '2018-02-24');
-		//var_dump($listeExamensDemandes); exit();
+
 		
 		
-		//$output = $this->getPatientTable ()->laListePatientsActesExamensAjax();
+		
+		
+		/***
+		 * TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
+		* TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
+		*/
+		
+		//$timestart = microtime(true);
+		//$output = $this->getPatientTable ()->getListePatient ();
+		//var_dump($output); exit();
+		//UTILISER LA TABLE 'ListePatientsAdmisTable()' 
+		/*
+		$output = $this->getPersonneListeTable()->fetchAll()->toArray();
+		$listeAjax = array(
+				'iTotalDisplayRecords' => count($output),
+				'aaData' => $output
+		);
+		
+		var_dump($listeAjax); exit();
+		*/
+		//$timeend = microtime(true);
+		//$time = $timeend-$timestart;
+		
+		//var_dump(number_format($time,3)); exit();
+		
+		/***
+		 * ==============================================================
+		* ==============================================================
+		*/
+		
+		
 		
 		
 		return array (
@@ -2116,7 +2135,16 @@ class UrgenceController extends AbstractActionController {
     }
     
     public function listePatientsAdmisRegistreAjaxAction() {
-    	$output = $this->getPatientTable ()->laListePatientsAdmisRegistreAjax();
+    	
+    	//id_patient est utiliser pour recuperer la date selectionnée
+    	$date_select = $this->params ()->fromRoute ( 'id_patient', null );
+    	
+    	if($date_select != null){
+    		$dateHelper = new DateHelper();
+    		$date_select = $dateHelper->convertChaineInDateAnglais($date_select);
+    	}
+    	
+    	$output = $this->getPatientTable ()->laListePatientsAdmisRegistreAjax($date_select);
     	return $this->getResponse ()->setContent ( Json::encode ( $output, array (
     			'enableJsonExprFinder' => true
     	) ) );
@@ -2128,10 +2156,8 @@ class UrgenceController extends AbstractActionController {
     	$nomService = $user['NomService'];
     	$aujourdhui = (new \DateTime ())->format( 'd/m/Y' );
     	
-    	$date_admisssion = $this->params ()->fromPost (  'date_admission' );
-    	
-    	$listePatientsAdmis = $this->getPatientTable ()->getListePatientsAdmisRegistre();
-    	//var_dump($listePatientsAdmis['aaData'][0]); exit();
+    	$date_selectionnee = $this->params ()->fromPost (  'date_select' );
+    	$listePatientsAdmis = $this->getPatientTable ()->getListePatientsAdmisRegistre($date_selectionnee);
     	
     	//******************************************************
     	//******************************************************
@@ -2139,7 +2165,7 @@ class UrgenceController extends AbstractActionController {
     	$pdf = new infosRegistrePatientAdmisPdf('L','mm','A4');
     	$pdf->setNomService($nomService);
     	$pdf->SetMargins(13.5,13.5,13.5);
-    	$pdf->setDateAdmission($aujourdhui);
+    	$pdf->setDateAdmission($date_selectionnee);
     	$pdf->setListePatientsAdmis($listePatientsAdmis);
     	
     	$pdf->ImpressionInfosStatistiques();
