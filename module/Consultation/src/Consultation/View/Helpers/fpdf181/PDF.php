@@ -454,7 +454,7 @@ class PDF extends fpdf
 						$this->Cell(4,5,'*',0,0,'L'); //le 'b' est interessant
 						
 						$this->SetFont('Times','',12);
-						$this->WriteHTML('  <i>'.$tabInfosExamensDonnes[$iec][0].' :  </i>'.$tabInfosExamensDonnes[$iec][1]);
+						$this->WriteHTML('  <i>'.iconv ('UTF-8' , 'windows-1252', $tabInfosExamensDonnes[$iec][0]).' :  </i>'.iconv ('UTF-8' , 'windows-1252', $tabInfosExamensDonnes[$iec][1]));
 						$this->Ln(6);
 					}
 					

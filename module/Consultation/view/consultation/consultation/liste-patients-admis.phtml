@@ -1344,4 +1344,24 @@ dep_admission1();
 $('#liste_admission_style').css({'font-weight':'bold','color':'white','font-size':'19px'});
 
 getAutoCompletionListeMotifsAdmission();
+
+
+$("#rpu_sortie_diagnostic_principal").blur(function(){
+	   var str = $("#rpu_sortie_diagnostic_principal").val();
+	   var tab = str.split(" ");
+	   var chaine = "";
+
+ if(str){
+ 	   for(var i=0; i<tab.length;i++)
+ 	   {
+ 	 	   if(i==0){ chaine+=tab[0].substring(0,1).toUpperCase()+tab[i].substring(1,tab[i].length).toLowerCase()+" "; }
+ 	 	   else{
+ 	 		   chaine+=tab[i].substring(0,1).toLowerCase()+tab[i].substring(1,tab[i].length).toLowerCase()+" ";
+ 	 	   }
+ 	   }
+ }
+
+	   $("#rpu_sortie_diagnostic_principal").val(chaine);
+
+});
 </script>
