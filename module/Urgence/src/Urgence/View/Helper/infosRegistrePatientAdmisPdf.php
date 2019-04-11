@@ -292,7 +292,7 @@ class infosRegistrePatientAdmisPdf extends fpdf
 			$this->Cell(10,$hauteurLigneTete,'AGE',1,0,'L',1);
 			$this->Cell(42,$hauteurLigneTete,'ACTES',1,0,'L',1);
 			$this->Cell(72,$hauteurLigneTete,'EXAMENS COMPLEMENTAIRES',1,0,'L',1);
-			$this->Cell(48,$hauteurLigneTete,'DIAGNOSTIC',1,0,'L',1);
+			$this->Cell(48,$hauteurLigneTete,'MOTIFS DE CONSULTA..',1,0,'L',1);
 			
 			$this->Ln(8);
 			
@@ -303,9 +303,13 @@ class infosRegistrePatientAdmisPdf extends fpdf
 				//Recuperer le nombre d'actes et d'examens
 				$listeDesActes = $donneesPatientsAdmis[$i][4];
 				$listeDesExamens = $donneesPatientsAdmis[$i][5];
+				$diagnosticRpuPatient = $donneesPatientsAdmis[$i][6];
+				
 				$nbActes = count($listeDesActes);
 				$nbExamens = count($listeDesExamens);
-				$maxNbActeExamen = max(array($nbActes, $nbExamens));
+				$nbDiagnosticRpuPatient = count($diagnosticRpuPatient);
+				
+				$maxNbActeExamen = max(array($nbActes, $nbExamens, $nbDiagnosticRpuPatient));
 				$hauteurLigne = 5;
 				if($maxNbActeExamen != 0){
 					$hauteurLigne = 5*$maxNbActeExamen;
@@ -378,10 +382,19 @@ class infosRegistrePatientAdmisPdf extends fpdf
 					$interLigne += 5;
 				}
 				
+				//Affichage du diagnostic découpé en plusieurs parties
+				$this->Cell(48,$hauteurLigne,'','BTR',0,'L',1);
+				$interLigne = 0;
+				for($idiagnostic=0 ; $idiagnostic<$nbDiagnosticRpuPatient ; $idiagnostic++){
+					$y = $this->GetY()+3.5+$interLigne;
+					$this->SetFont('Times','',8);
+					$this->Text(237, $y, iconv ('UTF-8' , 'windows-1252', ' '.$diagnosticRpuPatient[$idiagnostic]));
+						
+					$interLigne += 5;
+				}
 				
+				$this->Cell(0,$hauteurLigne,'',0,1,'L',1);
 				
-				$this->SetFont('Times','',7.5);
-				$this->Cell(48,$hauteurLigne,' ---','BTR',1,'L',1);
 				$this->Ln(1);
 			}
 			

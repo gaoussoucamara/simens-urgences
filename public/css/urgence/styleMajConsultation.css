@@ -309,7 +309,7 @@ tr:hover /* Apparence au survol des liens */
 
 /************************************ style du tableau N�1 ****************************************/
 
-#responde input[type="text"]
+#responde input[type="text"], #responde select
 
 { /*le input ou le textarea*/
 
@@ -515,7 +515,7 @@ border-bottom-left-radius: 5px; /*arrondir le bord du label*/
 
 }
 
-#responde input[type="text"]
+#responde input[type="text"], #responde select
 {
 
 height: 45px; /*la hauteur du champ input*/
@@ -524,7 +524,7 @@ width: 95%;/*635px; /* la largeur du champ input*/
 
 }
 
-#responde input[type="text"]:focus, #responde textarea:focus
+#responde input[type="text"]:focus, #responde textarea:focus, #responde select:focus
 {	
 text-indent: 0pt;
 

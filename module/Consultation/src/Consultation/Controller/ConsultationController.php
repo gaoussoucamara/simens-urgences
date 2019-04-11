@@ -15,6 +15,7 @@ use Consultation\View\Helpers\RpuTraumatologiePdf2;
 use Consultation\View\Helpers\RpuSortiePdf;
 use Consultation\View\Helpers\RpuSortiePdf2;
 use Consultation\View\Helpers\fpdf181\PDF;
+use Urgence\Form\AdmissionConsultationForm;
 
 class ConsultationController extends AbstractActionController {
 	protected $patientTable;
@@ -163,7 +164,14 @@ class ConsultationController extends AbstractActionController {
 		$formAdmission->get ( 'mode_transport' )->setValueOptions ($listeModeTransport);
 		
 		$nbPatientAdmisInfimierService = $this->getPatientTable ()->nbPatientAdmisParInfirmierService();
-		
+		/*
+		$listeMotifs = $this->getPatientTable ()->listeMotifsAdmission();
+		$formAdmission->get ( 'motif_admission1' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission2' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission3' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission4' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission5' )->setValueOptions ($listeMotifs);
+		*/
 		return array (
 				'form' => $formAdmission,
 				'temoin' => 0,
@@ -1203,6 +1211,8 @@ class ConsultationController extends AbstractActionController {
 		//var_dump($this->getPatientTable()->getListeAdmissionPatient(399)); exit();
 		//INSTANCIATION DU FORMULAIRE D'ADMISSION
 		$formAdmission = new AdmissionForm ();
+		//$formAdmission = new AdmissionConsultationForm ();
+		
 		$listeSalles = $this->getPatientTable ()->listeSalles();
 		$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
 	
@@ -1235,6 +1245,15 @@ class ConsultationController extends AbstractActionController {
 	
 		$nbPatientAdmisInfimierService = $this->getPatientTable ()->nbPatientAdmisParInfirmierService();
 	
+		/*
+		$listeMotifs = $this->getPatientTable ()->listeMotifsAdmission();
+		$formAdmission->get ( 'motif_admission1' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission2' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission3' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission4' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission5' )->setValueOptions ($listeMotifs);
+		*/
+		
 		return array (
 				'form' => $formAdmission,
 				'temoin' => 0,
@@ -2057,7 +2076,7 @@ class ConsultationController extends AbstractActionController {
 		
 		$tabInformations[3]['titre'] = 'Notes sur les examens complémentaires';
 		$tabInformations[3]['type' ] = 1;
-		$tabInformations[3]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'examens_complementaires' ));
+		$tabInformations[3]['texte'] = '';//iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'examens_complementaires' ));
 		
 		$tabInformations[4]['titre'] = 'Traitement';
 		$tabInformations[4]['type' ] = 1;

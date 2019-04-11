@@ -3650,6 +3650,65 @@ class PatientTable {
 		return $output;
 	}
 	
+	/**
+	 * Récuperer le diagnsotic saisi dans le RPU du patient consulté 
+	 * @param id du patient $id_patient
+	 */
+	public function getDiagnosticRpuSortieDuPatient($id_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('rs'=>'rpu_sortie'))->columns(array ('Diagnostic_principal' => 'diagnostic_principal'));
+		$select->where(array('rs.id_admission_urgence' => $id_admission));
+		$result = $sql->prepareStatementForSqlObject($select)->execute()->current();
+	
+		return $result['Diagnostic_principal'];
+	}
+	
+	public function object_to_array($data)
+    {
+	    if (is_array($data) || is_object($data))
+	    {
+	        $result = array();
+	        foreach ($data as $key => $value)
+	        {
+	            $result[$key] = $this->object_to_array($value);
+	        }
+	        return $result;
+	    }
+	    return $data;
+	    
+    }
+
+	/**
+	 * Récuperer les motifs de consultation du patient consulté
+	 */
+	public function getMotifsConsultationDuPatient($id_admission)
+	{
+		$adapter = $this->tableGateway->getAdapter ();
+		$sql = new Sql ( $adapter );
+		$select = $sql->select ();
+		$select->from(array('mau'=>'motif_admission_urgence'))->columns(array ('Libelle_motif' => 'libelle_motif'));
+		$select->where(array('mau.id_admission_urgence' => $id_admission));
+		$result = $sql->prepareStatementForSqlObject($select)->execute();
+		
+		$resultatEnTableau = $this->object_to_array($result);
+		
+		$listeDesMotifs = "";
+		
+		for($i = 0 ; $i < count($resultatEnTableau) ; $i++){
+			if($i+1 == count($resultatEnTableau)){
+				$listeDesMotifs .= $resultatEnTableau[$i]['Libelle_motif'];
+			}else{
+				$listeDesMotifs .= $resultatEnTableau[$i]['Libelle_motif'].' ; ';
+			}
+		}
+		
+		return $listeDesMotifs;
+	}
+	
+	
 	public function getListePatientsAdmisRegistre($date_select){
 		
 		$date = new \DateTime ("now");
@@ -3719,6 +3778,18 @@ class PatientTable {
 							
 					}
 					
+					else if ($aColumns[$i] == 'Idpatient') {
+						$id_admission = $aRow[ 'Id_admission' ];
+						$diagnosticDuRpuPatient = $this->getMotifsConsultationDuPatient($id_admission);
+					
+						//var_dump($diagnosticDuRpuPatient); exit();
+						
+						$textDecouper = wordwrap($diagnosticDuRpuPatient, 38, "/n", true); // On découpe le texte
+						$textDecouperTab = explode("/n" ,$textDecouper); // On le place dans un tableau
+						
+						$row[] = $textDecouperTab;
+					}
+					
 					else{
 						$row[] = $aRow[ $aColumns[$i] ];
 					}
@@ -3734,7 +3805,24 @@ class PatientTable {
 	
 	
 	
+	/**
+	 * Liste des motifs d'admission
+	 */
+	public function listeMotifsAdmission(){
+		$db = $this->tableGateway->getAdapter();
+		$sql = new Sql($db);
+		$sQuery = $sql->select()
+		->from(array('p' => 'pathologie'))
+		->columns(array('Id' => 'id', 'LibellePathologie' => 'libelle_pathologie'));
+		$result = $sql->prepareStatementForSqlObject($sQuery)->execute();
 	
+		$options = array(0 => "");
+		foreach ($result as $data) {
+			$options[$data['LibellePathologie']] = $data['LibellePathologie'];
+		}
+	
+		return $options;
+	}
 	
 	
 	

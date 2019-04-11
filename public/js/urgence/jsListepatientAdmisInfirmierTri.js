@@ -248,7 +248,7 @@
     				$("#accordionsUrgence").css({'min-height':'100px'});
     			});
     				
-    			$("#info_patient").html(result);
+    			$("#info_patient").html(result[0]);
     			
     			$('#annuleradmission').click(function() {
     	    		$("#titre span").html("LISTE DES PATIENTS");

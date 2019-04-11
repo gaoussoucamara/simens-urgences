@@ -595,7 +595,16 @@ class UrgenceController extends AbstractActionController {
 			
 			$nbPatientAdmisInfTriNonVu = $this->getPatientTable ()->nbPatientAdmisParInfirmierTri();
 			
+			/*
+			$listeMotifs = $this->getPatientTable ()->listeMotifsAdmission();
+			$formAdmission->get ( 'motif_admission1' )->setValueOptions ($listeMotifs);
+			$formAdmission->get ( 'motif_admission2' )->setValueOptions ($listeMotifs);
+			$formAdmission->get ( 'motif_admission3' )->setValueOptions ($listeMotifs);
+			$formAdmission->get ( 'motif_admission4' )->setValueOptions ($listeMotifs);
+			$formAdmission->get ( 'motif_admission5' )->setValueOptions ($listeMotifs);
 			
+			//var_dump($listeMotifs); exit();
+			*/
 			//A REVOIR DANS LA PARTIE AMELIORATION
 			//A REVOIR DANS LA PARTIE AMELIORATION
 			// 		$listeLitsParSalles = $this->getPatientTable ()->listeLitsParSalle();
@@ -611,6 +620,7 @@ class UrgenceController extends AbstractActionController {
 			
 			//Fin --- A REVOIR DANS LA PARTI AMELIORATION
 			//Fin --- A REVOIR DANS LA PARTI AMELIORATION
+			
 		}
 		
 		return array (
@@ -887,13 +897,21 @@ class UrgenceController extends AbstractActionController {
 		$listeSalles = $this->getPatientTable ()->listeSalles();
 		$formAdmission->get ( 'salle' )->setValueOptions ($listeSalles);
 		
+		/*
+		$listeMotifs = $this->getPatientTable ()->listeMotifsAdmission();
+		$formAdmission->get ( 'motif_admission1' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission2' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission3' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission4' )->setValueOptions ($listeMotifs);
+		$formAdmission->get ( 'motif_admission5' )->setValueOptions ($listeMotifs);
+		*/
+		
+		
+		
 		//$fusion_tab = array_unique(array_merge($listeActesExamensComp, $listeExamensComp));
 		//rsort($fusion_tab);
 		//var_dump($fusion_tab); exit();
 
-		
-		
-		
 		
 		/***
 		 * TEST DE LA NOUVELLE METHODE POUR L'AFFICHAGE RAPIDE DES LISTES
@@ -922,8 +940,6 @@ class UrgenceController extends AbstractActionController {
 		 * ==============================================================
 		* ==============================================================
 		*/
-		
-		
 		
 		
 		return array (
@@ -955,7 +971,7 @@ class UrgenceController extends AbstractActionController {
 		//MISE A JOUR DE L'AGE DU PATIENT
 		//MISE A JOUR DE L'AGE DU PATIENT
 		//MISE A JOUR DE L'AGE DU PATIENT
-		           //$this->getPatientTable()->miseAJourAgePatient($id_patient);
+		  //$this->getPatientTable()->miseAJourAgePatient($id_patient);
 		//*******************************
 		//*******************************
 		//*******************************
@@ -2158,7 +2174,7 @@ class UrgenceController extends AbstractActionController {
     	
     	$date_selectionnee = $this->params ()->fromPost (  'date_select' );
     	$listePatientsAdmis = $this->getPatientTable ()->getListePatientsAdmisRegistre($date_selectionnee);
-    	
+    	//var_dump($listePatientsAdmis['aaData'][0][6]); exit();
     	//******************************************************
     	//******************************************************
     	
