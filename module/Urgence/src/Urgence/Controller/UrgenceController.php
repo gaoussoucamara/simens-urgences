@@ -1562,8 +1562,12 @@ class UrgenceController extends AbstractActionController {
 		}
 	
 	
+		//Liste des actes et des examens complémentaires
+		$listeActes = $this->getAdmissionTable()->getListeActes();
+		$listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
+		
 		$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
-		return $this->getResponse ()->setContent ( Json::encode ( $html ) );
+		return $this->getResponse ()->setContent ( Json::encode ( array($html, $listeActes, $listeExamenComp) ) );
 	}
 	
 	public function listePatientsAdmisInfirmierServiceAjaxAction() {

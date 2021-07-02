@@ -56,7 +56,7 @@ function initialisationActesExamensComplementaires() {
 		
 		"fnDrawCallback" : function() {
 			// markLine();
-			clickRowHandler();
+			clickRowHandlerActesExamensComp();
 		}
 		
 	});
@@ -130,7 +130,7 @@ function initialisationActesExamensComplementaires() {
 	
 }
 
-function clickRowHandler() {
+function clickRowHandlerActesExamensComp() {
 	$('a,img,span').tooltip({ animation: true, html: true, placement: 'bottom', show: { effect: "slideDown", delay: 250 }} );
 }
 
