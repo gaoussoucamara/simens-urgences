@@ -11,12 +11,21 @@
  echo $this->headLink()->prependStylesheet($this->basePath().'/css/jquery.contextMenu.css');
  echo $this->headLink()->prependStylesheet($this->basePath().'/css/matrix-style-cons.css');
  echo $this->headLink()->prependStylesheet($this->basePath().'/css/matrix-media.css');
+ echo $this->headLink()->prependStylesheet($this->basePath().'/js/w2ui/w2ui-1.4.3.min.css');
+ echo $this->headLink()->prependStylesheet($this->basePath().'/css/menu-sidenav.css');
+ echo $this->headLink()->prependStylesheet($this->basePath().'/css/editor-menugauche.scss');
+
+
+ echo $this->headLink()->prependStylesheet($this->basePath().'/font-awesome/css/font-awesome.css');
 
  $this->headScript()->appendFile($this->basePath().'/js/jquery.min.js');
  $this->headScript()->appendFile($this->basePath().'/js/matrix.js');
 
  echo $this->headTitle($this->pageTitle);?> 
-        <?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/smoothness/jquery-ui.css');?>
+        <?php 
+             echo $this->headLink()->appendStylesheet($this->basePath().'/css/smoothness/jquery-ui.css');
+             echo $this->headLink()->appendStylesheet($this->basePath().'/js/plugins/multiselect/css/multi-select.css');
+        ?>
 
         <?php $this->headScript()->appendFile($this->basePath().'/js/jquery-1.9.1.js');
 		      $this->headScript()->appendFile($this->basePath().'/js/jquery-ui.js');
@@ -25,6 +34,13 @@
 		      
 		      $this->headScript()->appendFile($this->basePath().'/js/jquery.maskedinput.js');
 		      $this->headScript()->appendFile($this->basePath().'/js/controle_saisie/controle_saisie.js');
+
+		      $this->headScript()->appendFile($this->basePath().'/js/plugins/multiselect/js/jquery.multi-select.js');
+		      $this->headScript()->appendFile($this->basePath().'/js/plugins/multiselect/js/jquery.quicksearch.js');
+		      
+		      $this->headScript()->appendFile($this->basePath().'/js/w2ui/w2ui-1.4.3.min.js');
+
+          //$this->headScript()->appendFile($this->basePath().'/js/bootstrap.min.js');
 		?>
 
 		<?php echo $this->headScript();?>
@@ -44,89 +60,103 @@
   $sexe = $user['Sexe'];
   $civilite =  'Mme';
   if($sexe == 'Masculin'){$civilite = 'M';}
+  
+  //var_dump($user['Photo']); exit();
 ?>
 
 
 <body id="bodbod">
-	<!--Header-part-->
-	
-	<div id="logoSimens" style=" height: 70px; width: 220px;">
-			<div style="font-size: 28px; color: red; padding-top: 20px; padding-left: 35px;">+<div style="font-size: 27px; color: #48ce77; font-family: Bookman Old Style; float:left; ">SIMENS</div></div>
-	</div>
-	
-	<!--close-Header-part-->
-	<!--top Menu au dessus -->
-<div id="user-nav" class="navbar navbar-inverse" style="padding-top: 0px; padding-left: 0px; width: 83%;">
- <div style="width:100%;">
-  <ul class="nav" style="width:100%;">
-    <li  class="dropdown" style=" width: 35%;"><a title=""  class="dropdown-toggle">
-      <i> <span style="color: white; font-size: 13px;">Service: </span></i>
-      <b class="caret" ></b> <span style="font-size: 15px; color: white; font-family: Times  New Roman;"><?php echo $service;?> <?php if($user['role'] == 'medecin'){ ?> <span style="color: #68f442;"> (M&eacute;decin)</span> <?php }else  if($user['role'] == 'specialiste'){ ?> <span style="color: #68f442;"> (Sp&eacute;cialiste)</span> <?php } ?></span></a>
-    </li>
 
-    <li  class="dropdown" style=" width: 48%;"><a title="" class="dropdown-toggle">
-      
-      <i>
-      <?php if($user['Photo']){ ?>
-         <img id="modifierPassword" style="cursor:pointer; position:relative; top:-2px; width: 30px; height: 30px; border-radius: 50%; background: gray;" src="<?php echo $this->basePath().'/img/photos_personnel/'.$user['Photo'].'.jpg';?>"/>
-      <?php }else{ ?>
-         <img id="modifierPassword" style="cursor:pointer; position:relative; top:-2px; width: 25px; height: 25px; border-radius: 50%; background: gray;" src="<?php echo $this->basePath().'/images_icons/User.png';?>"/>
-      <?php } ?>
-      </i>
-      
-      
-      <span style="color: white; font-size: 13px;"><i> </i> <?php echo $civilite;?>.</span>
-      <b class="caret" ></b> <span style="font-size: 15px; color: white;font-family: Times  New Roman;"><?php echo $prenom.'  '.$nom;?></span></a>
-    </li>
 
-    <li style="width: 15%; ">
-     <?php if($user['role'] == 'superAdmin'){ ?>
-       <div style='width: 30%; padding-top: 10px; float:left; '>
-         <a href="<?php echo $this->url('admin', array('action'=>'logout'));?>">
-           <img src="../img/light/house.png" title="Menu d'accueil" />
-         </a>
-       </div>
-     <?php } ?>
-     
+  <table style="width: 100%; height: 100%; background: re;">
+
+      <tr style="width: 100%;">
+        <!-- MENU GAUCHE -->
+        <td style="width: 16%; background: gree;">
+          <!-- ENTETE -->
+          <div style="position: fixed; top:0px; background: re; width:100%; height: 10%; ">
+            <div style="font-size: 40px; color: #6eeebd; 
+            padding-top: 10px; padding-left: 20px; font-weight: bold;">
+            SIMENS<sup style="color: red; font-size: 40px;">+</sup></div>
+          </div>
+
+          <!-- CORPS -->
+          <div id="sideba" style="position: relative;  width:100%; height: 70%;  background: yello;">
+
+              <ul class="accordion-menu" style="display:none;">
+                <li>
+                  <div class="dropdownlink">
+                    <i class="icon-folder-close"></i> 
+                      Consultation
+                    <i class="icon-chevron-down" aria-hidden="true"></i>
+                  </div>
+
+                  <ul class="submenuItems">
+                    <li><a class="liste-patients-admis-select" href="<?php echo $this->basePath()."/consultation/liste-patients-admis";?>">Patients du service</a></li>
+                    <li><a class="historique-patients-consultes-select" href="<?php echo $this->basePath()."/consultation/historique-patients-consultes";?>">Historique</a></li>
+                  </ul>
+                </li>
+                
+
+              </ul>
+
+          </div>
+          
+        </td>
+
+        <!-- CONTENU -->
+        <td style="width: 84%; background: yello;">
+          <!-- ENTETE -->
+          <div style="position: fixed; top:0; width: 85%; min-height: 70px; max-height: 70px; background: rgb(62, 196, 178); z-index: 100;">
+            
+            <?php if($user['Photo']){ ?>
+              <img id="icon-user-param" onclick="getMenuDeroulant();" style="box-shadow: 10 10px 20px rgba(1, 0, 0, 0.5); cursor:pointer; float: right; position:relative; right: 50px; top: 12px; width: 40px; height: 40px; border-radius: 15%; background: white;" src="<?php echo $this->basePath().'/img/photos_personnel/'.$user['Photo'].'.jpg';?>"/>              
+            <?php }else{ ?>
+              <img id="icon-user-param"  onclick="getMenuDeroulant();" style="box-shadow: 10 10px 20px rgba(1, 0, 0, 0.5); cursor:pointer; float: right; position:relative; right: 50px; top: 12px; width: 40px; height: 40px; border-radius: 15%; background: white;" src="<?php echo $this->basePath().'/images_icons/User.png';?>"/>
+            <?php } ?>
+
+            <div style="position:relative; right: 60px; float: right; height: 20px; width: 230px; top: 13px; text-align: right; ">
+
+              <span style="font-size: 17px; color: white; font-weight: bold; font-family: Times  New Roman;"><?php echo $prenom.' '.$nom;?></span>
+
+              
+              <div style="width: 100%; padding-top: 2px; font-size: 13px; color: white; font-weight: bold; font-family: Times  New Roman;">
+              
+                <a href='<?php echo $this->url('urgence', array('action'=>'admission'));?>' style='text-decoration: none; color: white;' title='Admettre un patient'>
+                  <i class='icon-circle-arrow-left' style='font-size: 15px;'></i> &nbsp; | &nbsp; 
+                </a>
+
+                <?php //echo $service;?>
+                <?php if($user['role'] == 'infirmier-service'){ ?> 
+                  <span> Infirmier de service</span> 
+                <?php }else if($user['role'] == 'infirmier-tri'){ ?>
+                  <span> Infirmier de tri</span>
+                <?php }else if($user['role'] == 'medecin'){ ?>
+                  <span> M&eacute;decin</span>
+                <?php } ?>
+            
+              </div>
+            
+            </div>
+
+            
+
+            
+          </div>
+
+          <!-- CORPS -->
+          <div id="corpsContent" style="width: 100%; height: 100%; background: white;">
+            <div id="corpsContentInterface">
+                <?php echo $this->content; ?>
+            </div>
+          </div>
+        
+        </td>
+      </tr>
       
-     <?php if($user['role'] == 'medecin'){ ?>
-       <div style='width: 30%; padding-top: 10px; float:left; '>
-         <a style="padding-right: 6px;" href="<?php echo $this->url('urgence', array('action'=>'admission'));?>">
-           <img src="<?php echo $this->basePath().'/img/light/list.png';?>" title="Admettre un patient" />
-         </a>
-       </div>
-     <?php } ?>
-      
-     <div style='width: 70%; padding-top: 10px; float:right; '>
-        <a href="<?php echo $this->url('admin', array('action'=>'logout'));?>">
-          <img src="<?php echo $this->basePath().'/img/light/bended_arrow_right.png';?>"/> <span style="color: white; font-size: 15px; font-family: New time romans;"><i>D&eacute;connexion</i></span>
-        </a>
-      </div>
-    </li>
-  </ul>
- </div>
-</div>
-	
-	<!--Menu de droite-->
-	<div id="sidebar" style="min-width: 300px;">
-       <?php echo $this->partial('layout/menugaucheconsultation'); ?>
-    </div>
-    
-	<div id="content">
-		<div id="content-header">
-			<div style="width: 96%; margin-left: 25px;">
-				<hr>
-				<div class="row-fluid">
-	               <?php echo $this->content; ?>
-                </div>
-			</div>
-		</div>
-	</div>
-	<!--Pied de Page debut-->
-	<div class="row-fluid">
-		<div id="footer" class="span12" style="color: white;"><?php echo $this->partial('layout/piedpagecons'); ?> </div>
-	</div>
-	<!--Fin de pied de page-->
+  </table>
+
+
 </body>
 
 </html>
@@ -146,16 +176,42 @@ body .ui-tooltip {
 }
 
 
- #bodbod { 
- 	min-width: 1345px;
+ /* #bodbod { 
+ 	min-height: 1045px;
  	overflow-x:scroll;  
  } 
 
  #user-nav { 
  	min-width: 1100px;
  	 
- } 
+ }   */
+
+ /* #bodbod { overflow-y: hidden; }  */
+
+ #bodbod table tr:hover{ 
+   background: none;
+ }
  
+ #corpsContent {
+   overflow-y: scroll;
+ }
+
+ #corpsContentInterface {
+   padding: 20px; 
+   padding-top: 85px;
+ }
+
+
+
+
+
+
+
+
+
+
+ 
+
 </style>
 
 <script>
@@ -164,7 +220,7 @@ var tabUrl = base_url.split("public");
 
 jQuery(document).ready(function($){
 	setTimeout(function(){
-	    $('a,img,hass').tooltip({
+	    $('a,img').tooltip({
 	        animation: true,
 	        html: true,
 	        placement: 'bottom',
@@ -175,15 +231,120 @@ jQuery(document).ready(function($){
 	    });
 	});
 
-    $('#modifierPassword').click(function(){
-        var role = "<?php echo $user['role'];?>";
-        var id = 0; 
-        if(role == 'medecin'){id = 1;}
-        if(role == 'infirmier-tri'){id = 2;}
-        if(role == 'infirmier-service'){id = 3;}
-        
-    	vart=tabUrl[0]+'public/admin/modifier-password/'+id;
-        $(location).attr("href",vart);
-    });
 });
+
+function modifierPassword(){
+
+  var role = "<?php echo $user['role'];?>";
+  var id = 0; 
+  if(role == 'medecin'){id = 1;}
+  if(role == 'infirmier-tri'){id = 2;}
+  if(role == 'infirmier-service'){id = 3;}
+
+  vart=tabUrl[0]+'public/admin/modifier-password/'+id;
+  $(location).attr("href",vart);
+}
+
+
+
+
+
+
+
+
+
+  $(function() {
+    var Accordion = function(el, multiple) {
+      this.el = el || {};
+      // more then one submenu open?
+      this.multiple = multiple || false;
+      
+      var dropdownlink = this.el.find('.dropdownlink');
+      dropdownlink.on('click',
+                      { el: this.el, multiple: this.multiple },
+                      this.dropdown);
+
+      dropdownlink.on('dblclick',
+                      { el2: this.el2, multiple: this.multiple },
+                      this.dropdown2);
+    };
+    
+    //ANIMATION
+    Accordion.prototype.dropdown = function(e) {
+      var $el = e.data.el,
+          $this = $(this),
+          //this is the ul.submenuItems
+          $next = $this.next();
+      
+      $next.slideToggle();
+      $this.parent().toggleClass('open');
+      
+      if(!e.data.multiple) {
+        //show only one menu at the same time
+        //Afficher un seul menu à la fois
+        //$el.find('.submenuItems').not($next).slideUp().parent().removeClass('open');
+      }
+    }
+
+    //SANS ANIMATION
+    Accordion.prototype.dropdown2 = function(e) {
+      var $el2 = e.data.el2,
+          $this = $(this),
+          //this is the ul.submenuItems
+          $next = $this.next();
+      
+        $next.toggle();
+        $this.parent().toggleClass('open');
+    }
+    
+    var accordion = new Accordion($('.accordion-menu'), false);
+  })
+
+
+
+function getMenuDeroulant() {
+  $('#icon-user-param').w2overlay({ html: "" +
+    		"" +
+        "<div class='overlay-menu-deroulant' style='width: 200px; font-size: 12px;'>" +
+
+        "<ul class=''>" +
+        "<li><a href='<?php echo $this->url('urgence', array('action'=>'admission'));?>'><i class='icon-circle-arrow-left' style='font-size: 19px;'></i> Admettre un patient</a></li>" +
+        "<li><a onclick='modifierPassword();'><i class='icon-edit' style='font-size: 19px;'></i> Modifier infos compte</a></li>" +
+        "<li><a href='<?php echo $this->url('admin', array('action'=>'logout'));?>'><i class='icon-off' style='font-size: 19px;'></i> D&eacute;connexion</a></li>" +
+        "</ul>" +
+
+        "</div>" +
+
+        "<style> .w2ui-overlay:before{float: left; border: 1px solid rgb(28, 172, 136); top: 2px; border-bottom: 0px solid transparent; border-left:1px solid transparent;}  .w2ui-overlay{float: left; margin-left: 10px; border: 1px solid rgb(28, 172, 136); margin-top: 1 } </style>"
+    		
+
+
+    	
+  });  
+}  
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

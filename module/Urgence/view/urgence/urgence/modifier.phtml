@@ -16,6 +16,10 @@ controle_saisie();
 $(window).load(function () {
 	$('#wait').toggle(false);
 	$('#contenu').fadeIn().css({'visibility':'visible'});
+
+   $('.accordion-menu').toggle(true);
+	$('.submenuItems .liste-patient-select').css({'font-weight':'bold', 'color':'black'});
+	$('.icon-folder-close').trigger('dblclick');
 });
 </script>
 
@@ -176,10 +180,10 @@ var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
-$('#plus_dossier_patient').toggle(true);
-$("#dossier_patient").replaceWith("<li id='dossier_patient' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' /> Dossier patient </span></a></li>");
-dep_dossier_patient1();
-$('#liste_dossier_patient_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
+// $('#plus_dossier_patient').toggle(true);
+// $("#dossier_patient").replaceWith("<li id='dossier_patient' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' /> Dossier patient </span></a></li>");
+// dep_dossier_patient1();
+// $('#liste_dossier_patient_style').css({'font-weight':'bold','color':'white','font-size':'22px'});
 
 //$('#AGE').attr('readonly', true).css('background','#efefef');
 </script>

@@ -143,7 +143,7 @@ hr{ border-top-color:#dadada;}
 	display: block;
 	float: left;
 	position: relative;
-	width: 220px;
+	width: 100%;
 	z-index: 16;
 }
 #sidebar > ul {
@@ -151,7 +151,7 @@ hr{ border-top-color:#dadada;}
 	margin: 0px 0 0;
 	padding: 0;
 	position: absolute;
-	width: 220px;
+	width: 100%;
 }
 #sidebar > ul > li {
 	display: block;
@@ -455,7 +455,7 @@ hr{ border-top-color:#dadada;}
 	margin-bottom: 3px;
 	margin-top: 6px;
 }
-.stat-boxes .peity_bar_good, .stat-boxes .peity_line_good, {
+.stat-boxes .peity_bar_good, .stat-boxes .peity_line_good {
  color: #459D1C;
 }
 .stat-boxes .peity_bar_neutral, .stat-boxes .peity_line_neutral {
@@ -1598,15 +1598,16 @@ div.dataTables_wrapper .ui-widget-header {
 {
   font-size: 14px;
   font-weight: normal;
-  color: green;
+  color: rgb(24, 153, 121);
   padding-top: 10px;
   padding-right: 8px;
   padding-bottom: 10px;
   padding-left: 8px;
   border-bottom-width: 1px;
   border-bottom-style: solid;
-  border-bottom-color: #green;
+  border-bottom-color: green;
 }
+
 /*style du pied de page*/
 .foot_style th
 {

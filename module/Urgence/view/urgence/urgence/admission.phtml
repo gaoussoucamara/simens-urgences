@@ -24,15 +24,13 @@ $Control = new DateHelper ();
 var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 
-$('#plus_admission').toggle(true);
-$("#admission").replaceWith("<li id='admission' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Urgence </span></a></li>");
-dep_admission1();
-$('#admission_style').css({'font-weight':'bold','color':'white','font-size':'20px'});
-
-
 $(window).load(function () {
 	$('#wait').toggle(false);
 	$('#contenuDesInterfaces').fadeIn().css({'visibility':'visible'});
+
+	$('.accordion-menu').toggle(true);
+	$('.icon-home').trigger('dblclick');
+	$('.submenuItems .dossier-patient-select').css({'font-weight':'bold', 'color':'black'});
 });
 
 </script>
@@ -54,9 +52,9 @@ $(window).load(function () {
 </style>
 
 <div id="titre"
-	style='font-family: police2; text-decoration: none; color: green; font-size: 18px; font-weight: bold; padding-left: 35px;'>
-	<iS style='font-size: 25px;'>&curren;</iS>
-	<span> <span> RECHERCHER LE PATIENT </span> </span>
+	style='font-family: police2; text-decoration: none; color: rgb(24, 153, 121); font-size: 18px; font-weight: bold; padding-left: 35px;'>
+	<i class="icon-list-alt" style="padding-top: 3px;"></i> &nbsp; 
+	<span> <span>  RECHERCHER LE PATIENT </span> </span>
 </div>
 
 <div id="wait"
@@ -874,8 +872,8 @@ $(function(){
 });
 
 
-//TESTER LEQUEL DES CHECKBOX est coché
-//TESTER LEQUEL DES CHECKBOX est coché
+//TESTER LEQUEL DES CHECKBOX est cochï¿½
+//TESTER LEQUEL DES CHECKBOX est cochï¿½
   OptionCochee();
 //************************************
 //************************************

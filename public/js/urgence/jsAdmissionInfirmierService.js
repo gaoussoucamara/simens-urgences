@@ -59,6 +59,7 @@ $(function() {
 
 	
 	$('#afficherAdmissionInfirmierSevice').css({'font-weight':'bold', 'font-size': '17px' });
+	$("#titre i" ).replaceWith('<i class="icon-list-alt" style="padding-top: 3px;"></i>');
 	$('#titre span').html('<span>RECHERCHER LE PATIENT</span>');
 	
 	
@@ -265,6 +266,7 @@ function animation() {
 	$('#admission_urgence').toggle(false);
 
 	$('#precedent').click(function() {
+		$("#titre i" ).replaceWith('<i class="icon-list-alt" style="padding-top: 3px;"></i>');
 		$('#titre span').html('<span>RECHERCHER LE PATIENT</span>');
 		
 		$('#contenu').animate({
@@ -324,6 +326,8 @@ function admettre(id_patient){
 	
 	$("#termineradmission").replaceWith("<button id='termineradmission' style='height:35px;'>Admettre</button>");
 	$("#annuleradmission" ).replaceWith("<button id='annuleradmission' style='height:35px;'>Annuler</button>");
+	
+	$("#titre i" ).replaceWith('<i class="icon-folder-open" style="padding-top: 3px;"></i>');
 	$('#titre span').html('<span>ADMISSION</span>');
 	
 	// R�cup�ration des donn�es du patient

@@ -239,10 +239,12 @@
     	$(".termineradmission").html("<button id='termineradmission' style='height:35px;'>Terminer</button>");
     	$(".annuleradmission" ).html("<button id='annuleradmission' style='height:35px;'>Annuler</button>");
     	
+		$("#titre i" ).replaceWith('<i class="icon-folder-open" style="padding-top: 3px;"></i>');
     	$("#titre span").html("CONSULTATION DU PATIENT");
 
     	$('#contenu').fadeOut(function(){
         	$(".chargementPageModification").toggle(true);
+			$(".chargementPageModification").toggle(false);
     	});
     	
     	//Envoyer le formulaire
@@ -302,6 +304,7 @@
     		data : {'id_patient' : id_patient, 'id_admission' : id_admission},
     		success : function(data) {
     			var result = jQuery.parseJSON(data);
+	
     			$(".chargementPageModification").fadeOut(function(){
     				$('#admission_urgence').fadeIn();
         				
@@ -319,6 +322,7 @@
     				//Appel de la fonction pour l'affichage des historiques et terrain particulier
     				historiqueTerrainParticulier(id_patient);
     				historiquesDesConsultations(id_patient,id_admission);
+					
     			});
     				
     			$("#info_patient").html(result);

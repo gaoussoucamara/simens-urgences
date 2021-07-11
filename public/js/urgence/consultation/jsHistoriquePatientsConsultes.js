@@ -239,10 +239,12 @@
     	$(".termineradmission").html("<button id='termineradmission' style='height:35px;'>Terminer</button>");
     	$(".annuleradmission" ).html("<button id='annuleradmission' style='height:35px;'>Terminer</button>");
     	
+		$("#titre i" ).replaceWith('<i class="icon-folder-open" style="padding-top: 3px;"></i>');
     	$("#titre span").html("CONSULTATION DU PATIENT <span id='infoDateConsultation'></span>");
 
     	$('#contenu').fadeOut(function(){
         	$(".chargementPageModification").toggle(true);
+			$(".chargementPageModification").toggle(false);
     	});
     	
     	//Envoyer le formulaire
@@ -320,7 +322,7 @@
     				historiqueTerrainParticulier(id_patient);
     				historiquesDesConsultations(id_patient,id_admission);
     				
-    				//Blocage des champs et déblocage des champs pour le spécialiste
+    				//Blocage des champs et dï¿½blocage des champs pour le spï¿½cialiste
     				setTimeout(function(){
         				$('#bouton_valider_modifier, #bouton_constantes_valider_modifier, #controls_motifs').toggle(false);
         				

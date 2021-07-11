@@ -122,7 +122,7 @@ class UrgenceController extends AbstractActionController {
 	public function listePatientAction() {
 		// $personne = $this->getPatientTable()->miseAJourAgePatient(4);
 		$user = $this->layout ()->user;
-		$id_employe = $user ['id_personne']; // L'utilisateur connecté
+		$id_employe = $user ['id_personne']; // L'utilisateur connectï¿½
 		
 		
 		/***
@@ -165,7 +165,7 @@ class UrgenceController extends AbstractActionController {
 	 */
 	public function enregistrementPatientAction() {
 		$user = $this->layout ()->user;
-		$id_employe = $user ['id_personne']; // L'utilisateur connecté
+		$id_employe = $user ['id_personne']; // L'utilisateur connectï¿½
 		                                    
 		// CHARGEMENT DE LA PHOTO ET ENREGISTREMENT DES DONNEES
 		if (isset ( $_POST ['terminer'] )) 		// si formulaire soumis
@@ -324,7 +324,7 @@ class UrgenceController extends AbstractActionController {
 	public function enregistrementModificationAction() {
 	
 		$user = $this->layout()->user;
-		$id_employe = $user['id_personne']; //L'utilisateur connecté
+		$id_employe = $user['id_personne']; //L'utilisateur connectï¿½
 	
 		if (isset ( $_POST ['terminer'] ))
 		{
@@ -572,7 +572,7 @@ class UrgenceController extends AbstractActionController {
 				
 			$html .= "</div>";
 			
-			//Liste des actes et des examens complémentaires
+			//Liste des actes et des examens complï¿½mentaires
 			$listeActes = $this->getAdmissionTable()->getListeActes();
 			$listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
 			
@@ -581,8 +581,8 @@ class UrgenceController extends AbstractActionController {
 		
 		}else{
 			
-			$layout = $this->layout ();
-			$layout->setTemplate ( 'layout/urgence' );
+			//$layout = $this->layout ();
+			$this->layout ()->setTemplate ( 'layout/urgence' );
 			
 			//INSTANCIATION DU FORMULAIRE D'ADMISSION
 			$formAdmission = new AdmissionForm ();
@@ -722,8 +722,8 @@ class UrgenceController extends AbstractActionController {
 			);
 			$id_admission = $this->getAdmissionTable()->addAdmission($donneesAdmission);
 			
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 			$mode_entree_et_mode_transport['id_admission'] = $id_admission;
 			$this->getAdmissionTable()->addModeEntreeModeTransport($mode_entree_et_mode_transport);
 			
@@ -745,7 +745,7 @@ class UrgenceController extends AbstractActionController {
 				$this->getConsultationTable ()->addConsultation ($donneesConstantes); 
 				$this->getConsultationTable ()->addConsultationUrgence($id_cons, $id_admission, $id_Infirmier);
 				
-				//mettre à jour les bandelettes urinaires
+				//mettre ï¿½ jour les bandelettes urinaires
 				$bandelettes['id_cons'] = $id_cons;
 				$this->getConsultationTable ()->deleteBandelette($id_cons);
 				$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -758,13 +758,13 @@ class UrgenceController extends AbstractActionController {
 			//Les actes
 			$tabActesDemandes = explode(',', $tabDonnees['tabActesDemandes']);
 			$tabNotesActes = explode(':,,;', $tabDonnees['tabNotesActes']);
-			//Les examens complémentaires
+			//Les examens complï¿½mentaires
 			$tabTypesExamensDemandes = explode(',', $tabDonnees['tabTypeExamenDemandesEC']);
 			$tabExamensDemandes = explode(',', $tabDonnees['tabExamenDemandesEC']);
 			
 			$id_admission = $this->params ()->fromPost( "id_admission" );
-			//Si c'est un patient déjà admis par l'infirmier de tri
-			//Si c'est un patient déjà admis par l'infirmier de tri
+			//Si c'est un patient dï¿½jï¿½ admis par l'infirmier de tri
+			//Si c'est un patient dï¿½jï¿½ admis par l'infirmier de tri
 			if($id_admission){
 				
 				//Validation de l'admission par l'infirmier de service
@@ -781,8 +781,8 @@ class UrgenceController extends AbstractActionController {
 				$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 				
 				
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 				$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
 				
 				
@@ -793,14 +793,14 @@ class UrgenceController extends AbstractActionController {
 					$this->getMotifAdmissionTable ()->addMotifAdmission ( $form , $id_admission);
 				}
 					
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
 				$consultation_urgence = $this->getConsultationTable ()->getConsultationUrgence($id_admission);
 				if($consultation_urgence){
 					$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->miseajourConsultationUrgence($id_Infirmier, $consultation_urgence['id_cons']);
 					
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 					$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -816,7 +816,7 @@ class UrgenceController extends AbstractActionController {
 						$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 						$this->getConsultationTable ()->addConsultationUrgenceInfirmierService ($id_cons, $id_admission, $id_Infirmier);
 					
-						//mettre à jour les bandelettes urinaires
+						//mettre ï¿½ jour les bandelettes urinaires
 						$bandelettes['id_cons'] = $id_cons;
 						$this->getConsultationTable ()->deleteBandelette($id_cons);
 						$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -838,8 +838,8 @@ class UrgenceController extends AbstractActionController {
 				
 				$id_admission = $this->getAdmissionTable()->addAdmission($donneesAdmission);
 					
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 				$mode_entree_et_mode_transport['id_admission'] = $id_admission;
 				$this->getAdmissionTable()->addModeEntreeModeTransport($mode_entree_et_mode_transport);
 					
@@ -860,14 +860,14 @@ class UrgenceController extends AbstractActionController {
 					$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 					$this->getConsultationTable ()->addConsultationUrgenceInfirmierService($id_cons, $id_admission, $id_Infirmier);
 				
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $id_cons;
 					$this->getConsultationTable ()->deleteBandelette($id_cons);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
 				}
 				
-				//Insertion des demandes d'actes et examens complémentaires
-				//Insertion des demandes d'actes et examens complémentaires
+				//Insertion des demandes d'actes et examens complï¿½mentaires
+				//Insertion des demandes d'actes et examens complï¿½mentaires
 				$this->getMotifAdmissionTable ()->addDemandesActes($id_admission, $tabActesDemandes, $tabNotesActes, $id_Infirmier);
 				$this->getMotifAdmissionTable ()->addDemandesExamensComplementaire($id_admission, $id_Infirmier, $tabTypesExamensDemandes, $tabExamensDemandes);
 			}
@@ -1070,8 +1070,8 @@ class UrgenceController extends AbstractActionController {
 		$html .="<script> $('#id_admission').val('".$id_admission."'); </script>";
 		
 		
-		//Récupération des motifs des consultations
-		//Récupération des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
 		$motif_admission = $this->getMotifAdmissionTable()->getMotifAdmissionUrgence($id_admission);
 		$nbMotif = $motif_admission->count(); $i=1;
 		if($nbMotif > 1){ $html .="<script> afficherMotif(".$nbMotif."); $('#bouton_motif_valider').trigger('click'); </script>"; }
@@ -1083,8 +1083,8 @@ class UrgenceController extends AbstractActionController {
 			$html .= "<script> setTimeout(function(){ $('#motif_admission".$i++."').val('".str_replace("'", "\'",$motif->libelle_motif)."'); });</script>";
 		}
 		
-		//Récupération des constantes
-		//Récupération des constantes 
+		//Rï¿½cupï¿½ration des constantes
+		//Rï¿½cupï¿½ration des constantes 
 		$constantes = $this->getConsultationTable()->getConsultationParIdAdmission($id_admission);
         if($constantes){
         	$tensions = explode(' ', $constantes['PRESSION_ARTERIELLE']);
@@ -1127,7 +1127,7 @@ class UrgenceController extends AbstractActionController {
         
 
         /**
-         * Liste des actes et des examens complémentaires
+         * Liste des actes et des examens complï¿½mentaires
          */
         //Liste des actes
         $listeActes = $this->getAdmissionTable()->getListeActes();
@@ -1143,7 +1143,7 @@ class UrgenceController extends AbstractActionController {
         	$cmpti++;
         }
         
-        //Liste des examens complémentaires
+        //Liste des examens complï¿½mentaires
         $listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
         
         $listeExamensDemandes = $this->getMotifAdmissionTable ()->getDemandesExamenComplementaire($id_admission);
@@ -1251,8 +1251,8 @@ class UrgenceController extends AbstractActionController {
 			);
 			$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 				
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 			$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
 			
 			
@@ -1269,7 +1269,7 @@ class UrgenceController extends AbstractActionController {
 			if($consultation_urgence){
 				$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 				
-				//mettre à jour les bandelettes urinaires
+				//mettre ï¿½ jour les bandelettes urinaires
 				$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 				$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 				$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1285,7 +1285,7 @@ class UrgenceController extends AbstractActionController {
 					$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 					$this->getConsultationTable ()->addConsultationUrgence ($id_cons, $id_admission, $id_Infirmier);
 					
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $id_cons;
 					$this->getConsultationTable ()->deleteBandelette($id_cons);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1308,8 +1308,8 @@ class UrgenceController extends AbstractActionController {
 			$this->getMotifAdmissionTable ()->deleteDemandesActes($id_admission);
 			$this->getMotifAdmissionTable ()->addDemandesActes($id_admission, $tabActesDemandes, $tabNotesActes, $id_Infirmier);
 			
-			//Insertion des demandes d'examens complémentaires
-			//Insertion des demandes d'examens complémentaires
+			//Insertion des demandes d'examens complï¿½mentaires
+			//Insertion des demandes d'examens complï¿½mentaires
 			$tabTypesExamensDemandes = explode(',', $tabDonnees['tabTypeExamenDemandesEC']);
 			$tabExamensDemandes = explode(',', $tabDonnees['tabExamenDemandesEC']);
 				
@@ -1330,8 +1330,8 @@ class UrgenceController extends AbstractActionController {
 				);
 				$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 			
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 				$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
 					
 				//Insertion des motifs de l'admission s'il y'en a
@@ -1341,14 +1341,14 @@ class UrgenceController extends AbstractActionController {
 					$this->getMotifAdmissionTable ()->addMotifAdmission ( $form , $id_admission);
 				}
 					
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
 				$consultation_urgence = $this->getConsultationTable ()->getConsultationUrgence($id_admission);
 				if($consultation_urgence){
 					$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->miseajourConsultationUrgence($id_Infirmier, $consultation_urgence['id_cons']);
 					
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 					$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1364,7 +1364,7 @@ class UrgenceController extends AbstractActionController {
 						$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 						$this->getConsultationTable ()->addConsultationUrgenceInfirmierService ($id_cons, $id_admission, $id_Infirmier);
 						
-						//mettre à jour les bandelettes urinaires
+						//mettre ï¿½ jour les bandelettes urinaires
 						$bandelettes['id_cons'] = $id_cons;
 						$this->getConsultationTable ()->deleteBandelette($id_cons);
 						$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1415,7 +1415,7 @@ class UrgenceController extends AbstractActionController {
 	//DOMAINE DE LA GESTION DES INTERFACE DE L'INFIRMIER DE SERVICE
 	//DOMAINE DE LA GESTION DES INTERFACE DE L'INFIRMIER DE SERVICE
 	/**
-	 * Afficher les infos sur l'admission d'un patient par l'infirùier de tri 
+	 * Afficher les infos sur l'admission d'un patient par l'infirï¿½ier de tri 
 	 */
 	public function getInfosAdmissionParInfirmierTriAction() {
 	
@@ -1511,8 +1511,8 @@ class UrgenceController extends AbstractActionController {
 		$html .="<script> $('#mode_transport').val('".$mode_entree['mode_transport']."'); </script>";
 		
 		
-		//Récupération des motifs des consultations
-		//Récupération des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
 		$motif_admission = $this->getMotifAdmissionTable()->getMotifAdmissionUrgence($id_admission);
 		$nbMotif = $motif_admission->count(); $i=1;
 		if($nbMotif > 1){ $html .="<script> afficherMotif(".$nbMotif."); $('#bouton_motif_valider').trigger('click'); </script>"; }
@@ -1524,8 +1524,8 @@ class UrgenceController extends AbstractActionController {
 			$html .= "<script> setTimeout(function(){ $('#motif_admission".$i++."').val('".str_replace("'", "\'",$motif->libelle_motif)."'); });</script>";
 		}
 	
-		//Récupération des constantes
-		//Récupération des constantes
+		//Rï¿½cupï¿½ration des constantes
+		//Rï¿½cupï¿½ration des constantes
 		$constantes = $this->getConsultationTable()->getConsultationParIdAdmission($id_admission);
 		if($constantes){
 			$tensions = explode(' ', $constantes['PRESSION_ARTERIELLE']);
@@ -1562,7 +1562,7 @@ class UrgenceController extends AbstractActionController {
 		}
 	
 	
-		//Liste des actes et des examens complémentaires
+		//Liste des actes et des examens complï¿½mentaires
 		$listeActes = $this->getAdmissionTable()->getListeActes();
 		$listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
 		
@@ -1666,7 +1666,7 @@ class UrgenceController extends AbstractActionController {
 	}
 	
 	/**
-	 * Liste des pathologies pour un type donné
+	 * Liste des pathologies pour un type donnï¿½
 	 */
 	public function listePathologiesPourInterfaceAjoutAction()
 	{
@@ -2156,7 +2156,7 @@ class UrgenceController extends AbstractActionController {
     
     public function listePatientsAdmisRegistreAjaxAction() {
     	
-    	//id_patient est utiliser pour recuperer la date selectionnée
+    	//id_patient est utiliser pour recuperer la date selectionnï¿½e
     	$date_select = $this->params ()->fromRoute ( 'id_patient', null );
     	
     	if($date_select != null){
