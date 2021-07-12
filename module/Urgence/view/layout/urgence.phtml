@@ -65,23 +65,22 @@
 ?>
 
 
-<body id="bodbod">
+<body id="corps-page">
 
 
-  <table style="width: 100%; height: 100%; background: re;">
+  <table style="width: 100%; height: 100%; background: white;">
 
       <tr style="width: 100%;">
         <!-- MENU GAUCHE -->
-        <td style="width: 16%; background: gree;">
+        <td id="menu-geuche-page" style="width: 16%; background: gree;">
           <!-- ENTETE -->
           <div style="position: fixed; top:0px; background: re; width:100%; height: 10%; ">
-            <div style="font-size: 40px; color: #6eeebd; 
-            padding-top: 10px; padding-left: 20px; font-weight: bold;">
-            SIMENS<sup style="color: red; font-size: 40px;">+</sup></div>
+            <div id="logo-simens-style">
+            SIMENS<sup>+</sup></div>
           </div>
 
           <!-- CORPS -->
-          <div id="sideba" style="position: relative;  width:100%; height: 70%;  background: yello;">
+          <div style="position: relative;  width:100%; height: 70%;  background: yello;">
 
               <ul class="accordion-menu" style="display:none;">
                 <li>
@@ -121,6 +120,11 @@
 
           </div>
           
+          <!-- PIED DE PAGE -->
+          <text style="position: fixed; top: 95%; height: 70%; left: 30px; font-size: 12px;">
+            &copy; 2021 - <a href='http://www.ugb.sn' style='color: black; text-decoration: none; font-family: times new roman;' target='_blank';> PYRAMIDHIS </a>   
+          </text>
+
         </td>
 
         <!-- CONTENU -->
@@ -181,114 +185,6 @@
   </table>
 
 
-
-
-
-
-
-  
-  <?php /* ?>
-  <!--Header-part-->
-
-	<div id="logoSimens" style=" height: 70px; width: 220px;">
-			<div style="font-size: 28px; color: red; padding-top: 20px; padding-left: 35px;">+<div style="font-size: 27px; color: #48ce77; font-family: Bookman Old Style; float:left; ">SIMENS</div></div>
-	</div>
-	
-  <!--div style="width: 83%; height: 50px; background-color: cyan; float: right;">
-  </div-->
-
-
-  
-
-	<!--close-Header-part-->
-	<!--top Menu au dessus -->
-  <div id="user-nav" class="navbar navbar-inverse" style="padding-top: 0px; padding-left: 0px; width: 83%;">
-  <div style="width:100%;">
-    <ul class="nav" style="width:100%;">
-      <li  class="dropdown" style=" width: 35%;"><a title=""  class="dropdown-toggle">
-        <i> <span style="color: white; font-size: 13px;">Service: </span></i>
-        <b class="caret" ></b> 
-        
-        <span style="font-size: 15px; color: white; font-family: Times  New Roman;"><?php echo $service;?>
-          <?php if($user['role'] == 'infirmier-service'){ ?> 
-            <span style="color: #68f442;"> (Infirmier de service)</span> 
-          <?php }else if($user['role'] == 'infirmier-tri'){ ?>
-            <span style="color: #68f442;"> (Infirmier de tri)</span>
-          <?php }else if($user['role'] == 'medecin'){ ?>
-            <span style="color: #68f442;"> (M&eacute;decin)</span>
-          <?php } ?>
-        </span></a>
-        
-      </li>
-
-      <li  class="dropdown" style=" width: 48%;"><a title="" class="dropdown-toggle">
-        
-        <i>
-        <?php if($user['Photo']){ ?>
-          <img id="modifierPassword" style="cursor:pointer; position:relative; top:-2px; width: 30px; height: 30px; border-radius: 50%; background: gray;" src="<?php echo $this->basePath().'/img/photos_personnel/'.$user['Photo'].'.jpg';?>"/>
-        <?php }else{ ?>
-          <img id="modifierPassword" style="cursor:pointer; position:relative; top:-2px; width: 25px; height: 25px; border-radius: 50%; background: gray;" src="<?php echo $this->basePath().'/images_icons/User.png';?>"/>
-        <?php } ?>
-        </i>
-        
-        
-        <span style="color: white; font-size: 13px;"><i></i> <?php echo $civilite;?>.</span>
-        <b class="caret" ></b> <span style="font-size: 15px; color: white;font-family: Times  New Roman;"><?php echo $prenom.'  '.$nom;?></span></a>
-      </li>
-
-      <li style="width: 15%; ">
-        <?php if($user['role'] == 'superAdmin'){ ?>
-        <div style='width: 30%; padding-top: 10px; float:left;'>
-          <a href="<?php echo $this->url('admin', array('action'=>'logout'));?>">
-            <img src="../img/light/house.png" title="Menu d'accueil" />
-          </a>
-        </div>
-        <?php } else if($user['role'] == 'medecin'){ ?>
-        <div style='width: 30%; padding-top: 10px; float:left;'>
-          <a style="padding-right: 6px;" href="<?php echo $this->url('consultation');?>">
-            <img src="<?php echo $this->basePath().'/img/light/arrow_up_left.png';?>" title="Consultation" />
-          </a>
-        </div>
-      <?php }else{ ?>
-        <div style='width: 30%; padding-top: 10px; float:left;'></div>
-      <?php }?>
-        
-        
-      <div style='width: 70%; padding-top: 10px; float:left;'>
-          <a href="<?php echo $this->url('admin', array('action'=>'logout'));?>">
-            <img src="<?php echo $this->basePath().'/img/light/bended_arrow_right.png';?>"/> <span style="color: white; font-size: 15px; font-family: New time romans;"><i>D&eacute;connexion</i></span>
-          </a>
-        </div>
-      </li>
-    </ul>
-  </div>
-  </div>
-  
-
-	
-	<!--Menu de droite-->
-	<div id="sidebar" style="min-width: 300px;">
-       <?php echo $this->partial('layout/menugaucheurgence'); ?>
-    </div>
-    
-	<div id="content">
-		<div id="content-header">
-			<div style="width: 96%; margin-left: 25px;">
-				<hr>
-				<div class="row-fluid">
-	               <?php echo $this->content; ?>
-        </div>
-			</div>
-		</div>
-	</div>
-	<!--Pied de Page debut-->
-	<div class="row-fluid">
-		<div id="footer" class="span12" style="color: white;"><?php echo $this->partial('layout/piedpagecons'); ?> </div>
-	</div>
-	<!--Fin de pied de page-->
-
-  <?php */ ?>
-
 </body>
 
 </html>
@@ -320,10 +216,8 @@ body .ui-tooltip {
 
  /* #bodbod { overflow-y: hidden; }  */
 
- #bodbod table tr:hover{ 
-   background: none;
- }
- 
+
+
  #corpsContent {
    overflow-y: scroll;
  }

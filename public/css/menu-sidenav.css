@@ -63,7 +63,7 @@
     border-radius: 6px;
     margin-bottom:2px;
     box-shadow: 2px 2px 2px #999;
-    border:solid 1px #333A40
+    border:solid 1px #27775f
     
   }
 
@@ -154,4 +154,47 @@
     color: #fff;
     font-weight: bold;
     cursor: pointer;
+  }
+
+
+  /* MENU GAUCHE */
+  
+  #corps-page table tr:hover{ 
+    background: none;
+  }
+
+  #menu-geuche-page {
+    background-image:-webkit-linear-gradient(top, rgb(62, 196, 178) 0%, hsl(180, 75%, 87%) 100%);
+    background-image: linear-gradient(to bottom, rgb(62, 196, 178) 0%, hsl(180, 75%, 87%) 100%);
+     
+    /* background: rgb(62, 196, 178);  */
+
+    /*border:solid 1px #eeeeee*/
+  }
+
+  #logo-simens-style {
+    font-size: 36px; 
+    color: #68ffac;         
+    padding-top: 10px; 
+    padding-left: 15px; 
+    font-weight: bold;
+
+    text-transform: uppercase;
+    font-family: verdana;
+    text-shadow: 1px 1px 1px #919191,
+        1px 2px 1px #919191,
+        1px 3px 1px #919191,
+        1px 4px 1px #919191,
+        1px 5px 1px #919191,
+        1px 1px 1px #919191,
+        1px 2px 1px #919191,
+        1px 3px 1px #919191,
+        1px 4px 1px #919191,
+        1px 5px 1px #919191,
+    1px 2px 8px rgba(16,16,16,0.4);
+  }
+
+  #logo-simens-style sup {
+    color: red; 
+    font-size: 35px;
   }
