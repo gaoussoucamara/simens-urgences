@@ -270,7 +270,11 @@ class PatientTable {
 				{
 					/* General output */
 					if ($aColumns[$i] == 'Nom'){
-						$row[] = "<khass id='nomMaj'>".$aRow[ $aColumns[$i]]."</khass>";
+						$row[] = "<div><khass id='nomMaj'>".$aRow[ $aColumns[$i]]."</khass></div>";
+					}
+
+					else if ($aColumns[$i] == 'Prenom'){
+						$row[] = "<div>".$aRow[ $aColumns[$i]]."</div>";
 					}
 	
 					else if ($aColumns[$i] == 'Datenaissance') {
@@ -285,19 +289,19 @@ class PatientTable {
 					}
 					
 					else if ($aColumns[$i] == 'Adresse') {
-						$row[] = $this->adresseText($aRow[ $aColumns[$i] ]);
+						$row[] = "<div>".$this->adresseText($aRow[ $aColumns[$i] ])."<div>";
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/urgence/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
-						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
-	
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/urgence/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
+						$html ="<a href='".$tabURI[0]."public/urgence/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'> ";
+						$html .='<i class="icon-eye-open" style="text-decoration: none; padding-top: 3px; margin-right: 15%; font-size: 20px; color: rgb(24, 153, 121);" title="d&eacute;tails"></i> </a>';	
+
+						$html .= "<a href='".$tabURI[0]."public/urgence/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'> ";
+						$html .='<i class="icon-edit" style="text-decoration: none; padding-top: 3px; margin-right: 15%; font-size: 20px; color: orange;" title="Modifier"></i> </a>';
 	
 						if(!$this->verifierExisteAdmission($aRow[ $aColumns[$i] ])){
 							$html .= "<a id='".$aRow[ $aColumns[$i] ]."' href='javascript:envoyer(".$aRow[ $aColumns[$i] ].")'>";
-							$html .="<img style='display: inline;' src='".$tabURI[0]."public/images_icons/symbol_supprimer.png' title='Supprimer'></a>";
+							$html .='<i class="icon-remove-sign" style="text-decoration: none; padding-top: 3px; margin-right: 15%; font-size: 20px; color: red;" title="Supprimer"></i> </a>';
 						}
 						
 						$row[] = $html;
@@ -1647,10 +1651,12 @@ class PatientTable {
 	
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:visualiser(".$aRow[ $aColumns[$i] ].")' >";
-						$html .="<img style='margin-left: 5%; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
+						//$html .="<img style='margin-left: 5%; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
+						$html .='<i class="icon-eye-open" style="padding-top: 3px; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121);" title="d&eacute;tails"></i> </a>';
 	
 						$html .= "<infoBulleVue> <a href='javascript:admettre(".$aRow[ $aColumns[$i] ].")' >";
-						$html .="<img style='display: inline; margin-right: 5%;' src='".$tabURI[0]."public/images_icons/transfert_droite.png' title='suivant'></a> </infoBulleVue>";
+						//$html .="<img style='display: inline; margin-right: 5%;' src='".$tabURI[0]."public/images_icons/transfert_droite.png' title='suivant'></a> </infoBulleVue>";
+						$html .='<i class=" icon-folder-close" style="text-decoration: none;  padding-top: 3px; margin-right: 5%; font-size: 19px; color: rgb(24, 153, 121);" title="Ouvrir"></i> </a>';
 	
 						$row[] = $html;
 					}
@@ -1781,7 +1787,9 @@ class PatientTable {
 						
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:admission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						$html .='<i class="icon-folder-close" style="padding-top: 3px; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121);" title="voir infos admission"></i> </a>';
+	
 	
 						if(!$aRow[ 'Id_infirmier_service' ]){
 							$html .= "<infoBulleVue id='".$aRow[ 'Id_admission' ]."'> <a href='javascript:annulerAdmission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
@@ -2071,7 +2079,9 @@ class PatientTable {
 	
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:admission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						$html .='<i class="icon-folder-close" style="padding-top: 3px; margin-left: 8%; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121); text-decoration: none;" title="voir infos admission"></i> </a>';
+	
 	
 // 						if(!$aRow[ 'Id_infirmier_service' ]){
 // 							$html .= "<infoBulleVue id='".$aRow[ 'Id_admission' ]."'> <a href='javascript:annulerAdmission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";

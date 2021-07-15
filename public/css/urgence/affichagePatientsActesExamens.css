@@ -379,8 +379,16 @@ z-index: 1;
 #generationDesRegistresDesPatientsAdmisMenuGauche .champOP2MG button{
 	position: absolute;
 	right: 70px;
-	box-shadow: 0pt 2pt 6px rgba(0, 0, 0, 0.5);
-	border-radius: 50%;
+	padding: 7px;
+	box-shadow: 0pt 1pt 6px rgba(48, 179, 150, 0.5);
+	border-radius: 20%;
+	border: 1px solid #2abeb2;
+	background: rgb(62, 196, 178);
+	color: white;
+}
+
+#generationDesRegistresDesPatientsAdmisMenuGauche .champOP2MG button:hover{
+	background: rgb(48, 156, 142);
 }
 
 #generationDesRegistresDesPatientsAdmisMenuGauche .champOP1MG img{

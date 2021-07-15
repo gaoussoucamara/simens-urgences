@@ -68,14 +68,16 @@ $(window).load(function () {
 			<a style="text-decoration: none; cursor: pointer;"
 				href="javascript:ajouterPatient()"><img src='../images_icons/aj.gif'
 				title="ajouter" /><i
-				style="font-family: Times New Roman; font-size: 15px; color: green;">
+				style="font-family: Times New Roman; font-size: 15px; color: rgb(24, 153, 121);">
 					Nouveau patient</i></a>
 		</div>
 		
-		<div id="selectListeAdmission" style="margin-right: 50px; float:right; margin-top:5px; font-family: Times New Roman; font-size: 13px; color: green;">  
+		<div id="selectListeAdmission" style="margin-right: 50px; float:right; margin-top:5px; font-family: Times New Roman; font-size: 13px; color: rgb(24, 153, 121);">  
 		  <a style="text-decoration: none; cursor: pointer; margin-right: 40px;"
-				href="javascript:ajouterPatient()"><img src='../images_icons/aj.gif'
-				title="Nouveau patient" /></a>
+				href="javascript:ajouterPatient()">
+				<i class="icon-plus-sign-alt" style="padding-top: 3px; font-size: 20px; color: rgb(24, 153, 121);" title="Nouveau patient"></i>
+				<!--img src='../images_icons/aj.gif'
+				title="Nouveau patient" /--></a>
 				
 		  <span style='cursor:pointer;' id='afficherAdmissionInfirmierTri'> Salle d'attente </span> | 
 		  <span style='cursor:pointer;' id='afficherAdmissionInfirmierSevice'> Dossiers patients </span> 
@@ -162,10 +164,13 @@ $(window).load(function () {
 
 	<div id="admission_urgence">
 		<a href="" id="precedent"
-			style="text-decoration: none; font-family: police2; width: 50px; margin-left: 30px;">
-			<img style="display: inline;"
-			src='<?php echo $this->basePath().'/images_icons/transfert_gauche.PNG'?>'
-			alt='Constantes' title="Rechercher" /> Pr&eacute;c&eacute;dent
+			style="text-decoration: none; font-family: times new roman; font-size: 19px; margin-left: 35px; margin-top: 15px; margin-bottom: 10px; color: rgb(24, 153, 121);">
+			<!-- img style="display: inline;"
+			src='<?php //echo $this->basePath().'/images_icons/transfert_gauche.PNG'?>'
+			alt='Constantes' title="Rechercher" /--> 
+			
+			<i class="icon-arrow-left" style="padding-top: 3px; margin-right: 0.5%; font-size: 20px; color: rgb(24, 153, 121);" title="Rechercher"></i>
+			Pr&eacute;c&eacute;dent
 		</a>
 
 

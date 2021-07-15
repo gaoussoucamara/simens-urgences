@@ -205,11 +205,11 @@
     width: 85%; 
     min-height: 70px; 
     max-height: 70px; 
-    background: rgb(62, 196, 178); 
-    /* background: rgb(65, 192, 201); */
+    background: rgb(62, 196, 178);  
     z-index: 100;
 
 
-    background: rgb(44, 172, 155); 
+    /*A utiliser pour le simens-cerpad*/
+    /* background: rgb(44, 172, 155);  */
   }
   

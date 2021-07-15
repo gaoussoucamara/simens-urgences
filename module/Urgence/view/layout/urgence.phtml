@@ -241,21 +241,6 @@ body .ui-tooltip {
 var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 
-jQuery(document).ready(function($){
-	setTimeout(function(){
-	    $('a,img').tooltip({
-	        animation: true,
-	        html: true,
-	        placement: 'bottom',
-	        show: {
-	            effect: "slideDown",
-	            delay: 250
-	          }
-	    });
-	});
-
-});
-
 function modifierPassword(){
 
   var role = "<?php echo $user['role'];?>";
@@ -350,17 +335,6 @@ function getMenuDeroulant() {
 
 
 
-<!-- 
-
-
-
-	"<div style='border-bottom:1px solid rgb(28, 172, 136); height: 30px; background: #f9f9f9; width: 300px; text-align:center; padding-top: 10px; font-size: 13px; color: green; font-weight: bold;'>Diagnostic</div>" +
-    		"<div style='height: 195px; width: 300px; padding-top:10px; text-align:center;'>" +
-    		"<textarea style='height: 90%; width: 95%; max-height: 90%; max-width: 95%;' id='diagnostic_demande' > </textarea>" +
-    		"</div>"
-
-
--->
 
 
 
@@ -474,12 +448,15 @@ function getMenuDeroulant() {
 
 <div id="generationDesRegistresDesPatientsAdmisMenuGauche" title="G&eacute;n&eacute;rer la liste des patients admis (R&eacute;gistre)" style="display: none;" >
 
-
   <div class="optionsPeriodeMG" align="center">
-    <div class="optionsPeriodePathMG" align="center">
-           <div class="champOP1MG"><img onclick='imprimerRegistreDesPatientsAdmisParPeriode();' src='../images_icons/Apps-Pdf-B-icon-2.png' title='imprimer'><!-- input type="date"--></div> 
-           <div class="champOP2MG"><input type="date" value="<?php echo $dateDefautCalendrier; ?>"><button onclick="getRegistreDesPatientsAdmisPourPeriode();">Afficher</button></div>
-    </div>    
+      <div class="optionsPeriodePathMG" align="center">
+              <div class="champOP1MG"><img onclick='imprimerRegistreDesPatientsAdmisParPeriode();' src='../images_icons/Apps-Pdf-B-icon-2.png' title='imprimer'></div> 
+              <div class="champOP2MG"><input type="date" value="<?php echo $dateDefautCalendrier; ?>">
+                  <button onclick="getRegistreDesPatientsAdmisPourPeriode();">
+                  Afficher
+                  </button>
+              </div>
+      </div>    
   </div>
 
   
@@ -541,4 +518,20 @@ function getMenuDeroulant() {
 <script>
   emplacementTableauVide();
   initialisationListePatientsAdmisRegistre('<?php echo $dateDuJour; ?>');
+
+  
+jQuery(document).ready(function($){
+	setTimeout(function(){
+	    $('a,img').tooltip({
+	        animation: true,
+	        html: true,
+	        placement: 'bottom',
+	        show: {
+	            effect: "slideDown",
+	            delay: 250
+	          }
+	    });
+	});
+
+});
 </script>
