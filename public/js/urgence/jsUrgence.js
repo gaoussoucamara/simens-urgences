@@ -22,8 +22,8 @@ $(function() {
 	        "Oui": function() {
 	            $( this ).dialog( "close" );
 
-	             $('#photo').children().remove(); 
-	             $('<input type="file" />').appendTo($('#photo')); 
+	             $('#photo-patient').children().remove(); 
+	             $('<input type="file" />').appendTo($('#photo-patient')); 
 	             $("#div_supprimer_photo").children().remove();
 	             Recupererimage();          	       
 	    	     return false;
@@ -37,7 +37,7 @@ $(function() {
     }
     //FONCTION QUI RECUPERE LA PHOTO ET LA PLACE SUR L'EMPLACEMENT SOUHAITE
     function Recupererimage(){
-    	$('#photo input[type="file"]').change(function() {
+    	$('#photo-patient input[type="file"]').change(function() {
     	  
     	   var file = $(this);
  		   var reader = new FileReader;
@@ -46,8 +46,8 @@ $(function() {
 	    		var img = new Image();
                  
         		img.onload = function() {
-				   var width  = 105;
-				   var height = 105;
+				   var width  = 125;
+				   var height = 125;
 				
 				   var canvas = $('<canvas></canvas>').attr({ width: width, height: height });
 				   file.replaceWith(canvas);

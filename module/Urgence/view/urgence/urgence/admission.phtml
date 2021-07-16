@@ -192,7 +192,7 @@ $(window).load(function () {
 				   <tr style="height: 30px;">
 					  <td style="vertical-align: top;">
 						 <div class="comment-form-author">
-						  <span style='margin-right: 7px; font-family: Iskoola Pota;'>Niveau d'urgence</span>
+						  <span style='margin-right: 7px; font-family: cursive;'>Niveau d'urgence</span>
 						  <?php echo $this->formradio($form->get('niveau'));?>
 						 </div>
 					  </td>							
@@ -210,19 +210,19 @@ $(window).load(function () {
 		       <tr class="comment-form-author" style='width: 100%;'>
 		           <td style='width: 25%; '> 
 		              <label style="width: 95%; height: 40px; text-align: right;"> 
-		                   Mode d'entr&eacute;e <?php echo $this->formRow($form->get('mode_entree'));?> 
+					  <span style='font-family: cursive;'>Mode d'entr&eacute;e </span><?php echo $this->formRow($form->get('mode_entree'));?> 
 		              </label>      
 		           </td>
 		             
 		           <td class='divPrecissionProvenance' style='width: 37%; '> 
 		              <label style="width: 90%; height: 40px; text-align: right;"> 
-		                   Provenance <?php echo $this->formRow($form->get('precision_provenance'));?> 
+					  <span style='font-family: cursive;'>Provenance </span><?php echo $this->formRow($form->get('precision_provenance'));?> 
 		              </label> 
 		           </td>
 		             
 		           <td class='divModeTransport' style='width: 37%;  '>
 		              <label style="width: 95%; height: 40px; text-align: right; margin-left: 15px;"> 
-		                   Mode de transport <?php echo $this->formRow($form->get('mode_transport'));?> 
+					  <span style='font-family: cursive;'>Mode de transport </span><?php echo $this->formRow($form->get('mode_transport'));?> 
 		              </label> 
 		           </td>
 		             

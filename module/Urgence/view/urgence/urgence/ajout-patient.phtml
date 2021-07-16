@@ -58,7 +58,7 @@ echo $this->form ()->openTag ( $form );
 	<div style='width: 100%; height: 100%;'>
     
 	 <div style='width: 15%; height: 150px; float:left;'>
-		<div class="photo_patient" id='photo'>
+		<div class="photo-patient" id='photo-patient'>
 			<input type='file' name="fichier" />
 			<!-- RECUPERER L'IMAGE -->
 			<input type='hidden' id="fichier_tmp" name="fichier_tmp" />
@@ -103,17 +103,16 @@ echo $this->form ()->openTag ( $form );
 	  <div style='width: 3%; height: 150px; float:left;'>
 		<div class="barre_vertical"></div>
 
-		<div class="vider_formulaire" id="vider_champ">
+		<!--div class="vider_formulaire" id="vider_champ">
 			<hass> <input title="Vider tout" name="vider"
 				id="vider"> </hass>
-		</div>
+		</div-->
 
 		<div class="supprimer_photo" id="div_supprimer_photo">
 			<hass> <input name="supprimer_photo"> </hass>
-			<!-- balise sans importance pour le moment -->
 		</div>
 
-		<div class="ajouter_photo" id="div_ajouter_photo">
+		<!--div class="ajouter_photo" id="div_ajouter_photo">
 			<hass> <input alt="ajouter_photo"
 				title="Ajouter une photo" name="ajouter_photo" id="ajouter_photo"> </hass>
 		</div>
@@ -121,7 +120,7 @@ echo $this->form ()->openTag ( $form );
 		<div class="modifer_donnees" id="div_modifier_donnees">
 			<hass> <input alt="modifer_donnees" title="modifer les donnees"
 				name="modifer_donnees" id="modifer_donnees"> </hass>
-		</div>
+		</div-->
       </div>
     </div>
     

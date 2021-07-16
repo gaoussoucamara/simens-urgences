@@ -233,14 +233,19 @@ class ConsultationController extends AbstractActionController {
 	
 		$html  = "<div style='width:100%; height: 190px;'>";
 	
-		$html .= "<div style='width: 25%; height: 190px; float:left; color: rgb(24, 153, 121);'>";
-		$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png' ></div>";
-		$html .= "<div style='margin-left:35px; margin-top: 130px; margin-right: 5px; text-align: center;'>  <div style='font-weight:bold; font-size:22px; font-family: time new romans; font-weight: bold;'>" . $unPatient['PRENOM'] . " " . $unPatient['NOM'] . " </div></div>";
-		
-		$html .= "<div style='margin-left:30px; margin-top: 5px; text-align: center;'> <div style='font-size:22px; font-family: time new romans; font-weight: bol;'>" . $unPatient['AGE'] . " ans</div></div>";
+		$html .= "<div style='width: 26%; height: 190px; float:left; color: rgb(24, 153, 121);'>";
+		if($unPatient['SEXE'] == "Masculin"){
+			$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png' ></div>";
+		}else{
+			$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png' ></div>";
+		}
+
+		$html .= "<div style='margin-left:5px; margin-top: 130px; margin-right: 5px; text-align: center;'>  <div style='font-weight:bold; font-size:22px; font-family: time new romans; font-weight: bold;'>" . $unPatient['PRENOM'] . " " . $unPatient['NOM'] . " </div></div>";
+		$html .= "<div style='margin-left:20px; margin-top: 5px; text-align: center;'> <div style='font-size:22px; font-family: time new romans; font-weight: bol;'>" . $unPatient['AGE'] . " ans</div></div>";
 		$html .= "</div>";
 	
-		$html .= "<div id='vuePatientAdmission' style='width: 63%; height: 190px; float:left;'>";
+
+		$html .= "<div id='vuePatientAdmission' style='width: 62%; height: 190px; float:left;'>";
 		$html .= "<table style='margin-top:0px; float:left; width: 100%; background: re;'>";
 	
 	
@@ -266,7 +271,11 @@ class ConsultationController extends AbstractActionController {
 		$html .= "</div>";
 	
 		$html .= "<div style='width: 12%; height: 190px; float:left;'>";
-		$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png" . "'></div>";
+		if($unPatient['SEXE'] == "Masculin"){
+			$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png" . "'></div>";
+		}else{
+			$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png" . "'></div>";
+		}
 		$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:20px; float:left; margin-top: 10px; color: rgb(24, 153, 121); font-family: Serif;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
 		$html .= "</div>";
 	

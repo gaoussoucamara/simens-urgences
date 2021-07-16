@@ -37,8 +37,8 @@ $(window).load(function () {
 
 	<div style='width: 100%;'>
 
-             <div class="photo_patient" id='photo'>
-                  <img id="modifier_photo" src="<?php echo $this->basePath().'/img/photos_patients/'.$this->photo.'.jpg'?>" style=' margin-left:-10px; margin-top:-10px; width:105px; height:105px;'/>
+             <div class="photo-patient" id='photo-patient'>
+                  <img id="modifier_photo" src="<?php echo $this->basePath().'/img/photos_patients/'.$this->photo.'.png'?>" style=' margin-left:-10px; margin-top:-10px; width:125px; height:125px;'/>
                   <input type='file' name="fichier" /> <!-- RECUPERER L'IMAGE -->
                   <input type='hidden' id="fichier_tmp" name="fichier_tmp" /> <!-- FICHIER TAMPON POUR RECUPERER L'IMAGE DANS LE CONTROLLER -->
              </div>
@@ -82,21 +82,21 @@ $(window).load(function () {
 
             <div class="barre_vertical"></div>
 
-            <div class="vider_formulaire" id="vider_champ">
+            <!--div class="vider_formulaire" id="vider_champ">
                 <hass> <input title="Vider tout" name="vider" id="vider"> </hass>
-            </div>
+            </div-->
 
             <div class="supprimer_photo" id="div_supprimer_photo">
-                <hass> <input name="supprimer_photo"> </hass> <!-- balise sans importance pour le moment -->
+                <hass> <input name="supprimer_photo"> </hass>
             </div>
 
-            <div class="ajouter_photo" id="div_ajouter_photo">
+            <!--div class="ajouter_photo" id="div_ajouter_photo">
                 <hass> <input  alt="ajouter_photo" title="Ajouter une photo" name="ajouter_photo" id="ajouter_photo"> </hass>
             </div>
 
             <div class="modifer_donnees" id="div_modifier_donnees">
                 <hass> <input alt="modifer_donnees" title="modifer les donnees" name="modifer_donnees" id="modifer_donnees"> </hass>
-            </div>
+            </div-->
 
             </div>
          </div>

@@ -54,7 +54,7 @@ class PatientTable {
 		if ($nom) {
 			return $nom . '.jpg';
 		} else {
-			return 'identite.jpg';
+			return 'identite.png';
 		}
 	}
 	
@@ -2363,9 +2363,14 @@ class PatientTable {
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a></infoBulleVue>";
+						$html ="<a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a>";
+						$html .='<i class=" icon-folder-close" style="text-decoration: none;  padding-top: 3px; margin-right: 20%; margin-left: 5%; font-size: 19px; color: rgb(24, 153, 121);" title="Consulter"></i> </a>';
 	
+	
+
+
+
 						if(!$aRow[ 'Id_infirmier_tri' ]){
 							if( $aRow[ 'SexeInfirmier' ] == 'Masculin' ){
 								$html .="<img style='display: inline; margin-right: 5%;' src='".$tabURI[0]."public/images_icons/infirmier.png' title='Admis par : ". $aRow[ 'PrenomInfirmier' ]." ".$aRow[ 'NomInfirmier' ]."'></a>";
@@ -2639,8 +2644,10 @@ class PatientTable {
 						$infoAdmission = $this->getListeAdmissionPatient($aRow[ 'id' ]);
 						$id_admission = $infoAdmission['Id_admission'];
 						
-						$html ="<infoBulleVue> <a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$id_admission.")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a></infoBulleVue>";
+						$html ="<a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$id_admission.")'>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a>";
+						$html .='<i class="icon-folder-close" style="padding-top: 3px; margin-left: 8%; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121); text-decoration: none;" title="Consultation"></i> </a>';
+	
 	
 						if(!$aRow[ 'Id_infirmier_tri' ]){
 							if( $aRow[ 'SexeInfirmier' ] == 'Masculin' ){
