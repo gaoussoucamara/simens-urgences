@@ -23,60 +23,36 @@
     box-shadow: 0pt 5pt 12px rgba(0, 0, 0, 0.5);
 }
 
-#photo, #modifier_photo  /*photo*/
+#photo-patient, #modifier_photo 
 {
 
-width: 105px;
+width: 125px;
 
 float: left;
 
-border-top-width: 10px;
+border-top-width: 3px;
 
-border-right-width: 10px;
+border-right-width: 3px;
 
-border-right-width-ltr-source: physical;
+border-bottom-width: 3px;
 
-border-right-width-rtl-source: physical;
-
-border-bottom-width: 10px;
-
-border-left-width: 10px;
-
-border-left-width-ltr-source: physical;
-
-border-left-width-rtl-source: physical;
+border-left-width: 3px;
 
 border-top-style: solid;
 
 border-right-style: solid;
 
-border-right-style-ltr-source: physical;
-
-border-right-style-rtl-source: physical;
-
 border-bottom-style: solid;
 
 border-left-style: solid;
 
-border-left-style-ltr-source: physical;
+border-top-color: rgb(41, 187, 163);
 
-border-left-style-rtl-source: physical;
+border-right-color: rgb(41, 187, 163);
 
-border-top-color: white;
+border-bottom-color: rgb(41, 187, 163);
 
-border-right-color: white;
-
-border-right-color-ltr-source: physical;
-
-border-right-color-rtl-source: physical;
-
-border-bottom-color: white;
-
-border-left-color: white;
-
-border-left-color-ltr-source: physical;
-
-border-left-color-rtl-source: physical;
+border-left-color: rgb(41, 187, 163);
 
 box-shadow: 0pt 0pt 12px rgba(0, 0, 0, 0.2);
 
@@ -103,36 +79,33 @@ canvas {
              
 }
 
-#suppr{
-   alt: photo;
-  /* width: 10px;
-   height: 10px;*/
+.photo-patient {
+    position: relative;
+    float: left;
+    margin-right: 40px;
+    overflow: hidden;
+    background: #ffffff url("../../images_icons/identite.png") no-repeat left top;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    align-self: center;
+    float: right;
 }
 
-/*****LA PHOTO*******/
-        .photo_patient {
-              position:relative;
-              width:105px;
-              height:105px;
-              float: left;
-              margin-right:40px;
-              overflow:hidden;
-              background:#dddddd url("../../images_icons/identite.png") no-repeat left top;
-        }
-  
-        .photo_patient input {
-              position:absolute;
-              right:0;
-              top:0;
-              font-size:0px;
-              opacity:0;
-              -moz-opacity:0;
-              filter:alpha(opacity=0);
-              cursor:pointer;
-              text-align:right; 
-              width:105px;
-              height:105px;
-         }
+.photo-patient input {
+    position:absolute;
+    right:0;
+    top:0;
+    font-size:0px;
+    opacity:0;
+    -moz-opacity:0;
+    filter:alpha(opacity=0);
+    cursor:pointer;
+    text-align:right; 
+    width:125px;
+    height:125px;
+    border-radius: 50%;
+}
          
 /*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
 /*-----STYLE FORMULAIRE ETAT CIVIL DU PATIENT-----*/
@@ -536,7 +509,6 @@ tr:hover /* Apparence au survol des lignes */
     padding:2px 0;
     text-align: center;
     display: inline-block;
-    float:center;
     margin:0 5px 0 0;
     border-radius:7px;
     font-size: 0.85em;

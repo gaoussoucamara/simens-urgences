@@ -220,7 +220,9 @@
     function admission(id_patient, id_admission){
     	$(".termineradmission").html("<button id='termineradmission' style='height:35px;'>Terminer</button>");
     	$(".annuleradmission" ).html("<button id='annuleradmission' style='height:35px;'>Annuler</button>");
-    	$("#titre span").html("MODIFICATION ADMISSION");
+    	
+		$("#titre i" ).replaceWith('<i class="icon-folder-open" style="padding-top: 3px;"></i>');
+		$("#titre span").html("MODIFICATION ADMISSION");
 
     	$('#contenu').fadeOut(function(){
         	$(".chargementPageModification").toggle(true);

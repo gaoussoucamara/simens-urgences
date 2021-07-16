@@ -44,6 +44,8 @@ class LoginForm extends Form
 				'name' => 'id',
 				'type' => 'Hidden',
 		));
+
+		/*
 		$this->add(array(
 				'name' => 'username',
 				'type' => 'Text',
@@ -54,6 +56,18 @@ class LoginForm extends Form
 
 				),
 		));
+		*/
+		$this->add(array(
+			'name' => 'username',
+			'type' => 'text',
+			'attributes' => array(
+					'id' => 'username',
+					'required' => true,
+					'class' => 'form-control',
+			),
+		));
+
+		/*
 		$this->add(array(
 				'name' => 'password',
 				'type' => 'Password',
@@ -66,6 +80,20 @@ class LoginForm extends Form
 						//'onblur' => 'if (this.value == "") {this.value = "Password";}'
 				),
 		));
+		*/
+
+		$this->add(array(
+			'name' => 'password',
+			'type' => 'password',
+			'attributes' => array(
+					'id' => 'password',
+					'required' => true,
+					'class' => 'form-control',
+			),
+		));
+
+
+
 		$this->add(array(
 				'name' => 'submit',
 				'type' => 'Submit',

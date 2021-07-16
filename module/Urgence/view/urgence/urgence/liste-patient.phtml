@@ -5,18 +5,22 @@
 <?php echo $this->headScript()->appendFile($this->basePath().'/js/urgence/jsListepatient.js');?>
 
 <style>
-#contenu{ visibility: hidden };
+#contenu{ visibility: hidden; };
 </style>
 
 <script type="text/javascript">
 $(window).load(function () {
 	$('#wait').toggle(false);
 	$('#contenu').fadeIn().css({'visibility':'visible'});
+
+	$('.accordion-menu').toggle(true);
+	$('.submenuItems .liste-patient-select').css({'font-weight':'bold', 'color':'black'});
+	$('.icon-folder-close').trigger('dblclick');
 });
 </script>
 
-<div id="titre" style='font-family: police2; text-decoration: none; color: green; font-size: 20px; font-weight: bold; padding-left:20px;'>
-	<iS style='font-size: 25px;'>&curren;</iS>
+<div id="titre" style='font-family: police2; text-decoration: none; color: rgb(24, 153, 121); font-size: 20px; font-weight: bold; padding-left:20px;'>
+    <i class="icon-list-alt" style="padding-top: 3px;"></i> &nbsp; 
 	LISTE DES PATIENTS
 </div>
 <div id="wait" style="color: gray; font-size: 20px; text-align: center; margin-top: 80px;" > <span> Chargement ... </span> </div>
@@ -115,7 +119,7 @@ var tabUrl = base_url.split("public");
 //POUR LE MENU GAUCHE dans -menugauche.phtml
 $('#plus_dossier_patient').toggle(true);
 $("#dossier_patient").replaceWith("<li id='dossier_patient' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Dossier patient </span></a></li>");
-dep_dossier_patient1();
+//dep_dossier_patient1();
 $('#liste_dossier_patient_style').css({'font-weight':'bold','color':'white','font-size':'20px'});
 
 var oTable = $('#patient').dataTable

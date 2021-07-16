@@ -1,4 +1,4 @@
-<?php echo $this->headLink()->appendStylesheet($this->basePath().'/css/admin/styleAuthentification.css');?> 
+<?php /* echo $this->headLink()->appendStylesheet($this->basePath().'/css/admin/styleAuthentification.css');?> 
 <script type="application/x-javascript"> 
 addEventListener("load", 
 		function() { 
@@ -26,12 +26,14 @@ echo $this->form()->openTag($form);
 
 <ul>
 	<li>
+	  <span>Nom d'utilisateur</span>
 	  <?php echo $this->formRow($form->get('username')); ?>
 	  <!--input type="text" class="text" value="USERNAME" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'USERNAME';}" --><a  class=" icon user"></a>
 	</li>
 	<li>
-	   <?php echo $this->formRow($form->get('password')); ?>
-	   <!--input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"--><a class=" icon lock"></a>
+	  Mot de passe
+	  <?php echo $this->formRow($form->get('password')); ?>
+	  <!--input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"--><a class=" icon lock"></a>
 	</li>
 </ul>
 				
@@ -67,4 +69,198 @@ $('#username').attr('autocomplete', 'off');
          <script> 
              $('#message_error').toggle(false);
          </script>
-<?php }?>
+<?php } */ ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<?php
+		echo $this->headLink()->prependStylesheet($this->basePath().'/login-form-2021/css/style.css');
+		echo $this->headLink()->prependStylesheet($this->basePath().'/font-awesome/css/font-awesome.css');
+
+		$this->headScript()->appendFile($this->basePath().'/login-form-2021/js/jquery.min.js');
+		$this->headScript()->appendFile($this->basePath().'/login-form-2021/js/popper.js');
+		$this->headScript()->appendFile($this->basePath().'/login-form-2021/js/bootstrap.min.js');
+		$this->headScript()->appendFile($this->basePath().'/login-form-2021/js/main.js');
+
+		echo $this->headScript();
+	?>
+
+
+	<section style="margin-top: 7%;">
+
+
+	    <div id="logo-e-emergency-style">
+			e-Emergency <br>
+			SAU de Saint-Louis
+		</div>
+
+		<?php
+			$form = $this->loginForm;
+			$form->prepare();
+			$form->setAttribute ( 'action', $this->url ( 'admin', array ('action' => 'login') ));
+			$form->setAttribute('method','post');
+			echo $this->form()->openTag($form);
+		?>
+
+		<div class="container">
+			<!--div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Login #05</h2>
+				</div>
+			</div-->
+			<div class="row justify-content-center">
+				<div class="col-md-7 col-lg-5">
+					<div class="wrap">
+						<div class="img" style="background-image: url(<?php echo $this->basePath().'/login-form-2021/images/logo-urgences.jpeg'; ?>);"></div>
+						<div class="login-wrap p-4 p-md-5">
+							<div class="d-flex">
+								<div class="w-100" style="margin-bottom: 30px; height: 30px; margin-top: -30px;">
+									<h3 class="mb-4" style="color: rgb(44, 172, 155);" >Se connecter ! </h3>
+								</div>
+								<!--div class="w-100">
+									<p class="social-media d-flex justify-content-end">
+										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="icon-facebook"></span></a>
+										<a href="#" class="social-icon d-flex align-items-center justify-content-center"><span class="icon-twitter"></span></a>
+									</p>
+								</div-->
+								
+								<div id="message_error" style="position: absolute; top: 50px; text-align: center; font-family: Times New Roman; color: red;"><i>nom d'utilisateur ou mot de passe incorrect</i></div>
+								
+							</div>
+
+							<form action="#" class="signin-form">
+								
+								<div class="form-group mt-3">
+									<!--input type="text" class="form-control" required-->
+									<?php echo $this->formRow($form->get('username')); ?>
+
+									<label class="form-control-placeholder" for="username">Nom d'utlisateur</label>
+								</div>
+
+								<div class="form-group" style="margin-top: 35px;">
+									<!--input id="password-field" type="password" class="form-control" required-->
+									<?php echo $this->formRow($form->get('password')); ?>
+									<label class="form-control-placeholder" for="password">Mot de passe</label>
+									<span toggle="#password-field" class="icon-eye-open field-icon toggle-password"></span>
+								</div>
+
+								<div class="form-group" id="submit-boutton">
+									<button type="submit" class="form-control" >Connexion</button>
+								</div>
+
+
+								<!--div class="form-group d-md-flex">
+									<div class="w-50 text-md-right">
+										<a href="#">Mot de passe oublié !</a>
+									</div>
+								</div-->
+
+								<!-- COPYRIGHT -->
+								<div class="d-md-flex">
+									<div class="w-100" style="text-align: center; padding-top: 30px; margin-bottom: -30px;">
+										<a href='http://www.ugb.sn' style="text-decoration: none; font-size: 12px; color: #999988;" target='_blank'>
+											&copy; 2021 - <span style='font-family: times new roman; font-weight: bold;'> PYRAMIDHIS </span>   
+										</a>
+									</div>
+								</div>
+								
+							</form>
+
+		        		</div>
+		      		</div>
+				</div>
+			</div>
+
+		</div>
+
+		
+		<?php echo $this->form()->closeTag();?>
+
+	</section>
+
+	
+	<script> 
+	$('#username').attr('autocomplete', 'off'); 
+	</script>
+
+	<?php if($this->erreur_message == 1) {?>
+			<script> 
+				$('#message_error').toggle(true);
+			</script>
+	<?php } else {?>
+			<script> 
+				$('#message_error').toggle(false);
+			</script>
+	<?php } ?>
+
+
+	<style>
+
+		#submit-boutton button {
+			background-color: rgb(44, 172, 155); 
+			color: white;
+		}
+
+		#submit-boutton button:hover {
+			background: rgb(62, 196, 178);
+		}
+
+		body{
+			
+			background: url(<?php echo $this->basePath().'/login-form-2021/images/sante-sau-sl.jpeg'; ?>); 
+			background-color: white; 
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+			position:relative;
+			font-family: 'Open Sans', sans-serif; 
+    	
+		}
+
+
+		#logo-e-emergency-style {
+			font-size: 30px; 
+			color: rgb(59, 228, 205);         
+			top: -35px; 
+			left: 15px; 
+			font-weight: bold;
+			position: absolute;
+			text-align: center;
+
+			/* text-transform: uppercase; */
+			font-family: verdana;
+			text-shadow: 1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+				1px 1px 1px #919191,
+			1px 2px 8px rgba(16,16,16,0.4);
+		}
+
+	</style>

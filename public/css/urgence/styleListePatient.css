@@ -216,3 +216,8 @@ div .dataTables_paginate
 .liste_patient tr:hover{
 	background: #e4e4e4;
 }
+
+.liste_patient tr td div{
+	height: 19px;
+	overflow-y: hidden;
+}

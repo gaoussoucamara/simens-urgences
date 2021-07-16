@@ -54,7 +54,7 @@ class PatientTable {
 		if ($nom) {
 			return $nom . '.jpg';
 		} else {
-			return 'identite.jpg';
+			return 'identite.png';
 		}
 	}
 	
@@ -134,6 +134,7 @@ class PatientTable {
 			$numeroDossier = $sexe.' '.$ordre.' '.$mois.''.$annee;
 			$this->tableGateway->insert ( array('ID_PERSONNE' => $id_personne , 'NUMERO_DOSSIER' => $numeroDossier, 'ORDRE' => $ordre, 'MOIS' => $mois, 'ANNEE' => $annee , 'DATE_ENREGISTREMENT' => $date_enregistrement , 'ID_EMPLOYE' => $id_employe) );
 		}
+
 	}
 	
 	public  function updatePatient($donnees, $id_patient, $numero_dossier, $date_enregistrement, $id_employe){
@@ -269,7 +270,11 @@ class PatientTable {
 				{
 					/* General output */
 					if ($aColumns[$i] == 'Nom'){
-						$row[] = "<khass id='nomMaj'>".$aRow[ $aColumns[$i]]."</khass>";
+						$row[] = "<div><khass id='nomMaj'>".$aRow[ $aColumns[$i]]."</khass></div>";
+					}
+
+					else if ($aColumns[$i] == 'Prenom'){
+						$row[] = "<div>".$aRow[ $aColumns[$i]]."</div>";
 					}
 	
 					else if ($aColumns[$i] == 'Datenaissance') {
@@ -284,19 +289,19 @@ class PatientTable {
 					}
 					
 					else if ($aColumns[$i] == 'Adresse') {
-						$row[] = $this->adresseText($aRow[ $aColumns[$i] ]);
+						$row[] = "<div>".$this->adresseText($aRow[ $aColumns[$i] ])."<div>";
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='".$tabURI[0]."public/urgence/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'>";
-						$html .="<img style='display: inline; margin-right: 10%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a></infoBulleVue>";
-	
-						$html .= "<infoBulleVue> <a href='".$tabURI[0]."public/urgence/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/pencil_16.png' title='Modifier'></a></infoBulleVue>";
+						$html ="<a href='".$tabURI[0]."public/urgence/info-patient/id_patient/".$aRow[ $aColumns[$i] ]."'> ";
+						$html .='<i class="icon-eye-open" style="text-decoration: none; padding-top: 3px; margin-right: 15%; font-size: 20px; color: rgb(24, 153, 121);" title="d&eacute;tails"></i> </a>';	
+
+						$html .= "<a href='".$tabURI[0]."public/urgence/modifier/id_patient/".$aRow[ $aColumns[$i] ]."'> ";
+						$html .='<i class="icon-edit" style="text-decoration: none; padding-top: 3px; margin-right: 15%; font-size: 20px; color: orange;" title="Modifier"></i> </a>';
 	
 						if(!$this->verifierExisteAdmission($aRow[ $aColumns[$i] ])){
 							$html .= "<a id='".$aRow[ $aColumns[$i] ]."' href='javascript:envoyer(".$aRow[ $aColumns[$i] ].")'>";
-							$html .="<img style='display: inline;' src='".$tabURI[0]."public/images_icons/symbol_supprimer.png' title='Supprimer'></a>";
+							$html .='<i class="icon-remove-sign" style="text-decoration: none; padding-top: 3px; margin-right: 15%; font-size: 20px; color: red;" title="Supprimer"></i> </a>';
 						}
 						
 						$row[] = $html;
@@ -826,7 +831,7 @@ class PatientTable {
 
 	
 	/**
-	 * Une consultation pour laquelle tous les actes sont payées
+	 * Une consultation pour laquelle tous les actes sont payï¿½es
 	 */
 	public function verifierActesPayesEnTotalite($idCons){
 		$adapter = $this->tableGateway->getAdapter();
@@ -977,7 +982,7 @@ class PatientTable {
 	
 	
 	/**
-	 * LISTE DES PATIENTS POUR les actes deja payés
+	 * LISTE DES PATIENTS POUR les actes deja payï¿½s
 	 * @param unknown $id
 	 * @return string
 	 */
@@ -1646,10 +1651,12 @@ class PatientTable {
 	
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:visualiser(".$aRow[ $aColumns[$i] ].")' >";
-						$html .="<img style='margin-left: 5%; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
+						//$html .="<img style='margin-left: 5%; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='d&eacute;tails'></a> </infoBulleVue>";
+						$html .='<i class="icon-eye-open" style="padding-top: 3px; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121);" title="d&eacute;tails"></i> </a>';
 	
 						$html .= "<infoBulleVue> <a href='javascript:admettre(".$aRow[ $aColumns[$i] ].")' >";
-						$html .="<img style='display: inline; margin-right: 5%;' src='".$tabURI[0]."public/images_icons/transfert_droite.png' title='suivant'></a> </infoBulleVue>";
+						//$html .="<img style='display: inline; margin-right: 5%;' src='".$tabURI[0]."public/images_icons/transfert_droite.png' title='suivant'></a> </infoBulleVue>";
+						$html .='<i class=" icon-folder-close" style="text-decoration: none;  padding-top: 3px; margin-right: 5%; font-size: 19px; color: rgb(24, 153, 121);" title="Ouvrir"></i> </a>';
 	
 						$row[] = $html;
 					}
@@ -1716,7 +1723,7 @@ class PatientTable {
 		->from(array('pat' => 'patient'))->columns(array('*'))
 		->join(array('p' => 'personne'), 'pat.ID_PERSONNE = p.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE', 'Age'=>'AGE', 'Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('au' => 'admission_urgence'), 'au.id_patient = p.ID_PERSONNE' , array('Id_admission'=>'id_admission', 'Id_infirmier_tri'=>'id_infirmier_tri', 'Id_infirmier_service'=>'id_infirmier_service'))
-		->where( array ( 'date' => $dateDuJour, 'id_infirmier_tri   != ?' => "" ) ) /* id_infirmier_tri (( infirmier différent de null )) */
+		->where( array ( 'date' => $dateDuJour, 'id_infirmier_tri   != ?' => "" ) ) /* id_infirmier_tri (( infirmier diffï¿½rent de null )) */
 		->order('id_admission DESC');
 	
 		/* Data set length after filtering */
@@ -1780,7 +1787,9 @@ class PatientTable {
 						
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:admission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						$html .='<i class="icon-folder-close" style="padding-top: 3px; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121);" title="voir infos admission"></i> </a>';
+	
 	
 						if(!$aRow[ 'Id_infirmier_service' ]){
 							$html .= "<infoBulleVue id='".$aRow[ 'Id_admission' ]."'> <a href='javascript:annulerAdmission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
@@ -1802,7 +1811,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * INTERFACE DU MEDECIN -------   ¤ PATIENTS ADMIS PAR L'INFIRMIER DE TRI
+	 * INTERFACE DU MEDECIN -------   ï¿½ PATIENTS ADMIS PAR L'INFIRMIER DE TRI
 	 * LISTE DES PATIENTS ADMIS PAR L'INFIRMIER DE TRI ET A ADMETTRE POUR LE MEDECIN PAR L'INFIRMIER DE SERVICE
 	 * @param $id
 	 * @return string
@@ -1951,7 +1960,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * INTERFACE DU SURVEILLANT DE SERVICE ------- ¤ LISTE DES PATIENTS 
+	 * INTERFACE DU SURVEILLANT DE SERVICE ------- ï¿½ LISTE DES PATIENTS 
 	 * Liste des patients admis vers le medecin par l'infirmier de service
 	 */
 	public function getListePatientAdmisInfirmierService(){
@@ -2004,7 +2013,7 @@ class PatientTable {
 		->join(array('p' => 'personne'), 'pat.ID_PERSONNE = p.ID_PERSONNE' , array('Nom'=>'NOM','Prenom'=>'PRENOM','Datenaissance'=>'DATE_NAISSANCE', 'Age'=>'AGE', 'Sexe'=>'SEXE','Adresse'=>'ADRESSE','Nationalite'=>'NATIONALITE_ACTUELLE','Taille'=>'TAILLE','id'=>'ID_PERSONNE', 'id2'=>'ID_PERSONNE'))
 		->join(array('au' => 'admission_urgence'), 'au.id_patient = p.ID_PERSONNE' , array('Id_admission'=>'id_admission', 'Id_infirmier_tri'=>'id_infirmier_tri', 'Id_infirmier_service'=>'id_infirmier_service'))
 		->join(array('pers' => 'personne'), 'pers.ID_PERSONNE = au.id_infirmier_service', array('NomInfirmier'=>'NOM','PrenomInfirmier'=>'PRENOM','SexeInfirmier'=>'SEXE') )
-		->where( array ( 'date' => $dateDuJour, 'id_infirmier_service != ?' => "" ) ) /* id_infirmier_service (( infirmier différent de null )) */
+		->where( array ( 'date' => $dateDuJour, 'id_infirmier_service != ?' => "" ) ) /* id_infirmier_service (( infirmier diffï¿½rent de null )) */
 		
 		->order('id_admission DESC');
 		
@@ -2070,7 +2079,9 @@ class PatientTable {
 	
 					else if ($aColumns[$i] == 'id') {
 						$html ="<infoBulleVue> <a href='javascript:admission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Admission'></a></infoBulleVue>";
+						$html .='<i class="icon-folder-close" style="padding-top: 3px; margin-left: 8%; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121); text-decoration: none;" title="voir infos admission"></i> </a>';
+	
 	
 // 						if(!$aRow[ 'Id_infirmier_service' ]){
 // 							$html .= "<infoBulleVue id='".$aRow[ 'Id_admission' ]."'> <a href='javascript:annulerAdmission(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
@@ -2137,7 +2148,7 @@ class PatientTable {
 		->join(array('cu' => 'consultation_urgence'), 'cu.id_admission_urgence = au.id_admission', array('Id_c'=>'id_cons') )
 		->join(array('cons' => 'consultation'), 'cons.ID_CONS = cu.id_cons', array('Consprise'=>'CONSPRISE') )
 		
-		->where( array ( 'au.date' => $dateDuJour, 'au.id_infirmier_service != ?' => "", 'CONSPRISE' => 0 ) ); /* id_infirmier_service (( infirmier différent de null )) */
+		->where( array ( 'au.date' => $dateDuJour, 'au.id_infirmier_service != ?' => "", 'CONSPRISE' => 0 ) ); /* id_infirmier_service (( infirmier diffï¿½rent de null )) */
 		
 		return $sql->prepareStatementForSqlObject($sQuery)->execute()->count();
 	}
@@ -2183,7 +2194,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * Liste des lits pour une salle donnée
+	 * Liste des lits pour une salle donnï¿½e
 	 */
 	public function getListeLitsPourSalle($id_salle){
 		$db = $this->tableGateway->getAdapter();
@@ -2199,7 +2210,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * Liste des lits des différentes salles
+	 * Liste des lits des diffï¿½rentes salles
 	 */
 	public function listeLitsParSalle(){
 		$db = $this->tableGateway->getAdapter();
@@ -2229,7 +2240,7 @@ class PatientTable {
 	
 	
 	/**
-	 * INTERFACE DU MEDECIN ------- ¤ LISTE DES PATIENTS
+	 * INTERFACE DU MEDECIN ------- ï¿½ LISTE DES PATIENTS
 	 * Liste des patients vu par le medecin 
 	 */
 	public function getListePatientAdmisInfirmierServiceVuParMedecin(){
@@ -2269,7 +2280,7 @@ class PatientTable {
 		}
 	
 		/*
-		 * La liste des patients admis le jour-j a consulter par le médecin
+		 * La liste des patients admis le jour-j a consulter par le mï¿½decin
 		 * ------------ NON ENCORE CONSULTES PAR LE MEDECIN ---------------
 		*/
 		$dateDuJour = (new \DateTime ("now"))->format ( 'Y-m-d' );
@@ -2287,7 +2298,7 @@ class PatientTable {
 		->join(array('cu' => 'consultation_urgence'), 'cu.id_admission_urgence = au.id_admission', array('Id_c'=>'id_cons') )
 		->join(array('cons' => 'consultation'), 'cons.ID_CONS = cu.id_cons', array('Consprise'=>'CONSPRISE') )
 		
-		->where( array ( 'au.date' => $dateDuJour, 'au.id_infirmier_service != ?' => "", 'CONSPRISE' => 0 ) ) /* id_infirmier_service (( infirmier différent de null )) */
+		->where( array ( 'au.date' => $dateDuJour, 'au.id_infirmier_service != ?' => "", 'CONSPRISE' => 0 ) ) /* id_infirmier_service (( infirmier diffï¿½rent de null )) */
 	
 		->order('id_admission ASC');
 	
@@ -2352,9 +2363,14 @@ class PatientTable {
 					}
 	
 					else if ($aColumns[$i] == 'id') {
-						$html ="<infoBulleVue> <a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a></infoBulleVue>";
+						$html ="<a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$aRow[ 'Id_admission' ].")'>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a>";
+						$html .='<i class=" icon-folder-close" style="text-decoration: none;  padding-top: 3px; margin-right: 20%; margin-left: 5%; font-size: 19px; color: rgb(24, 153, 121);" title="Consulter"></i> </a>';
 	
+	
+
+
+
 						if(!$aRow[ 'Id_infirmier_tri' ]){
 							if( $aRow[ 'SexeInfirmier' ] == 'Masculin' ){
 								$html .="<img style='display: inline; margin-right: 5%;' src='".$tabURI[0]."public/images_icons/infirmier.png' title='Admis par : ". $aRow[ 'PrenomInfirmier' ]." ".$aRow[ 'NomInfirmier' ]."'></a>";
@@ -2379,7 +2395,7 @@ class PatientTable {
 		
 		
 		/*
-		 * La liste des patients admis le jour-j et déja consulté par le médecin
+		 * La liste des patients admis le jour-j et dï¿½ja consultï¿½ par le mï¿½decin
 		* --------------- DEJA CONSULTES PAR LE MEDECIN ------------------
 		*/
 		
@@ -2396,7 +2412,7 @@ class PatientTable {
 		->join(array('cu' => 'consultation_urgence'), 'cu.id_admission_urgence = au.id_admission', array('Id_c'=>'id_cons') )
 		->join(array('cons' => 'consultation'), 'cons.ID_CONS = cu.id_cons', array('Consprise'=>'CONSPRISE') )
 		
-		->where( array ( 'au.date' => $dateDuJour, 'au.id_infirmier_service != ?' => "", 'CONSPRISE' => 1 ) ) /* id_infirmier_service (( infirmier différent de null )) */
+		->where( array ( 'au.date' => $dateDuJour, 'au.id_infirmier_service != ?' => "", 'CONSPRISE' => 1 ) ) /* id_infirmier_service (( infirmier diffï¿½rent de null )) */
 		
 		->order('id_admission ASC');
 		
@@ -2495,7 +2511,7 @@ class PatientTable {
 		->join(array('cons' => 'consultation'), 'cons.ID_CONS = cu.id_cons', array('Consprise'=>'CONSPRISE', 'Date'=>'DATEONLY', 'Heure'=>'HEURECONS') )
 		->join(array('pers3' => 'personne'), 'pers3.ID_PERSONNE = cons.ID_MEDECIN', array( 'IdMedecin'=>'ID_PERSONNE', 'NomMedecin'=>'NOM','PrenomMedecin'=>'PRENOM','SexeMedecin'=>'SEXE') )
 		
-		->where( array ('pat.ID_PERSONNE' => $id_patient, 'au.date != ?' => $dateDuJour, 'au.id_infirmier_service != ?' => "" ) ) /* id_infirmier_service (( infirmier différent de null )) */
+		->where( array ('pat.ID_PERSONNE' => $id_patient, 'au.date != ?' => $dateDuJour, 'au.id_infirmier_service != ?' => "" ) ) /* id_infirmier_service (( infirmier diffï¿½rent de null )) */
 		->order('id_admission DESC');
 		
 		return $sql->prepareStatementForSqlObject($sQuery)->execute()->current();
@@ -2503,7 +2519,7 @@ class PatientTable {
 	
 	/**
 	 * INTERFACE DU MEDECIN ------- LISTE DES PATIENTS
-	 * Historique des patients consultés par le medecin
+	 * Historique des patients consultï¿½s par le medecin
 	 */
 	public function getListePatientAdmisInfirmierServiceVuParMedecinHistorique(){
 	
@@ -2542,7 +2558,7 @@ class PatientTable {
 		}
 	
 		/*
-		 * La liste des patients admis le jour-j a consulter par le médecin
+		 * La liste des patients admis le jour-j a consulter par le mï¿½decin
 		* ------------ NON ENCORE CONSULTES PAR LE MEDECIN ---------------
 		*/
 		$dateDuJour = (new \DateTime ("now"))->format ( 'Y-m-d' );
@@ -2561,7 +2577,7 @@ class PatientTable {
 		->join(array('cons' => 'consultation'), 'cons.ID_CONS = cu.id_cons', array('Consprise'=>'CONSPRISE', 'Date'=>'DATEONLY', 'Heure'=>'HEURECONS') )
 		->join(array('pers3' => 'personne'), 'pers3.ID_PERSONNE = cons.ID_MEDECIN', array( 'IdMedecin'=>'ID_PERSONNE', 'NomMedecin'=>'NOM','PrenomMedecin'=>'PRENOM','SexeMedecin'=>'SEXE') )
 		
-		->where( array ( 'au.date != ?' => $dateDuJour, 'au.id_infirmier_service != ?' => "" ) ) /* id_infirmier_service (( infirmier différent de null )) */
+		->where( array ( 'au.date != ?' => $dateDuJour, 'au.id_infirmier_service != ?' => "" ) ) /* id_infirmier_service (( infirmier diffï¿½rent de null )) */
 	
 		->order('id_admission DESC')
 		->group('pat.ID_PERSONNE');
@@ -2628,8 +2644,10 @@ class PatientTable {
 						$infoAdmission = $this->getListeAdmissionPatient($aRow[ 'id' ]);
 						$id_admission = $infoAdmission['Id_admission'];
 						
-						$html ="<infoBulleVue> <a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$id_admission.")'>";
-						$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a></infoBulleVue>";
+						$html ="<a href='javascript:consultation(".$aRow[ $aColumns[$i] ].",".$id_admission.")'>";
+						//$html .="<img style='display: inline; margin-right: 15%;' src='".$tabURI[0]."public/images_icons/voir2.png' title='Consulter'></a>";
+						$html .='<i class="icon-folder-close" style="padding-top: 3px; margin-left: 8%; margin-right: 35%; font-size: 20px; color: rgb(24, 153, 121); text-decoration: none;" title="Consultation"></i> </a>';
+	
 	
 						if(!$aRow[ 'Id_infirmier_tri' ]){
 							if( $aRow[ 'SexeInfirmier' ] == 'Masculin' ){
@@ -2688,7 +2706,7 @@ class PatientTable {
 	}
 	/**
 	 * INTERFACE DU MEDECIN ------- LISTE DES PATIENTS
-	 * Historique des consultations du patient donné en paramètre 
+	 * Historique des consultations du patient donnï¿½ en paramï¿½tre 
 	 * La liste des historiques d'un dossier patient (Au niveau de la liste des patients admis)  
 	 */
 	public function getHistoriqueDesConsultationsDuPatient($id_patient){
@@ -2851,7 +2869,7 @@ class PatientTable {
 	
 	/**
 	 * INTERFACE DU MEDECIN ------- LISTE DES PATIENTS
-	 * Historique des consultations du patient donné en paramètre
+	 * Historique des consultations du patient donnï¿½ en paramï¿½tre
 	 * La liste des historiques d'un dossier patient (Au niveau de liste des historiques)
 	 */
 	public function getHistoriqueDesConsultationsDuPatientDansListeHistoriques($id_patient){
@@ -3016,7 +3034,7 @@ class PatientTable {
 	
 	
 	/**
-	 * Liste des services du domaine Médecine
+	 * Liste des services du domaine Mï¿½decine
 	 */
 	public function listeService(){
 		$db = $this->tableGateway->getAdapter();
@@ -3055,7 +3073,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * Liste des mécanismes
+	 * Liste des mï¿½canismes
 	 */
 	public function listeMecanismes(){
 		$db = $this->tableGateway->getAdapter();
@@ -3250,7 +3268,7 @@ class PatientTable {
 		
 		$listePatientsAyantActesEtExamen = array(null);
 		/*
-		 * Liste des patients ayant des actes demandés
+		 * Liste des patients ayant des actes demandï¿½s
 		 */
 		$sql2 = new Sql ($db );
 		$listePatientsAyantDesActes = $sql2->select ()
@@ -3266,7 +3284,7 @@ class PatientTable {
 		
 		
 		/*
-		 * Liste des patients ayant des examens demandés
+		 * Liste des patients ayant des examens demandï¿½s
 		 */
 		$sql3 = new Sql ($db );
 		$listePatientsAyantDesExamens = $sql3->select ()
@@ -3402,7 +3420,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * Recuperer la liste des examens complémentaires d'une date d'admission d'un patient
+	 * Recuperer la liste des examens complï¿½mentaires d'une date d'admission d'un patient
 	 * @param id du patient $id_patient
 	 */
 	public function getListeDesExamensComplementairesDuPatient($id_patient, $date_admission)
@@ -3431,7 +3449,7 @@ class PatientTable {
 	
 	
 	/**
-	 * Recuperer la liste des examens complémentaires d'une date d'admission d'un patient
+	 * Recuperer la liste des examens complï¿½mentaires d'une date d'admission d'un patient
 	 * @param id du patient $id_patient
 	 */
 	public function getListeDesExamensComplementairesDuPatientAvecIdTypeExamen($id_patient, $date_admission)
@@ -3651,7 +3669,7 @@ class PatientTable {
 	}
 	
 	/**
-	 * Récuperer le diagnsotic saisi dans le RPU du patient consulté 
+	 * Rï¿½cuperer le diagnsotic saisi dans le RPU du patient consultï¿½ 
 	 * @param id du patient $id_patient
 	 */
 	public function getDiagnosticRpuSortieDuPatient($id_admission)
@@ -3682,7 +3700,7 @@ class PatientTable {
     }
 
 	/**
-	 * Récuperer les motifs de consultation du patient consulté
+	 * Rï¿½cuperer les motifs de consultation du patient consultï¿½
 	 */
 	public function getMotifsConsultationDuPatient($id_admission)
 	{
@@ -3784,7 +3802,7 @@ class PatientTable {
 					
 						//var_dump($diagnosticDuRpuPatient); exit();
 						
-						$textDecouper = wordwrap($diagnosticDuRpuPatient, 38, "/n", true); // On découpe le texte
+						$textDecouper = wordwrap($diagnosticDuRpuPatient, 38, "/n", true); // On dï¿½coupe le texte
 						$textDecouperTab = explode("/n" ,$textDecouper); // On le place dans un tableau
 						
 						$row[] = $textDecouperTab;

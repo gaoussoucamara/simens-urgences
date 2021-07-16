@@ -233,40 +233,50 @@ class ConsultationController extends AbstractActionController {
 	
 		$html  = "<div style='width:100%; height: 190px;'>";
 	
-		$html .= "<div style='width: 18%; height: 190px; float:left;'>";
-		$html .= "<div id='photo' style='float:left; margin-left:40px; margin-top:10px; margin-right:30px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "' ></div>";
-		$html .= "<div style='margin-left:60px; margin-top: 150px;'> <div style='text-decoration:none; font-size:14px; float:left; padding-right: 7px; '>Age:</div>  <div style='font-weight:bold; font-size:19px; font-family: time new romans; color: green; font-weight: bold;'>" . $unPatient['AGE'] . " ans</div></div>";
+		$html .= "<div style='width: 26%; height: 190px; float:left; color: rgb(24, 153, 121);'>";
+		if($unPatient['SEXE'] == "Masculin"){
+			$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png' ></div>";
+		}else{
+			$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png' ></div>";
+		}
+
+		$html .= "<div style='margin-left:5px; margin-top: 130px; margin-right: 5px; text-align: center;'>  <div style='font-weight:bold; font-size:22px; font-family: time new romans; font-weight: bold;'>" . $unPatient['PRENOM'] . " " . $unPatient['NOM'] . " </div></div>";
+		$html .= "<div style='margin-left:20px; margin-top: 5px; text-align: center;'> <div style='font-size:22px; font-family: time new romans; font-weight: bol;'>" . $unPatient['AGE'] . " ans</div></div>";
 		$html .= "</div>";
 	
-		$html .= "<div id='vuePatientAdmission' style='width: 70%; height: 190px; float:left;'>";
-		$html .= "<table style='margin-top:0px; float:left; width: 100%;'>";
+
+		$html .= "<div id='vuePatientAdmission' style='width: 62%; height: 190px; float:left;'>";
+		$html .= "<table style='margin-top:0px; float:left; width: 100%; background: re;'>";
+	
 	
 		$html .= "<tr style='width: 100%;'>";
-		$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nom:</a><br><div style='width: 150px; max-width: 160px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['NOM'] . "</p></div></td>";
-		$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Date de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $date . "</p></div></td>";
-		$html .= "<td style='width: 23%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>T&eacute;l&eacute;phone:</a><br><div style='width: 95%; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['TELEPHONE'] . "</p></div></td>";
-		$html .= "<td style='width: 29%; '></td>";
-	
-		$html .= "</tr><tr style='width: 100%;'>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Pr&eacute;nom:</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['PRENOM'] . " </p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Lieu de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nationalit&eacute; actuelle:</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Email:</a><br><div style='width: 100%; max-width: 235px; height:40px; overflow:auto;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['EMAIL'] . "</p></div></td>";
-	
-		$html .= "</tr><tr style='width: 100%;'>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Sexe:</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['SEXE'] . "</p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Adresse:</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['ADRESSE'] . "</p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Profession:</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" .  $unPatient['PROFESSION'] . "</p></div></td>";
-	
-		$html .= "<td style='width: 30%; height: 50px;'>";
-		$html .= "</td>";
+		$html .= "<td style='width: 28%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>T&eacute;l&eacute;phone</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['TELEPHONE'] . " </p></div></td>";
+		$html .= "<td style='width: 32%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Adresse</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['ADRESSE'] . "</p></div></td>";
+		$html .= "<td style='width: 40%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Nationalit&eacute; actuelle</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
+		$html .="</tr>";
+
+		$html .= "<tr style='width: 100%;'>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Date de naissance</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $date . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Profession</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['PROFESSION'] . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>@-mail</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" .  $unPatient['EMAIL'] . "</p></div></td>";
 		$html .= "</tr>";
+
+		$html .= "<tr style='width: 100%;'>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Sexe</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['SEXE'] . " </p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Lieu de naissance</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'></td>";
+		$html .="</tr>";
+
 		$html .= "</table>";
 		$html .= "</div>";
 	
 		$html .= "<div style='width: 12%; height: 190px; float:left;'>";
-		$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "'></div>";
-		$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:19px; font-family: time new romans; color: green; float:left; margin-top: 10px;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
+		if($unPatient['SEXE'] == "Masculin"){
+			$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png" . "'></div>";
+		}else{
+			$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png" . "'></div>";
+		}
+		$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:20px; float:left; margin-top: 10px; color: rgb(24, 153, 121); font-family: Serif;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
 		$html .= "</div>";
 	
 		$html .= "</div>";
@@ -314,8 +324,8 @@ class ConsultationController extends AbstractActionController {
 		$html .="<script> $('#id_admission').val('".$id_admission."'); </script>";
 	
 	
-		//Récupération des motifs des consultations
-		//Récupération des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
 		$motif_admission = $this->getMotifAdmissionTable()->getMotifAdmissionUrgence($id_admission);
 		$nbMotif = $motif_admission->count(); $i=1;
 		if($nbMotif > 1){ $html .="<script> afficherMotif(".$nbMotif."); $('#bouton_motif_valider').trigger('click'); </script>"; }
@@ -327,8 +337,8 @@ class ConsultationController extends AbstractActionController {
 			$html .= "<script> setTimeout(function(){ $('#motif_admission".$i++."').val('".str_replace("'", "\'",$motif->libelle_motif)."'); });</script>";
 		}
 	
-		//Récupération des constantes
-		//Récupération des constantes
+		//Rï¿½cupï¿½ration des constantes
+		//Rï¿½cupï¿½ration des constantes
 		$constantes = $this->getConsultationTable()->getConsultationParIdAdmission($id_admission);
 		if($constantes){
 			$tensions = explode(' ', $constantes['PRESSION_ARTERIELLE']);
@@ -370,8 +380,8 @@ class ConsultationController extends AbstractActionController {
 		}
 		
 		
-		//Gestion des examens complémentaires
-		//Gestion des examens complémentaires
+		//Gestion des examens complï¿½mentaires
+		//Gestion des examens complï¿½mentaires
 		$listeExamensDemandes = $this->getMotifAdmissionTable ()->getListeExamensDemandes($id_admission);
 		$infosExamenComp = "";
 		for($iec = 0 ; $iec < count($listeExamensDemandes) ; $iec++){
@@ -379,8 +389,8 @@ class ConsultationController extends AbstractActionController {
 		}
 		
 		
-		//Récupération du rpu_hospitalisation
-		//Récupération du rpu_hospitalisation
+		//Rï¿½cupï¿½ration du rpu_hospitalisation
+		//Rï¿½cupï¿½ration du rpu_hospitalisation
 		$rpu_hospitalisation = $this->getConsultationTable ()->getRpuHopitalisation($id_admission);
 		$html .="<script> var rpu_hospitalisation = 0;  </script>";
 		if($rpu_hospitalisation){
@@ -400,8 +410,8 @@ class ConsultationController extends AbstractActionController {
 			if($listeExamensDemandes){ $html .="<script> $('#examens_complementaires').val('".preg_replace("/(\r\n|\n|\r)/", "\\n",str_replace("'", "\'",$infosExamenComp))."'); </script>"; }
 		}
 	
-		//Récupération du rpu_traumatisme
-		//Récupération du rpu_traumatisme
+		//Rï¿½cupï¿½ration du rpu_traumatisme
+		//Rï¿½cupï¿½ration du rpu_traumatisme
 		$rpu_traumatisme = $this->getConsultationTable ()->getRpuTraumatisme($id_admission);
 		$html .="<script> var rpu_traumatisme = 0;  </script>";
 		if($rpu_traumatisme){
@@ -431,8 +441,8 @@ class ConsultationController extends AbstractActionController {
 			$html .="<script> var rpu_traumatisme = 1;  </script>";
 		}
 		
-		//Récupération du rpu_sortie
-		//Récupération du rpu_sortie
+		//Rï¿½cupï¿½ration du rpu_sortie
+		//Rï¿½cupï¿½ration du rpu_sortie
 		$rpu_sortie = $this->getConsultationTable ()->getRpuSortie($id_admission);
 		$html .="<script> var rpu_sortie = 0;  </script>";
 		if($rpu_sortie){
@@ -634,8 +644,8 @@ class ConsultationController extends AbstractActionController {
 			//**** MISE A JOUR DES DONNNEES SUR L'ADMISSION ****
 			
 				
-			//Mise à jour de l'admission 
-			//Mise à jour de l'admission 
+			//Mise ï¿½ jour de l'admission 
+			//Mise ï¿½ jour de l'admission 
 			$donneesAdmission = array(
 					'niveau' => $niveau,
 					'salle'  => trim($form->get ( "salle" )->getValue ()),
@@ -645,8 +655,8 @@ class ConsultationController extends AbstractActionController {
 			$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 			
 			
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 			$mode_entree = $this->getAdmissionTable()->getModeEntreeModeTransport($id_admission);
 			if($mode_entree){
 				$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
@@ -746,7 +756,7 @@ class ConsultationController extends AbstractActionController {
 				}
 				$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 				
-				//mettre à jour les bandelettes urinaires
+				//mettre ï¿½ jour les bandelettes urinaires
 				$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 				$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 				$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -887,8 +897,8 @@ class ConsultationController extends AbstractActionController {
 		$id_patient = $this->params ()->fromPost( "id_patient" );
 		$infosPatient = $this->getPatientTable()->getInfoPatient($id_patient);
 		
-		//Enregistrement et mise à jour des données sur l'admission et la consultation
-		//Enregistrement et mise à jour des données sur l'admission et la consultation
+		//Enregistrement et mise ï¿½ jour des donnï¿½es sur l'admission et la consultation
+		//Enregistrement et mise ï¿½ jour des donnï¿½es sur l'admission et la consultation
 		$donneesAntecedentsPersonnels = $this->getAntecedantPersonnelTable()->getTableauAntecedentsPersonnels($id_patient);
 		$donneesAntecedentsFamiliaux = $this->getAntecedantsFamiliauxTable()->getTableauAntecedentsFamiliaux($id_patient);
 		
@@ -1283,7 +1293,7 @@ class ConsultationController extends AbstractActionController {
 		$InfoAdmission = $this->getAdmissionTable()->getAdmissionUrgence($id_admission);
 		
 		$donnees = array();
-		//Récupération des données
+		//Rï¿½cupï¿½ration des donnï¿½es
 		$donnees['motif_consultation'] = $this->params ()->fromPost (  'motif_consultation' );
 		
 		$donnees['salle'] = $this->params ()->fromPost (  'salle' );
@@ -1291,34 +1301,34 @@ class ConsultationController extends AbstractActionController {
 		$donnees['couloir'] = $this->params ()->fromPost (  'couloir' );
 		
 		$donnees['resume_syndromique'] = str_replace("â€™", "'", $this->params ()->fromPost (  'resume_syndromique' ));
-		$donnees['resume_syndromique'] = str_replace("œ", "oe" ,$donnees['resume_syndromique']); 
+		$donnees['resume_syndromique'] = str_replace("ï¿½", "oe" ,$donnees['resume_syndromique']); 
 		
 		$donnees['hypotheses_diagnostiques'] = str_replace("â€™", "'", $this->params()->fromPost('hypotheses_diagnostiques'));
-		$donnees['hypotheses_diagnostiques'] = str_replace("œ", "oe" ,$donnees['hypotheses_diagnostiques']); 
+		$donnees['hypotheses_diagnostiques'] = str_replace("ï¿½", "oe" ,$donnees['hypotheses_diagnostiques']); 
 		
 		$donnees['examens_complementaires'] = str_replace("â€™", "'", $this->params()->fromPost('examens_complementaires'));
-		$donnees['examens_complementaires'] = str_replace("œ", "oe" ,$donnees['examens_complementaires']); 
+		$donnees['examens_complementaires'] = str_replace("ï¿½", "oe" ,$donnees['examens_complementaires']); 
 		
 		$donnees['traitement'] = str_replace("â€™", "'", $this->params()->fromPost('traitement'));
-		$donnees['traitement'] = str_replace("œ", "oe" ,$donnees['traitement']);
+		$donnees['traitement'] = str_replace("ï¿½", "oe" ,$donnees['traitement']);
 		
 		$donnees['resultats_examens_complementaires'] = str_replace("â€™", "'", $this->params()->fromPost('resultats_examens_complementaires'));
-		$donnees['resultats_examens_complementaires'] = str_replace("œ", "oe" ,$donnees['resultats_examens_complementaires']);
+		$donnees['resultats_examens_complementaires'] = str_replace("ï¿½", "oe" ,$donnees['resultats_examens_complementaires']);
 		
 		$donnees['mutation'] = str_replace("â€™", "'", $this->params()->fromPost('mutation'));
-		$donnees['mutation'] = str_replace("œ", "oe" ,$donnees['mutation']);
+		$donnees['mutation'] = str_replace("ï¿½", "oe" ,$donnees['mutation']);
 		
 		$donnees['mise_a_jour_1'] = str_replace("â€™", "'", $this->params()->fromPost('mise_a_jour_1'));
-		$donnees['mise_a_jour_1'] = str_replace("œ", "oe" ,$donnees['mise_a_jour_1']);
+		$donnees['mise_a_jour_1'] = str_replace("ï¿½", "oe" ,$donnees['mise_a_jour_1']);
 		
 		$donnees['mise_a_jour_2'] = str_replace("â€™", "'", $this->params()->fromPost('mise_a_jour_2'));
-		$donnees['mise_a_jour_2'] = str_replace("œ", "oe" ,$donnees['mise_a_jour_2']);
+		$donnees['mise_a_jour_2'] = str_replace("ï¿½", "oe" ,$donnees['mise_a_jour_2']);
 		
 		$donnees['mise_a_jour_3'] = str_replace("â€™", "'", $this->params()->fromPost('mise_a_jour_3'));
-		$donnees['mise_a_jour_3'] = str_replace("œ", "oe" ,$donnees['mise_a_jour_3']);
+		$donnees['mise_a_jour_3'] = str_replace("ï¿½", "oe" ,$donnees['mise_a_jour_3']);
 		
 		$donnees['avis_specialiste'] = str_replace("â€™", "'", $this->params()->fromPost('avis_specialiste'));
-		$donnees['avis_specialiste'] = str_replace("œ", "oe" ,$donnees['avis_specialiste']);
+		$donnees['avis_specialiste'] = str_replace("ï¿½", "oe" ,$donnees['avis_specialiste']);
 
 		//Recuperer les informations sur les infirmiers
 		//Recuperer les informations sur les infirmiers
@@ -1356,27 +1366,27 @@ class ConsultationController extends AbstractActionController {
 		$listeServiceMutation = $this->getPatientTable ()->listeServicesMutation();
 		
 		//CREATION DU DOCUMENT PDF
-		//Créer le document
+		//Crï¿½er le document
 		$DocPdf = new DocumentPdf();
 	
-		//Créer la page 1
+		//Crï¿½er la page 1
 		$page1 = new RpuHospitalisationPdf();
 	
 		$page1->setService($serviceMedecin);
 		$page1->setInfoAdmission($InfoAdmission);
 		
-		//Envoi des données du patient
+		//Envoi des donnï¿½es du patient
 		$page1->setDonneesPatientTC($donneesPatient);
-		//Envoi des données du medecin
+		//Envoi des donnï¿½es du medecin
 		$page1->setDonneesMedecinTC($donneesMedecin);
-		//Envoi des données des infirmiers
+		//Envoi des donnï¿½es des infirmiers
 		$page1->setDonneesInfosInfirmiers($infosInfirmiers);
 		//Envoi de la liste des salles et des lits et service de mutation
 		$page1->setListeSalles($listeSalles);
 		$page1->setListeLits($listeLits);
 		$page1->setListeServiceMutation($listeServiceMutation);
 		
-		//Envoi les données de la demande
+		//Envoi les donnï¿½es de la demande
 		$page1->setDonneesDemandeTC($donnees);
 	
 		//Ajouter les donnees a la page
@@ -1411,7 +1421,7 @@ class ConsultationController extends AbstractActionController {
  		
 		if($nbTotalLigne > 18 && $nbLigne < $nbTotalLigne){
 			
-			//Créer la page 2
+			//Crï¿½er la page 2
 			$page2 = new RpuHospitalisationPdf2();
 			
  			$page2->setEntrerResumeSyndromique($entrerRS);
@@ -1444,7 +1454,7 @@ class ConsultationController extends AbstractActionController {
  			
  			
  			if($suitePageRpu == 1){
- 				//Créer la page 3
+ 				//Crï¿½er la page 3
  				$page3 = new RpuHospitalisationPdf3();
  				
  				$page3->setEntrerResumeSyndromique($entrerRS);
@@ -1499,7 +1509,7 @@ class ConsultationController extends AbstractActionController {
 		$InfoAdmission = $this->getAdmissionTable()->getAdmissionUrgence($id_admission);
 	
 		$donnees = array();
-		//Récupération des données
+		//Rï¿½cupï¿½ration des donnï¿½es
 		$donnees['motif_consultation'] = $this->params ()->fromPost (  'motif_consultation' );
 	
 		$donnees['salle'] = $this->params ()->fromPost (  'salle' );
@@ -1507,90 +1517,90 @@ class ConsultationController extends AbstractActionController {
 		$donnees['couloir'] = $this->params ()->fromPost (  'couloir' );
 	
 		$donnees['cote_dominant'] = str_replace("â€™", "'", $this->params ()->fromPost (  'cote_dominant' ));
-		$donnees['cote_dominant'] = str_replace("œ", "oe" ,$donnees['cote_dominant']);
+		$donnees['cote_dominant'] = str_replace("ï¿½", "oe" ,$donnees['cote_dominant']);
 		
 		$donnees['date_heure'] = str_replace("â€™", "'", $this->params ()->fromPost (  'date_heure' ));
-		$donnees['date_heure'] = str_replace("œ", "oe" ,$donnees['date_heure']);
+		$donnees['date_heure'] = str_replace("ï¿½", "oe" ,$donnees['date_heure']);
 		
 		$donnees['circonstances'] = str_replace("â€™", "'", $this->params ()->fromPost (  'circonstances' ));
-		$donnees['circonstances'] = str_replace("œ", "oe" ,$donnees['circonstances']);
+		$donnees['circonstances'] = str_replace("ï¿½", "oe" ,$donnees['circonstances']);
 		
 		$donnees['antecedent'] = str_replace("â€™", "'", $this->params ()->fromPost (  'antecedent' ));
-		$donnees['antecedent'] = str_replace("œ", "oe" ,$donnees['antecedent']);
+		$donnees['antecedent'] = str_replace("ï¿½", "oe" ,$donnees['antecedent']);
 		
 		$donnees['examen_physique'] = str_replace("â€™", "'", $this->params ()->fromPost (  'examen_physique' ));
-		$donnees['examen_physique'] = str_replace("œ", "oe" ,$donnees['examen_physique']);
+		$donnees['examen_physique'] = str_replace("ï¿½", "oe" ,$donnees['examen_physique']);
 		
 		$donnees['examen_paraclinique'] = str_replace("â€™", "'", $this->params ()->fromPost (  'examen_paraclinique' ));
-		$donnees['examen_paraclinique'] = str_replace("œ", "oe" ,$donnees['examen_paraclinique']);
+		$donnees['examen_paraclinique'] = str_replace("ï¿½", "oe" ,$donnees['examen_paraclinique']);
 		
 		$donnees['resultat_examen_complementaire'] = str_replace("â€™", "'", $this->params ()->fromPost (  'resultat_examen_complementaire' ));
-		$donnees['resultat_examen_complementaire'] = str_replace("œ", "oe" ,$donnees['resultat_examen_complementaire']);
+		$donnees['resultat_examen_complementaire'] = str_replace("ï¿½", "oe" ,$donnees['resultat_examen_complementaire']);
 		
 		$donnees['mecanismes'] = str_replace("â€™", "'", $this->params ()->fromPost (  'mecanismes' ));
-		$donnees['mecanismes'] = str_replace("œ", "oe" ,$donnees['mecanismes']);
+		$donnees['mecanismes'] = str_replace("ï¿½", "oe" ,$donnees['mecanismes']);
 		
 		$donnees['mecanismes_precision'] = str_replace("â€™", "'", $this->params ()->fromPost (  'mecanismes_precision' ));
-		$donnees['mecanismes_precision'] = str_replace("œ", "oe" ,$donnees['mecanismes_precision']);
+		$donnees['mecanismes_precision'] = str_replace("ï¿½", "oe" ,$donnees['mecanismes_precision']);
 		
 		$donnees['indication'] = str_replace("â€™", "'", $this->params ()->fromPost (  'indication' ));
-		$donnees['indication'] = str_replace("œ", "oe" ,$donnees['indication']);
+		$donnees['indication'] = str_replace("ï¿½", "oe" ,$donnees['indication']);
 		
 		$donnees['indication_precision'] = str_replace("â€™", "'", $this->params ()->fromPost (  'indication_precision' ));
-		$donnees['indication_precision'] = str_replace("œ", "oe" ,$donnees['indication_precision']);
+		$donnees['indication_precision'] = str_replace("ï¿½", "oe" ,$donnees['indication_precision']);
 		
 		$donnees['diagnostic'] = str_replace("â€™", "'", $this->params ()->fromPost (  'diagnostic' ));
-		$donnees['diagnostic'] = str_replace("œ", "oe" ,$donnees['diagnostic']);
+		$donnees['diagnostic'] = str_replace("ï¿½", "oe" ,$donnees['diagnostic']);
 		
 		$donnees['diagnostic_precision'] = str_replace("â€™", "'", $this->params ()->fromPost (  'diagnostic_precision' ));
-		$donnees['diagnostic_precision'] = str_replace("œ", "oe" ,$donnees['diagnostic_precision']);
+		$donnees['diagnostic_precision'] = str_replace("ï¿½", "oe" ,$donnees['diagnostic_precision']);
 		
 		$donnees['conduite'] = str_replace("â€™", "'", $this->params ()->fromPost (  'conduite' ));
-		$donnees['conduite'] = str_replace("œ", "oe" ,$donnees['conduite']);
+		$donnees['conduite'] = str_replace("ï¿½", "oe" ,$donnees['conduite']);
 		
 		$donnees['motif_sortie'] = str_replace("â€™", "'", $this->params ()->fromPost (  'motif_sortie' ));
-		$donnees['motif_sortie'] = str_replace("œ", "oe" ,$donnees['motif_sortie']);
+		$donnees['motif_sortie'] = str_replace("ï¿½", "oe" ,$donnees['motif_sortie']);
 		
 		$donnees['rendez_vous'] = str_replace("â€™", "'", $this->params ()->fromPost (  'rendez_vous' ));
-		$donnees['rendez_vous'] = str_replace("œ", "oe" ,$donnees['rendez_vous']);
+		$donnees['rendez_vous'] = str_replace("ï¿½", "oe" ,$donnees['rendez_vous']);
 		
 		$donnees['specialiste_trauma'] = str_replace("â€™", "'", $this->params ()->fromPost (  'specialiste_trauma' ));
-		$donnees['specialiste_trauma'] = str_replace("œ", "oe" ,$donnees['specialiste_trauma']);
+		$donnees['specialiste_trauma'] = str_replace("ï¿½", "oe" ,$donnees['specialiste_trauma']);
 		
 		$donnees['conduite_specialiste'] = str_replace("â€™", "'", $this->params ()->fromPost (  'conduite_specialiste' ));
-		$donnees['conduite_specialiste'] = str_replace("œ", "oe" ,$donnees['conduite_specialiste']);
+		$donnees['conduite_specialiste'] = str_replace("ï¿½", "oe" ,$donnees['conduite_specialiste']);
 		
 		/*=====================================================================*/
 		/*=====================================================================*/
 		$donnees['resume_syndromique'] = str_replace("â€™", "'", $this->params ()->fromPost (  'resume_syndromique' ));
-		$donnees['resume_syndromique'] = str_replace("œ", "oe" ,$donnees['resume_syndromique']);
+		$donnees['resume_syndromique'] = str_replace("ï¿½", "oe" ,$donnees['resume_syndromique']);
 	
 		$donnees['hypotheses_diagnostiques'] = str_replace("â€™", "'", $this->params()->fromPost('hypotheses_diagnostiques'));
-		$donnees['hypotheses_diagnostiques'] = str_replace("œ", "oe" ,$donnees['hypotheses_diagnostiques']);
+		$donnees['hypotheses_diagnostiques'] = str_replace("ï¿½", "oe" ,$donnees['hypotheses_diagnostiques']);
 	
 		$donnees['examens_complementaires'] = str_replace("â€™", "'", $this->params()->fromPost('examens_complementaires'));
-		$donnees['examens_complementaires'] = str_replace("œ", "oe" ,$donnees['examens_complementaires']);
+		$donnees['examens_complementaires'] = str_replace("ï¿½", "oe" ,$donnees['examens_complementaires']);
 	
 		$donnees['traitement'] = str_replace("â€™", "'", $this->params()->fromPost('traitement'));
-		$donnees['traitement'] = str_replace("œ", "oe" ,$donnees['traitement']);
+		$donnees['traitement'] = str_replace("ï¿½", "oe" ,$donnees['traitement']);
 	
 		$donnees['resultats_examens_complementaires'] = str_replace("â€™", "'", $this->params()->fromPost('resultats_examens_complementaires'));
-		$donnees['resultats_examens_complementaires'] = str_replace("œ", "oe" ,$donnees['resultats_examens_complementaires']);
+		$donnees['resultats_examens_complementaires'] = str_replace("ï¿½", "oe" ,$donnees['resultats_examens_complementaires']);
 	
 		$donnees['mutation'] = str_replace("â€™", "'", $this->params()->fromPost('mutation'));
-		$donnees['mutation'] = str_replace("œ", "oe" ,$donnees['mutation']);
+		$donnees['mutation'] = str_replace("ï¿½", "oe" ,$donnees['mutation']);
 	
 		$donnees['mise_a_jour_1'] = str_replace("â€™", "'", $this->params()->fromPost('mise_a_jour_1'));
-		$donnees['mise_a_jour_1'] = str_replace("œ", "oe" ,$donnees['mise_a_jour_1']);
+		$donnees['mise_a_jour_1'] = str_replace("ï¿½", "oe" ,$donnees['mise_a_jour_1']);
 	
 		$donnees['mise_a_jour_2'] = str_replace("â€™", "'", $this->params()->fromPost('mise_a_jour_2'));
-		$donnees['mise_a_jour_2'] = str_replace("œ", "oe" ,$donnees['mise_a_jour_2']);
+		$donnees['mise_a_jour_2'] = str_replace("ï¿½", "oe" ,$donnees['mise_a_jour_2']);
 	
 		$donnees['mise_a_jour_3'] = str_replace("â€™", "'", $this->params()->fromPost('mise_a_jour_3'));
-		$donnees['mise_a_jour_3'] = str_replace("œ", "oe" ,$donnees['mise_a_jour_3']);
+		$donnees['mise_a_jour_3'] = str_replace("ï¿½", "oe" ,$donnees['mise_a_jour_3']);
 	
 		$donnees['avis_specialiste'] = str_replace("â€™", "'", $this->params()->fromPost('avis_specialiste'));
-		$donnees['avis_specialiste'] = str_replace("œ", "oe" ,$donnees['avis_specialiste']);
+		$donnees['avis_specialiste'] = str_replace("ï¿½", "oe" ,$donnees['avis_specialiste']);
 	
 		
 		
@@ -1637,20 +1647,20 @@ class ConsultationController extends AbstractActionController {
 		$listeModeSortie = $this->getPatientTable ()->listeMotifsSortieRpuTraumato();
 		
 		//CREATION DU DOCUMENT PDF
-		//Créer le document
+		//Crï¿½er le document
 		$DocPdf = new DocumentPdf();
 	
-		//Créer la page 1
+		//Crï¿½er la page 1
 		$page1 = new RpuTraumatologiePdf();
 		
 		$page1->setService($serviceMedecin);
 		$page1->setInfoAdmission($InfoAdmission);
 	
-		//Envoi des données du patient
+		//Envoi des donnï¿½es du patient
 		$page1->setDonneesPatientTC($donneesPatient);
-		//Envoi des données du medecin
+		//Envoi des donnï¿½es du medecin
 		$page1->setDonneesMedecinTC($donneesMedecin);
-		//Envoi des données des infirmiers
+		//Envoi des donnï¿½es des infirmiers
 		$page1->setDonneesInfosInfirmiers($infosInfirmiers);
 		//Envoi de la liste des salles et des lits et service de mutation
 		$page1->setListeSalles($listeSalles);
@@ -1663,7 +1673,7 @@ class ConsultationController extends AbstractActionController {
 		$page1->setListeModeSortie($listeModeSortie);
 
 		
-		//Envoi les données de la demande
+		//Envoi les donnï¿½es de la demande
 		$page1->setDonneesDemandeTC($donnees);
 	
 		//Ajouter les donnees a la page
@@ -1712,7 +1722,7 @@ class ConsultationController extends AbstractActionController {
 		
 		if($nbTotalLigne > 18 && $nbLigne < $nbTotalLigne){
 				
-			//Créer la page 2
+			//Crï¿½er la page 2
 			$page2 = new RpuTraumatologiePdf2();
 			$page2->setDonneesDemandeTC($donnees);
 			
@@ -1769,7 +1779,7 @@ class ConsultationController extends AbstractActionController {
 	    
 	        /*
 			if($suitePageRpu == 1){
-				//Créer la page 3
+				//Crï¿½er la page 3
 				$page3 = new RpuHospitalisationPdf3();
 					
 				//$page3->setEntrerResumeSyndromique($entrerRS);
@@ -1825,7 +1835,7 @@ class ConsultationController extends AbstractActionController {
 		$InfoAdmission = $this->getAdmissionTable()->getAdmissionUrgence($id_admission);
 	
 		$donnees = array();
-		//Récupération des données
+		//Rï¿½cupï¿½ration des donnï¿½es
 		$donnees['motif_consultation'] = $this->params ()->fromPost (  'motif_consultation' );
 	
 		$donnees['salle'] = $this->params ()->fromPost (  'salle' );
@@ -1836,28 +1846,28 @@ class ConsultationController extends AbstractActionController {
 		/*=====================================================================*/
 		
 		$donnees['diganostic'] = str_replace("â€™", "'", $this->params ()->fromPost (  'diganostic' ));
-		$donnees['diganostic'] = str_replace("œ", "oe" ,$donnees['diganostic']);
+		$donnees['diganostic'] = str_replace("ï¿½", "oe" ,$donnees['diganostic']);
 		
 		$donnees['diganostic_associe'] = str_replace("â€™", "'", $this->params ()->fromPost (  'diganostic_associe' ));
-		$donnees['diganostic_associe'] = str_replace("œ", "oe" ,$donnees['diganostic_associe']);
+		$donnees['diganostic_associe'] = str_replace("ï¿½", "oe" ,$donnees['diganostic_associe']);
 		
 		$donnees['traitement'] = str_replace("â€™", "'", $this->params ()->fromPost (  'traitement' ));
-		$donnees['traitement'] = str_replace("œ", "oe" ,$donnees['traitement']);
+		$donnees['traitement'] = str_replace("ï¿½", "oe" ,$donnees['traitement']);
 		
 		$donnees['examens_complementaires_demandes'] = str_replace("â€™", "'", $this->params ()->fromPost (  'examens_complementaires_demandes' ));
-		$donnees['examens_complementaires_demandes'] = str_replace("œ", "oe" ,$donnees['examens_complementaires_demandes']);
+		$donnees['examens_complementaires_demandes'] = str_replace("ï¿½", "oe" ,$donnees['examens_complementaires_demandes']);
 		
 		$donnees['mode_sortie'] = str_replace("â€™", "'", $this->params ()->fromPost (  'mode_sortie' ));
-		$donnees['mode_sortie'] = str_replace("œ", "oe" ,$donnees['mode_sortie']);
+		$donnees['mode_sortie'] = str_replace("ï¿½", "oe" ,$donnees['mode_sortie']);
 		
 		$donnees['liste_mutation'] = str_replace("â€™", "'", $this->params ()->fromPost (  'liste_mutation' ));
-		$donnees['liste_mutation'] = str_replace("œ", "oe" ,$donnees['liste_mutation']);
+		$donnees['liste_mutation'] = str_replace("ï¿½", "oe" ,$donnees['liste_mutation']);
 		
 		$donnees['transfert'] = str_replace("â€™", "'", $this->params ()->fromPost (  'transfert' ));
-		$donnees['transfert'] = str_replace("œ", "oe" ,$donnees['transfert']);
+		$donnees['transfert'] = str_replace("ï¿½", "oe" ,$donnees['transfert']);
 		
 		$donnees['evacuation'] = str_replace("â€™", "'", $this->params ()->fromPost (  'evacuation' ));
-		$donnees['evacuation'] = str_replace("œ", "oe" ,$donnees['evacuation']);
+		$donnees['evacuation'] = str_replace("ï¿½", "oe" ,$donnees['evacuation']);
 		
 
 		//Recuperer les informations sur les infirmiers
@@ -1901,20 +1911,20 @@ class ConsultationController extends AbstractActionController {
 		$listeModeSortie = $this->getPatientTable ()->listeMotifsSortieRpuSortie();
 	
 		//CREATION DU DOCUMENT PDF
-		//Créer le document
+		//Crï¿½er le document
 		$DocPdf = new DocumentPdf();
 	
-		//Créer la page 1
+		//Crï¿½er la page 1
 		$page1 = new RpuSortiePdf();
 	
 		$page1->setService($serviceMedecin);
 		$page1->setInfoAdmission($InfoAdmission);
 	
-		//Envoi des données du patient
+		//Envoi des donnï¿½es du patient
 		$page1->setDonneesPatientTC($donneesPatient);
-		//Envoi des données du medecin
+		//Envoi des donnï¿½es du medecin
 		$page1->setDonneesMedecinTC($donneesMedecin);
-		//Envoi des données des infirmiers
+		//Envoi des donnï¿½es des infirmiers
 		$page1->setDonneesInfosInfirmiers($infosInfirmiers);
 		//Envoi de la liste des salles et des lits et service de mutation
 		$page1->setListeSalles($listeSalles);
@@ -1927,7 +1937,7 @@ class ConsultationController extends AbstractActionController {
 		$page1->setListeModeSortie($listeModeSortie);
 	
 	
-		//Envoi les données de la demande
+		//Envoi les donnï¿½es de la demande
 		$page1->setDonneesDemandeTC($donnees);
 	
 		//Ajouter les donnees a la page
@@ -1952,7 +1962,7 @@ class ConsultationController extends AbstractActionController {
 	
 		if($nbTotalLigne > 18 && $nbLigne < $nbTotalLigne){
 	
-			//Créer la page 2
+			//Crï¿½er la page 2
 			$page2 = new RpuSortiePdf2();
 			$page2->setDonneesDemandeTC($donnees);
 				
@@ -1988,7 +1998,7 @@ class ConsultationController extends AbstractActionController {
 		  
 			/*
 				if($suitePageRpu == 1){
-			//Créer la page 3
+			//Crï¿½er la page 3
 			$page3 = new RpuHospitalisationPdf3();
 				
 			//$page3->setEntrerResumeSyndromique($entrerRS);
@@ -2059,23 +2069,23 @@ class ConsultationController extends AbstractActionController {
 		$infosComp['couloir'] = $this->params ()->fromPost (  'couloir' );
 		$infosComp['niveau'] = $this->params ()->fromPost (  'niveau' );
 		
-		//Récupération des données
-		//Récupération des données
+		//Rï¿½cupï¿½ration des donnï¿½es
+		//Rï¿½cupï¿½ration des donnï¿½es
 		$tabInformations = array();
 		
 		$tabInformations[0]['titre'] = 'Motif de la consultation';
 		$tabInformations[0]['type' ] = 1;
 		$tabInformations[0]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'motif_consultation' ));
 		
-		$tabInformations[1]['titre'] = 'Résumé syndrômique';
+		$tabInformations[1]['titre'] = 'Rï¿½sumï¿½ syndrï¿½mique';
 		$tabInformations[1]['type' ] = 1;
 		$tabInformations[1]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'resume_syndromique' ));
 		
-		$tabInformations[2]['titre'] = 'Hypothèses diagnostiques';
+		$tabInformations[2]['titre'] = 'Hypothï¿½ses diagnostiques';
 		$tabInformations[2]['type' ] = 1;
 		$tabInformations[2]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'hypotheses_diagnostiques' ));
 		
-		$tabInformations[3]['titre'] = 'Notes sur les examens complémentaires';
+		$tabInformations[3]['titre'] = 'Notes sur les examens complï¿½mentaires';
 		$tabInformations[3]['type' ] = 1;
 		$tabInformations[3]['texte'] = '';//iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'examens_complementaires' ));
 		
@@ -2083,7 +2093,7 @@ class ConsultationController extends AbstractActionController {
 		$tabInformations[4]['type' ] = 1;
 		$tabInformations[4]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'traitement' ));
 		
-		$tabInformations[5]['titre'] = 'Résultats des examens complémentaires';
+		$tabInformations[5]['titre'] = 'Rï¿½sultats des examens complï¿½mentaires';
 		$tabInformations[5]['type' ] = 1;
 		$tabInformations[5]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'resultats_examens_complementaires' ));
 		
@@ -2096,25 +2106,25 @@ class ConsultationController extends AbstractActionController {
 			$tabInformations[6]['texte'] = null;
 		}
 		
-		$tabInformations[7]['titre'] = 'Mise à jour 1';
+		$tabInformations[7]['titre'] = 'Mise ï¿½ jour 1';
 		$tabInformations[7]['type' ] = 2;
 		$tabInformations[7]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'mise_a_jour_1' ));
 		
-		$tabInformations[8]['titre'] = 'Mise à jour 2';
+		$tabInformations[8]['titre'] = 'Mise ï¿½ jour 2';
 		$tabInformations[8]['type' ] = 2;
 		$tabInformations[8]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'mise_a_jour_2' ));
 		
-		$tabInformations[9]['titre'] = 'Mise à jour 3';
+		$tabInformations[9]['titre'] = 'Mise ï¿½ jour 3';
 		$tabInformations[9]['type' ] = 2;
 		$tabInformations[9]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'mise_a_jour_3' ));
 		
-		$tabInformations[10]['titre'] = 'Avis du spécialiste';
+		$tabInformations[10]['titre'] = 'Avis du spï¿½cialiste';
 		$tabInformations[10]['type' ] = 1;
 		$tabInformations[10]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'avis_specialiste' ));
 		
 		
-		//Récupération des actes et examens complémentaires
-		//Récupération des actes et examens complémentaires
+		//Rï¿½cupï¿½ration des actes et examens complï¿½mentaires
+		//Rï¿½cupï¿½ration des actes et examens complï¿½mentaires
 		$tabInfosActesExamens = array();
 		
 		$listeActesDemandes = $this->getMotifAdmissionTable ()->getListeActesDemandes($id_admission);
@@ -2125,7 +2135,7 @@ class ConsultationController extends AbstractActionController {
 		
 		$listeExamensDemandes = $this->getMotifAdmissionTable ()->getListeExamensDemandes($id_admission);
 		
-		$tabInfosActesExamens[1]['titre'] = 'Les examens complémentaires';
+		$tabInfosActesExamens[1]['titre'] = 'Les examens complï¿½mentaires';
 		$tabInfosActesExamens[1]['type' ] = 1;
 		$tabInfosActesExamens[1]['tableau'] = $listeExamensDemandes;
 		
@@ -2229,11 +2239,11 @@ class ConsultationController extends AbstractActionController {
 		$infosComp['couloir'] = $this->params ()->fromPost (  'couloir' );
 		$infosComp['niveau'] = $this->params ()->fromPost (  'niveau' );
 		
-		//Récupération des données
-		//Récupération des données
+		//Rï¿½cupï¿½ration des donnï¿½es
+		//Rï¿½cupï¿½ration des donnï¿½es
 		$tabInformations = array();
 		
-		$tabInformations[0]['titre'] = 'Côté dominant';
+		$tabInformations[0]['titre'] = 'Cï¿½tï¿½ dominant';
 		$tabInformations[0]['type' ] = 2;
 		$cote_dominant = $this->params ()->fromPost (  'cote_dominant' );
 		if($cote_dominant){
@@ -2257,7 +2267,7 @@ class ConsultationController extends AbstractActionController {
 		}
 		
 		
-		$tabInformations[3]['titre'] = 'Antécédent';
+		$tabInformations[3]['titre'] = 'Antï¿½cï¿½dent';
 		$tabInformations[3]['type' ] = 1;
 		$tabInformations[3]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'antecedent' ));
 		
@@ -2269,17 +2279,17 @@ class ConsultationController extends AbstractActionController {
 		$tabInformations[5]['type' ] = 1;
 		$tabInformations[5]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'examen_paraclinique' ));
 		
-		$tabInformations[6]['titre'] = 'Résultat des examens complémentaires';
+		$tabInformations[6]['titre'] = 'Rï¿½sultat des examens complï¿½mentaires';
 		$tabInformations[6]['type' ] = 1;
 		$tabInformations[6]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'resultat_examen_complementaire' ));
 		
-		$tabInformations[7]['titre'] = 'Mécanismes';
+		$tabInformations[7]['titre'] = 'Mï¿½canismes';
 		$tabInformations[7]['type' ] = 2;
 		$mecanismes = $this->params ()->fromPost (  'mecanismes' );
 		if($mecanismes){ $tabInformations[7]['texte'] = iconv ('UTF-8' , 'windows-1252', $listeMecanismes[$mecanismes]); }
 		else{ $tabInformations[7]['texte'] = null; }
 		
-		$tabInformations[8]['titre'] = 'Mécanismes précision';
+		$tabInformations[8]['titre'] = 'Mï¿½canismes prï¿½cision';
 		$tabInformations[8]['type' ] = 2;
 		$tabInformations[8]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'mecanismes_precision' ));
 		
@@ -2289,7 +2299,7 @@ class ConsultationController extends AbstractActionController {
 		if($indication){ $tabInformations[9]['texte'] = iconv ('UTF-8' , 'windows-1252', $listeIndications[$indication]); }
 		else{ $tabInformations[9]['texte'] = null; }
 		
-		$tabInformations[10]['titre'] = 'Indication précision';
+		$tabInformations[10]['titre'] = 'Indication prï¿½cision';
 		$tabInformations[10]['type' ] = 2;
 		$tabInformations[10]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'indication_precision' ));
 		
@@ -2299,11 +2309,11 @@ class ConsultationController extends AbstractActionController {
 		if($diagnostic){ $tabInformations[11]['texte'] = iconv ('UTF-8' , 'windows-1252', $listeDiagnostics[$diagnostic]); }
 		else{ $tabInformations[11]['texte'] = null; }
 		
-		$tabInformations[12]['titre'] = 'Diagnostic précision';
+		$tabInformations[12]['titre'] = 'Diagnostic prï¿½cision';
 		$tabInformations[12]['type' ] = 2;
 		$tabInformations[12]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'diagnostic_precision' ));
 		
-		$tabInformations[13]['titre'] = 'Conduite à tenir';
+		$tabInformations[13]['titre'] = 'Conduite ï¿½ tenir';
 		$tabInformations[13]['type' ] = 1;
 		$tabInformations[13]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'conduite' ));
 		
@@ -2318,11 +2328,11 @@ class ConsultationController extends AbstractActionController {
 		$tabInformations[15]['type' ] = 2;
 		$tabInformations[15]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'rendez_vous' ));
 		
-		$tabInformations[16]['titre'] = 'Avis du spécialiste';
+		$tabInformations[16]['titre'] = 'Avis du spï¿½cialiste';
 		$tabInformations[16]['type' ] = 1;
 		$tabInformations[16]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'specialiste_trauma' ));
 		
-		$tabInformations[17]['titre'] = 'Conduite à tenir (par le spécialiste)';
+		$tabInformations[17]['titre'] = 'Conduite ï¿½ tenir (par le spï¿½cialiste)';
 		$tabInformations[17]['type' ] = 1;
 		$tabInformations[17]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'conduite_specialiste' ));
 		
@@ -2369,8 +2379,8 @@ class ConsultationController extends AbstractActionController {
 		
 		
 		
-		//Récupération des actes et examens complémentaires
-		//Récupération des actes et examens complémentaires
+		//Rï¿½cupï¿½ration des actes et examens complï¿½mentaires
+		//Rï¿½cupï¿½ration des actes et examens complï¿½mentaires
 		$tabInfosActesExamens = array();
 		
 		$listeActesDemandes = $this->getMotifAdmissionTable ()->getListeActesDemandes($id_admission);
@@ -2381,7 +2391,7 @@ class ConsultationController extends AbstractActionController {
 		
 		$listeExamensDemandes = $this->getMotifAdmissionTable ()->getListeExamensDemandes($id_admission);
 		
-		$tabInfosActesExamens[1]['titre'] = 'Les examens complémentaires';
+		$tabInfosActesExamens[1]['titre'] = 'Les examens complï¿½mentaires';
 		$tabInfosActesExamens[1]['type' ] = 1;
 		$tabInfosActesExamens[1]['tableau'] = $listeExamensDemandes;
 		
@@ -2440,15 +2450,15 @@ class ConsultationController extends AbstractActionController {
 		$infosComp['couloir'] = $this->params ()->fromPost (  'couloir' );
 		$infosComp['niveau'] = $this->params ()->fromPost (  'niveau' );
 		
-		//Récupération des données
-		//Récupération des données
+		//Rï¿½cupï¿½ration des donnï¿½es
+		//Rï¿½cupï¿½ration des donnï¿½es
 		$tabInformations = array();
 		
 		$tabInformations[0]['titre'] = 'Diagnostic principal';
 		$tabInformations[0]['type' ] = 1;
 		$tabInformations[0]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'diganostic' ));
 		
-		$tabInformations[1]['titre'] = 'Diagnostic associé';
+		$tabInformations[1]['titre'] = 'Diagnostic associï¿½';
 		$tabInformations[1]['type' ] = 1;
 		$tabInformations[1]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'diganostic_associe' ));
 		
@@ -2456,7 +2466,7 @@ class ConsultationController extends AbstractActionController {
 		$tabInformations[2]['type' ] = 1;
 		$tabInformations[2]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'traitement' ));
 		
-		$tabInformations[3]['titre'] = 'Examens complémentaires demandés';
+		$tabInformations[3]['titre'] = 'Examens complï¿½mentaires demandï¿½s';
 		$tabInformations[3]['type' ] = 1;
 		$tabInformations[3]['texte'] = iconv ('UTF-8' , 'windows-1252', $this->params ()->fromPost (  'examens_complementaires_demandes' ));
 		
@@ -2478,7 +2488,7 @@ class ConsultationController extends AbstractActionController {
 			$tabInformations[5]['texte'] = null;
 		}
 		
-		$tabInformations[6]['titre'] = 'Transférer vers';
+		$tabInformations[6]['titre'] = 'Transfï¿½rer vers';
 		$tabInformations[6]['type' ] = 2;
 		$tabInformations[6]['texte'] = iconv ('UTF-8' , 'windows-1252',  $this->params ()->fromPost (  'transfert' ));
 		

@@ -32,12 +32,16 @@ if($role == 'specialiste'){
 $(window).load(function () {
 	$('#wait').toggle(false);
 	$('#contenuDesInterfaces').fadeIn().css({'visibility':'visible'});
+
+	$('.accordion-menu').toggle(true);
+	$('.submenuItems .liste-patients-admis-select').css({'font-weight':'bold', 'color':'black'});
+	$('.icon-folder-close').trigger('dblclick');
 });
 </script>
 
 <div id="titre"
-	style='font-family: police2; text-decoration: none; color: green; font-size: 20px; font-weight: bold; padding-left: 20px;'>
-	<iS style='font-size: 25px;'>&curren;</iS>
+	style='font-family: police2; text-decoration: none; color: rgb(24, 153, 121); font-size: 20px; font-weight: bold; padding-left: 20px;'>
+	<i class="icon-list-alt" style="padding-top: 3px;"></i> &nbsp; 
 	<span>LISTE DES PATIENTS ADMIS</span>
 
 	<!-- div class="chargementPageModification" align="center" style="margin-top: -35px;"> </div-->
@@ -135,7 +139,7 @@ $(window).load(function () {
 				<tr style="height: 30px;">
 					<td style="vertical-align: top;">
 						<div class="comment-form-author">
-							<span style='margin-right: 7px; font-family: Iskoola Pota;'>Niveau
+							<span style='margin-right: 7px; font-family: cursive;'>Niveau
 								d'urgence</span>
 						  <?php echo $this->formradio($form->get('niveau'));?>
 						 </div>
@@ -153,19 +157,19 @@ $(window).load(function () {
 		          <tr class="comment-form-author" style='width: 100%;'>
 		             <td style='width: 25%; '> 
 		                <label style="width: 95%; height: 40px; text-align: right;"> 
-		                   Mode d'entr&eacute;e <?php echo $this->formRow($form->get('mode_entree'));?> 
+		                   <span style="font-family: cursive;"> Mode d'entr&eacute;e </span> <?php echo $this->formRow($form->get('mode_entree'));?> 
 		                </label>      
 		             </td>
 		             
 		             <td class='divPrecissionProvenance' style='width: 37%; '> 
 		                <label style="width: 90%; height: 40px; text-align: right;"> 
-		                   Provenance <?php echo $this->formRow($form->get('precision_provenance'));?> 
+							<span style="font-family: cursive;"> Provenance </span> <?php echo $this->formRow($form->get('precision_provenance'));?> 
 		                </label> 
 		             </td>
 		             
 		             <td class='divModeTransport' style='width: 37%;  '>
 		                <label style="width: 95%; height: 40px; text-align: right; margin-left: 15px;"> 
-		                   Mode de transport <?php echo $this->formRow($form->get('mode_transport'));?> 
+							<span style="font-family: cursive;"> Mode de transport </span><?php echo $this->formRow($form->get('mode_transport'));?> 
 		                </label> 
 		             </td>
 		             
@@ -715,7 +719,7 @@ $(window).load(function () {
 
 
 								<tr id="labelDesAntecedentsMedicaux_1" style="width: 100%;">
-									<!-- Emplacement des autres antecedents médicaux ajouter à partir du champ autre -->
+									<!-- Emplacement des autres antecedents mï¿½dicaux ajouter ï¿½ partir du champ autre -->
 								</tr>
 
 								<tr style="width: 100%;">
@@ -1338,10 +1342,10 @@ $('#respond .rpu_sortie_input_choix span').toggle(false);
 var base_url = window.location.toString();
 var tabUrl = base_url.split("public");
 //POUR LE MENU GAUCHE dans -elementgauche.phtml
-$('#plus_admission').toggle(true);
-$("#admission").replaceWith("<li id='admission' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Consultation </span></a></li>");
-dep_admission1();
-$('#liste_admission_style').css({'font-weight':'bold','color':'white','font-size':'19px'});
+// $('#plus_admission').toggle(true);
+// $("#admission").replaceWith("<li id='admission' style='background:#4a5765;'><a href=''><span style='margin-left:0px; color: #ffffff; font-weight:bold; font-size:20px; font-family:Times New Roman;'> <img style='display: inline;' src='"+tabUrl[0]+"public/images_icons/moin-green2.png' alt='Liste' /> Consultation </span></a></li>");
+// //dep_admission1();
+// $('#liste_admission_style').css({'font-weight':'bold','color':'white','font-size':'19px'});
 
 getAutoCompletionListeMotifsAdmission();
 

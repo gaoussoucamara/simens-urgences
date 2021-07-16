@@ -59,6 +59,7 @@ $(function() {
 
 	
 	$('#afficherAdmissionInfirmierSevice').css({'font-weight':'bold', 'font-size': '17px' });
+	$("#titre i" ).replaceWith('<i class="icon-list-alt" style="padding-top: 3px;"></i>');
 	$('#titre span').html('<span>RECHERCHER LE PATIENT</span>');
 	
 	
@@ -162,33 +163,7 @@ function visualiser(id) {
 	});
 }
 
-$(function() {
-	setTimeout(function() {
-		infoBulle();
-	}, 1000);
-});
 
-function infoBulle() {
-	/***************************************************************************
-	 * INFO BULLE FE LA LISTE
-	 */
-	var tooltips = $('table tbody tr td infoBulleVue').tooltip({
-		show : {
-			effect : 'slideDown',
-			delay : 250
-		}
-	});
-	tooltips.tooltip('close');
-	$('table tbody tr td infoBulleVue').mouseenter(function() {
-		var tooltips = $('table tbody tr td infoBulleVue').tooltip({
-			show : {
-				effect : 'slideDown',
-				delay : 250
-			}
-		});
-		tooltips.tooltip('open');
-	});
-}
 var oTable;
 function initialisation() {
 
@@ -291,6 +266,7 @@ function animation() {
 	$('#admission_urgence').toggle(false);
 
 	$('#precedent').click(function() {
+		$("#titre i" ).replaceWith('<i class="icon-list-alt" style="padding-top: 3px;"></i>');
 		$('#titre span').html('<span>RECHERCHER LE PATIENT</span>');
 		
 		$('#contenu').animate({
@@ -350,6 +326,8 @@ function admettre(id_patient){
 	
 	$("#termineradmission").replaceWith("<button id='termineradmission' style='height:35px;'>Admettre</button>");
 	$("#annuleradmission" ).replaceWith("<button id='annuleradmission' style='height:35px;'>Annuler</button>");
+	
+	$("#titre i" ).replaceWith('<i class="icon-folder-open" style="padding-top: 3px;"></i>');
 	$('#titre span').html('<span>ADMISSION</span>');
 	
 	// R�cup�ration des donn�es du patient
@@ -501,7 +479,7 @@ function initialisationListeInfTri() {
 
 						"fnDrawCallback" : function() {
 							// markLine();
-							clickRowHandler();
+							clickRowHandlerAdmisInftri();
 						}
 
 					} );
@@ -586,9 +564,6 @@ function raffarichirLaListePatientAdmisParInfirmierTri(){
 				var result = jQuery.parseJSON(data);
 				
 				if(identifierListeAfficher == 1 && nbPatientAdmisNonVu < result){
-					//nbPatientAdmisNonVu++;
-					//oTableListeInfTri.fnDestroy(); 
-					//initialisationListeInfTri();
 					
 					//Raffraichir la liste
 					vart = tabUrl[0] + 'public/urgence/admission';
@@ -604,6 +579,10 @@ function raffarichirLaListePatientAdmisParInfirmierTri(){
 	},30000);
 }
 
+
+function clickRowHandlerAdmisInftri() {
+	$('a,img,span').tooltip({ animation: true, html: true, placement: 'bottom', show: { effect: "slideDown", delay: 250 }} );
+}
 
 function admettreVersMedecin(id_patient, id_admission) { 
 
@@ -671,7 +650,7 @@ function admettreVersMedecin(id_patient, id_admission) {
 		data : {'id_patient':id_patient, 'id_admission':id_admission},
 		success : function(data) {
 			var result = jQuery.parseJSON(data);
-			$("#info_patient").html(result);
+			$("#info_patient").html(result[0]);
 			// PASSER A SUIVANT
 			$('#admission_urgence').animate({
 				height : 'toggle'
@@ -680,9 +659,33 @@ function admettreVersMedecin(id_patient, id_admission) {
 				height : 'toggle'
 			}, 1000);
 			
+			/*
+			var tabTypesActes = result[1];
+			var myArrayTypeActes = [''];
+    	    for(var i=1 ; i<=tabTypesActes.length ; i++){
+    	    	myArrayTypeActes[i] = tabTypesActes[i];
+    	    }
+    	    
+    	    var tabTypesExamenComp = result[2];
+			var myArrayTypeExamenComp = [''];
+    	    for(var i=1 ; i<=tabTypesExamenComp.length ; i++){
+    	    	myArrayTypeExamenComp[i] = tabTypesExamenComp[i];
+    	    }
+			
+    	    if(entreIniActes == 0){
+        	    partDefautActe(myArrayTypeActes, 1);
+    			partDefautActeEC(myArrayTypeExamenComp, 1);
+        	    entreIniActes = 1;
+    	    }
+			*/
+			
 			$("#motif_admission_donnees").css({'height':'350px'});
 			$("#constantes_donnees").css({'height':'330px'});
 			$("#orientation_donnees").css({'height':'100px'});
+			$("#actes_examencomplementaire_donnees").css({'height':'400px'});
+			
+			$("#actes_donnees").css({'height':'250px'});
+			$("#examens_complementaires_donnees").css({'height':'250px'});
 
 			//Reduction de linterface
 			$("#accordionsUrgence").css({'min-height':'100px'});

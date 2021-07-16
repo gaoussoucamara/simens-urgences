@@ -122,7 +122,7 @@ class UrgenceController extends AbstractActionController {
 	public function listePatientAction() {
 		// $personne = $this->getPatientTable()->miseAJourAgePatient(4);
 		$user = $this->layout ()->user;
-		$id_employe = $user ['id_personne']; // L'utilisateur connecté
+		$id_employe = $user ['id_personne']; // L'utilisateur connectï¿½
 		
 		
 		/***
@@ -165,7 +165,7 @@ class UrgenceController extends AbstractActionController {
 	 */
 	public function enregistrementPatientAction() {
 		$user = $this->layout ()->user;
-		$id_employe = $user ['id_personne']; // L'utilisateur connecté
+		$id_employe = $user ['id_personne']; // L'utilisateur connectï¿½
 		                                    
 		// CHARGEMENT DE LA PHOTO ET ENREGISTREMENT DES DONNEES
 		if (isset ( $_POST ['terminer'] )) 		// si formulaire soumis
@@ -324,7 +324,7 @@ class UrgenceController extends AbstractActionController {
 	public function enregistrementModificationAction() {
 	
 		$user = $this->layout()->user;
-		$id_employe = $user['id_personne']; //L'utilisateur connecté
+		$id_employe = $user['id_personne']; //L'utilisateur connectï¿½
 	
 		if (isset ( $_POST ['terminer'] ))
 		{
@@ -533,46 +533,61 @@ class UrgenceController extends AbstractActionController {
 			if($date){ $date = (new DateHelper())->convertDate( $unPatient['DATE_NAISSANCE'] ); }else{ $date = null;}
 	
 			$html  = "<div style='width:100%; height: 190px;'>";
-				
-			$html .= "<div style='width: 18%; height: 190px; float:left;'>";
-			$html .= "<div id='photo' style='float:left; margin-left:40px; margin-top:10px; margin-right:30px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "' ></div>";
-			$html .= "<div style='margin-left:60px; margin-top: 150px;'> <div style='text-decoration:none; font-size:14px; float:left; padding-right: 7px; '>Age:</div>  <div style='font-weight:bold; font-size:19px; font-family: time new romans; color: green; font-weight: bold;'>" . $unPatient['AGE'] . " ans</div></div>";
+
+			$html .= "<div style='width: 26%; height: 190px; float:left; color: rgb(24, 153, 121);'>";
+			if($unPatient['SEXE'] == "Masculin"){
+				$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png' ></div>";
+			}else{
+				$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png' ></div>";
+			}
+
+			$html .= "<div style='margin-left:5px; margin-top: 130px; margin-right: 5px; text-align: center;'>  <div style='font-weight:bold; font-size:22px; font-family: time new romans; font-weight: bold;'>" . $unPatient['PRENOM'] . " " . $unPatient['NOM'] . " </div></div>";
+			$html .= "<div style='margin-left:20px; margin-top: 5px; text-align: center;'> <div style='font-size:22px; font-family: time new romans; font-weight: bol;'>" . $unPatient['AGE'] . " ans</div></div>";
 			$html .= "</div>";
-				
-			$html .= "<div id='vuePatientAdmission' style='width: 70%; height: 190px; float:left;'>";
+
+
+			$html .= "<div id='vuePatientAdmission' style='width: 62%; height: 190px; float:left;'>";
 			$html .= "<table style='margin-top:0px; float:left; width: 100%;'>";
 				
+
 			$html .= "<tr style='width: 100%;'>";
-			$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nom:</a><br><div style='width: 150px; max-width: 160px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['NOM'] . "</p></div></td>";
-			$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Date de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $date . "</p></div></td>";
-			$html .= "<td style='width: 23%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>T&eacute;l&eacute;phone:</a><br><div style='width: 95%; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['TELEPHONE'] . "</p></div></td>";
-			$html .= "<td style='width: 29%; '></td>";
-			
-			$html .= "</tr><tr style='width: 100%;'>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Pr&eacute;nom:</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['PRENOM'] . " </p></div></td>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Lieu de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nationalit&eacute; actuelle:</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Email:</a><br><div style='width: 100%; max-width: 235px; height:40px; overflow:auto;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['EMAIL'] . "</p></div></td>";
-			
-			$html .= "</tr><tr style='width: 100%;'>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Sexe:</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['SEXE'] . "</p></div></td>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Adresse:</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['ADRESSE'] . "</p></div></td>";
-			$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Profession:</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" .  $unPatient['PROFESSION'] . "</p></div></td>";
-			
-			$html .= "<td style='width: 30%; height: 50px;'>";
-			$html .= "</td>";
+			$html .= "<td style='width: 28%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>T&eacute;l&eacute;phone</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['TELEPHONE'] . " </p></div></td>";
+			$html .= "<td style='width: 32%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Adresse</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['ADRESSE'] . "</p></div></td>";
+			$html .= "<td style='width: 40%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Nationalit&eacute; actuelle</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
+			$html .="</tr>";
+
+			$html .= "<tr style='width: 100%;'>";
+			$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Date de naissance</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $date . "</p></div></td>";
+			$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Profession</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['PROFESSION'] . "</p></div></td>";
+			$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>@-mail</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" .  $unPatient['EMAIL'] . "</p></div></td>";
 			$html .= "</tr>";
+
+			$html .= "<tr style='width: 100%;'>";
+			$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Sexe</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['SEXE'] . " </p></div></td>";
+			$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Lieu de naissance</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
+			$html .= "<td style='vertical-align: top;'></td>";
+			$html .="</tr>";
+
 			$html .= "</table>";
 			$html .= "</div>";
 				
 			$html .= "<div style='width: 12%; height: 190px; float:left;'>";
-			$html .= "<div style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "'></div>";
-			$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:19px; font-family: time new romans; color: green; float:left; margin-top: 10px;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
+
+
+
+			if($unPatient['SEXE'] == "Masculin"){
+				$html .= "<div style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png"."'></div>";
+			}else{
+				$html .= "<div style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png"."'></div>";
+			}
+
+
+			$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-family: time new romans; font-size: 20px; color: rgb(24, 153, 121); float:left; margin-top: 10px;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
 			$html .= "</div>";
 				
 			$html .= "</div>";
 			
-			//Liste des actes et des examens complémentaires
+			//Liste des actes et des examens complï¿½mentaires
 			$listeActes = $this->getAdmissionTable()->getListeActes();
 			$listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
 			
@@ -581,8 +596,8 @@ class UrgenceController extends AbstractActionController {
 		
 		}else{
 			
-			$layout = $this->layout ();
-			$layout->setTemplate ( 'layout/urgence' );
+			//$layout = $this->layout ();
+			$this->layout ()->setTemplate ( 'layout/urgence' );
 			
 			//INSTANCIATION DU FORMULAIRE D'ADMISSION
 			$formAdmission = new AdmissionForm ();
@@ -722,8 +737,8 @@ class UrgenceController extends AbstractActionController {
 			);
 			$id_admission = $this->getAdmissionTable()->addAdmission($donneesAdmission);
 			
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 			$mode_entree_et_mode_transport['id_admission'] = $id_admission;
 			$this->getAdmissionTable()->addModeEntreeModeTransport($mode_entree_et_mode_transport);
 			
@@ -745,7 +760,7 @@ class UrgenceController extends AbstractActionController {
 				$this->getConsultationTable ()->addConsultation ($donneesConstantes); 
 				$this->getConsultationTable ()->addConsultationUrgence($id_cons, $id_admission, $id_Infirmier);
 				
-				//mettre à jour les bandelettes urinaires
+				//mettre ï¿½ jour les bandelettes urinaires
 				$bandelettes['id_cons'] = $id_cons;
 				$this->getConsultationTable ()->deleteBandelette($id_cons);
 				$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -758,13 +773,13 @@ class UrgenceController extends AbstractActionController {
 			//Les actes
 			$tabActesDemandes = explode(',', $tabDonnees['tabActesDemandes']);
 			$tabNotesActes = explode(':,,;', $tabDonnees['tabNotesActes']);
-			//Les examens complémentaires
+			//Les examens complï¿½mentaires
 			$tabTypesExamensDemandes = explode(',', $tabDonnees['tabTypeExamenDemandesEC']);
 			$tabExamensDemandes = explode(',', $tabDonnees['tabExamenDemandesEC']);
 			
 			$id_admission = $this->params ()->fromPost( "id_admission" );
-			//Si c'est un patient déjà admis par l'infirmier de tri
-			//Si c'est un patient déjà admis par l'infirmier de tri
+			//Si c'est un patient dï¿½jï¿½ admis par l'infirmier de tri
+			//Si c'est un patient dï¿½jï¿½ admis par l'infirmier de tri
 			if($id_admission){
 				
 				//Validation de l'admission par l'infirmier de service
@@ -781,8 +796,8 @@ class UrgenceController extends AbstractActionController {
 				$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 				
 				
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 				$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
 				
 				
@@ -793,14 +808,14 @@ class UrgenceController extends AbstractActionController {
 					$this->getMotifAdmissionTable ()->addMotifAdmission ( $form , $id_admission);
 				}
 					
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
 				$consultation_urgence = $this->getConsultationTable ()->getConsultationUrgence($id_admission);
 				if($consultation_urgence){
 					$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->miseajourConsultationUrgence($id_Infirmier, $consultation_urgence['id_cons']);
 					
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 					$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -816,7 +831,7 @@ class UrgenceController extends AbstractActionController {
 						$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 						$this->getConsultationTable ()->addConsultationUrgenceInfirmierService ($id_cons, $id_admission, $id_Infirmier);
 					
-						//mettre à jour les bandelettes urinaires
+						//mettre ï¿½ jour les bandelettes urinaires
 						$bandelettes['id_cons'] = $id_cons;
 						$this->getConsultationTable ()->deleteBandelette($id_cons);
 						$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -838,8 +853,8 @@ class UrgenceController extends AbstractActionController {
 				
 				$id_admission = $this->getAdmissionTable()->addAdmission($donneesAdmission);
 					
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 				$mode_entree_et_mode_transport['id_admission'] = $id_admission;
 				$this->getAdmissionTable()->addModeEntreeModeTransport($mode_entree_et_mode_transport);
 					
@@ -860,14 +875,14 @@ class UrgenceController extends AbstractActionController {
 					$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 					$this->getConsultationTable ()->addConsultationUrgenceInfirmierService($id_cons, $id_admission, $id_Infirmier);
 				
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $id_cons;
 					$this->getConsultationTable ()->deleteBandelette($id_cons);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
 				}
 				
-				//Insertion des demandes d'actes et examens complémentaires
-				//Insertion des demandes d'actes et examens complémentaires
+				//Insertion des demandes d'actes et examens complï¿½mentaires
+				//Insertion des demandes d'actes et examens complï¿½mentaires
 				$this->getMotifAdmissionTable ()->addDemandesActes($id_admission, $tabActesDemandes, $tabNotesActes, $id_Infirmier);
 				$this->getMotifAdmissionTable ()->addDemandesExamensComplementaire($id_admission, $id_Infirmier, $tabTypesExamensDemandes, $tabExamensDemandes);
 			}
@@ -987,41 +1002,52 @@ class UrgenceController extends AbstractActionController {
 		if($date){ $date = (new DateHelper())->convertDate( $unPatient['DATE_NAISSANCE'] ); }else{ $date = null;}
 		
 		$html  = "<div style='width:100%; height: 190px;'>";
-		
-		$html .= "<div style='width: 18%; height: 190px; float:left;'>";
-		$html .= "<div id='photo' style='float:left; margin-left:40px; margin-top:10px; margin-right:30px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "' ></div>";
-		$html .= "<div style='margin-left:60px; margin-top: 150px;'> <div style='text-decoration:none; font-size:14px; float:left; padding-right: 7px; '>Age:</div>  <div style='font-weight:bold; font-size:19px; font-family: time new romans; color: green; font-weight: bold;'>" . $unPatient['AGE'] . " ans</div></div>";
+
+		$html .= "<div style='width: 26%; height: 190px; float:left; color: rgb(24, 153, 121);'>";
+		if($unPatient['SEXE'] == "Masculin"){
+			$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png' ></div>";
+		}else{
+			$html .= "<div style='float:left; margin-left:90px; margin-top:-5px; margin-right:30px;'> <img style='width:130px; height:125px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png' ></div>";
+		}
+
+		$html .= "<div style='margin-left:5px; margin-top: 130px; margin-right: 5px; text-align: center;'>  <div style='font-weight:bold; font-size:22px; font-family: time new romans; font-weight: bold;'>" . $unPatient['PRENOM'] . " " . $unPatient['NOM'] . " </div></div>";
+		$html .= "<div style='margin-left:20px; margin-top: 5px; text-align: center;'> <div style='font-size:22px; font-family: time new romans; font-weight: bol;'>" . $unPatient['AGE'] . " ans</div></div>";
 		$html .= "</div>";
 		
-		$html .= "<div id='vuePatientAdmission' style='width: 70%; height: 190px; float:left;'>";
+		$html .= "<div id='vuePatientAdmission' style='width: 62%; height: 190px; float:left;'>";
 		$html .= "<table style='margin-top:0px; float:left; width: 100%;'>";
 		
+
 		$html .= "<tr style='width: 100%;'>";
-		$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nom:</a><br><div style='width: 150px; max-width: 160px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['NOM'] . "</p></div></td>";
-		$html .= "<td style='width: 24%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Date de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $date . "</p></div></td>";
-		$html .= "<td style='width: 23%; vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>T&eacute;l&eacute;phone:</a><br><div style='width: 95%; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['TELEPHONE'] . "</p></div></td>";
-		$html .= "<td style='width: 29%; '></td>";
-		
-		$html .= "</tr><tr style='width: 100%;'>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Pr&eacute;nom:</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['PRENOM'] . " </p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Lieu de naissance:</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Nationalit&eacute; actuelle:</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Email:</a><br><div style='width: 100%; max-width: 235px; height:40px; overflow:auto;'><p style='font-weight:bold; font-size:19px;'>" . $unPatient['EMAIL'] . "</p></div></td>";
-		
-		$html .= "</tr><tr style='width: 100%;'>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Sexe:</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['SEXE'] . "</p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Adresse:</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:19px;'>" . $unPatient['ADRESSE'] . "</p></div></td>";
-		$html .= "<td style='vertical-align: top;'><a style='text-decoration:underline; font-size:12px;'>Profession:</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:19px;'>" .  $unPatient['PROFESSION'] . "</p></div></td>";
-		
-		$html .= "<td style='width: 30%; height: 50px;'>";
-		$html .= "</td>";
+		$html .= "<td style='width: 28%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>T&eacute;l&eacute;phone</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['TELEPHONE'] . " </p></div></td>";
+		$html .= "<td style='width: 32%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Adresse</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['ADRESSE'] . "</p></div></td>";
+		$html .= "<td style='width: 40%; vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Nationalit&eacute; actuelle</a><br><div style='width: 95%; max-width: 135px; overflow:auto; '><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['NATIONALITE_ACTUELLE']. "</p></td>";
+		$html .="</tr>";
+
+		$html .= "<tr style='width: 100%;'>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Date de naissance</a><br><div style='width: 95%; max-width: 130px; height:40px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $date . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Profession</a><br><div style='width: 97%; max-width: 250px; height:50px; overflow:auto; margin-bottom: 3px;'><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['PROFESSION'] . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>@-mail</a><br><div style='width: 95%; max-width: 235px; height:40px; overflow:auto; '><p style=' font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" .  $unPatient['EMAIL'] . "</p></div></td>";
 		$html .= "</tr>";
+
+		$html .= "<tr style='width: 100%;'>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Sexe</a><br><div style='width: 95%; max-width: 180px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['SEXE'] . " </p></div></td>";
+		$html .= "<td style='vertical-align: top;'><a style='text-decoration:none; font-size:16px; font-family: cursive; color: gray;'>Lieu de naissance</a><br><div style='width: 95%; max-width: 250px; height:40px; overflow:auto; margin-bottom: 3px;'><p style='font-weight:bold; font-size:20px; color: rgb(24, 153, 121);'>" . $unPatient['LIEU_NAISSANCE'] . "</p></div></td>";
+		$html .= "<td style='vertical-align: top;'></td>";
+		$html .="</tr>";
+
 		$html .= "</table>";
 		$html .= "</div>";
-		
+
 		$html .= "<div style='width: 12%; height: 190px; float:left;'>";
-		$html .= "<div id='' style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/img/photos_patients/" . $photo . "'></div>";
-		$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:19px; font-family: time new romans; color: green; float:left; margin-top: 10px;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
+		
+		if($unPatient['SEXE'] == "Masculin"){
+			$html .= "<div style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-male.png"."'></div>";
+		}else{
+			$html .= "<div style='color: white; opacity: 0.09; float:left; margin-right:10px; margin-left:5px; margin-top:5px;'> <img style='width:105px; height:105px;' src='".$this->baseUrl()."public/login-form-2021/images/patient-femal.png"."'></div>";
+		}
+		
+		$html .= "<div style='margin-left: 5px; margin-top: 10px; margin-right:10px;'>  <div style='font-size:19px; font-family: time new romans; font-size:20px; color: rgb(24, 153, 121); float:left; margin-top: 10px;'>" . $unPatient['NUMERO_DOSSIER'] . " </div></div>";
 		$html .= "</div>";
 		
 		$html .= "</div>";
@@ -1070,8 +1096,8 @@ class UrgenceController extends AbstractActionController {
 		$html .="<script> $('#id_admission').val('".$id_admission."'); </script>";
 		
 		
-		//Récupération des motifs des consultations
-		//Récupération des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
 		$motif_admission = $this->getMotifAdmissionTable()->getMotifAdmissionUrgence($id_admission);
 		$nbMotif = $motif_admission->count(); $i=1;
 		if($nbMotif > 1){ $html .="<script> afficherMotif(".$nbMotif."); $('#bouton_motif_valider').trigger('click'); </script>"; }
@@ -1083,8 +1109,8 @@ class UrgenceController extends AbstractActionController {
 			$html .= "<script> setTimeout(function(){ $('#motif_admission".$i++."').val('".str_replace("'", "\'",$motif->libelle_motif)."'); });</script>";
 		}
 		
-		//Récupération des constantes
-		//Récupération des constantes 
+		//Rï¿½cupï¿½ration des constantes
+		//Rï¿½cupï¿½ration des constantes 
 		$constantes = $this->getConsultationTable()->getConsultationParIdAdmission($id_admission);
         if($constantes){
         	$tensions = explode(' ', $constantes['PRESSION_ARTERIELLE']);
@@ -1127,7 +1153,7 @@ class UrgenceController extends AbstractActionController {
         
 
         /**
-         * Liste des actes et des examens complémentaires
+         * Liste des actes et des examens complï¿½mentaires
          */
         //Liste des actes
         $listeActes = $this->getAdmissionTable()->getListeActes();
@@ -1143,7 +1169,7 @@ class UrgenceController extends AbstractActionController {
         	$cmpti++;
         }
         
-        //Liste des examens complémentaires
+        //Liste des examens complï¿½mentaires
         $listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
         
         $listeExamensDemandes = $this->getMotifAdmissionTable ()->getDemandesExamenComplementaire($id_admission);
@@ -1251,8 +1277,8 @@ class UrgenceController extends AbstractActionController {
 			);
 			$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 				
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
-			//Insertion des donnees sur le mode d'entrée et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+			//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 			$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
 			
 			
@@ -1269,7 +1295,7 @@ class UrgenceController extends AbstractActionController {
 			if($consultation_urgence){
 				$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 				
-				//mettre à jour les bandelettes urinaires
+				//mettre ï¿½ jour les bandelettes urinaires
 				$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 				$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 				$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1285,7 +1311,7 @@ class UrgenceController extends AbstractActionController {
 					$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 					$this->getConsultationTable ()->addConsultationUrgence ($id_cons, $id_admission, $id_Infirmier);
 					
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $id_cons;
 					$this->getConsultationTable ()->deleteBandelette($id_cons);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1308,8 +1334,8 @@ class UrgenceController extends AbstractActionController {
 			$this->getMotifAdmissionTable ()->deleteDemandesActes($id_admission);
 			$this->getMotifAdmissionTable ()->addDemandesActes($id_admission, $tabActesDemandes, $tabNotesActes, $id_Infirmier);
 			
-			//Insertion des demandes d'examens complémentaires
-			//Insertion des demandes d'examens complémentaires
+			//Insertion des demandes d'examens complï¿½mentaires
+			//Insertion des demandes d'examens complï¿½mentaires
 			$tabTypesExamensDemandes = explode(',', $tabDonnees['tabTypeExamenDemandesEC']);
 			$tabExamensDemandes = explode(',', $tabDonnees['tabExamenDemandesEC']);
 				
@@ -1330,8 +1356,8 @@ class UrgenceController extends AbstractActionController {
 				);
 				$this->getAdmissionTable()->updateAdmission($donneesAdmission, $id_admission);
 			
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
-				//Insertion des donnees sur le mode d'entrée et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
+				//Insertion des donnees sur le mode d'entrï¿½e et le mode de transport
 				$this->getAdmissionTable()->updateModeEntreeModeTransport($mode_entree_et_mode_transport, $id_admission);
 					
 				//Insertion des motifs de l'admission s'il y'en a
@@ -1341,14 +1367,14 @@ class UrgenceController extends AbstractActionController {
 					$this->getMotifAdmissionTable ()->addMotifAdmission ( $form , $id_admission);
 				}
 					
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
-				//Insertion des constantes s'il y'en a (est passé par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
+				//Insertion des constantes s'il y'en a (est passï¿½ par l'infirmier de tri)
 				$consultation_urgence = $this->getConsultationTable ()->getConsultationUrgence($id_admission);
 				if($consultation_urgence){
 					$this->getConsultationTable ()->updateConsultationUrgence($donneesConstantes, $consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->miseajourConsultationUrgence($id_Infirmier, $consultation_urgence['id_cons']);
 					
-					//mettre à jour les bandelettes urinaires
+					//mettre ï¿½ jour les bandelettes urinaires
 					$bandelettes['id_cons'] = $consultation_urgence['id_cons'];
 					$this->getConsultationTable ()->deleteBandelette($consultation_urgence['id_cons']);
 					$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1364,7 +1390,7 @@ class UrgenceController extends AbstractActionController {
 						$this->getConsultationTable ()->addConsultation ($donneesConstantes);
 						$this->getConsultationTable ()->addConsultationUrgenceInfirmierService ($id_cons, $id_admission, $id_Infirmier);
 						
-						//mettre à jour les bandelettes urinaires
+						//mettre ï¿½ jour les bandelettes urinaires
 						$bandelettes['id_cons'] = $id_cons;
 						$this->getConsultationTable ()->deleteBandelette($id_cons);
 						$this->getConsultationTable ()->addBandelette($bandelettes);
@@ -1415,7 +1441,7 @@ class UrgenceController extends AbstractActionController {
 	//DOMAINE DE LA GESTION DES INTERFACE DE L'INFIRMIER DE SERVICE
 	//DOMAINE DE LA GESTION DES INTERFACE DE L'INFIRMIER DE SERVICE
 	/**
-	 * Afficher les infos sur l'admission d'un patient par l'infirùier de tri 
+	 * Afficher les infos sur l'admission d'un patient par l'infirï¿½ier de tri 
 	 */
 	public function getInfosAdmissionParInfirmierTriAction() {
 	
@@ -1511,8 +1537,8 @@ class UrgenceController extends AbstractActionController {
 		$html .="<script> $('#mode_transport').val('".$mode_entree['mode_transport']."'); </script>";
 		
 		
-		//Récupération des motifs des consultations
-		//Récupération des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
+		//Rï¿½cupï¿½ration des motifs des consultations
 		$motif_admission = $this->getMotifAdmissionTable()->getMotifAdmissionUrgence($id_admission);
 		$nbMotif = $motif_admission->count(); $i=1;
 		if($nbMotif > 1){ $html .="<script> afficherMotif(".$nbMotif."); $('#bouton_motif_valider').trigger('click'); </script>"; }
@@ -1524,8 +1550,8 @@ class UrgenceController extends AbstractActionController {
 			$html .= "<script> setTimeout(function(){ $('#motif_admission".$i++."').val('".str_replace("'", "\'",$motif->libelle_motif)."'); });</script>";
 		}
 	
-		//Récupération des constantes
-		//Récupération des constantes
+		//Rï¿½cupï¿½ration des constantes
+		//Rï¿½cupï¿½ration des constantes
 		$constantes = $this->getConsultationTable()->getConsultationParIdAdmission($id_admission);
 		if($constantes){
 			$tensions = explode(' ', $constantes['PRESSION_ARTERIELLE']);
@@ -1562,8 +1588,12 @@ class UrgenceController extends AbstractActionController {
 		}
 	
 	
+		//Liste des actes et des examens complï¿½mentaires
+		$listeActes = $this->getAdmissionTable()->getListeActes();
+		$listeExamenComp = $this->getAdmissionTable()->getListeExamenComp();
+		
 		$this->getResponse ()->getHeaders ()->addHeaderLine ( 'Content-Type', 'application/html; charset=utf-8' );
-		return $this->getResponse ()->setContent ( Json::encode ( $html ) );
+		return $this->getResponse ()->setContent ( Json::encode ( array($html, $listeActes, $listeExamenComp) ) );
 	}
 	
 	public function listePatientsAdmisInfirmierServiceAjaxAction() {
@@ -1662,7 +1692,7 @@ class UrgenceController extends AbstractActionController {
 	}
 	
 	/**
-	 * Liste des pathologies pour un type donné
+	 * Liste des pathologies pour un type donnï¿½
 	 */
 	public function listePathologiesPourInterfaceAjoutAction()
 	{
@@ -2152,7 +2182,7 @@ class UrgenceController extends AbstractActionController {
     
     public function listePatientsAdmisRegistreAjaxAction() {
     	
-    	//id_patient est utiliser pour recuperer la date selectionnée
+    	//id_patient est utiliser pour recuperer la date selectionnï¿½e
     	$date_select = $this->params ()->fromRoute ( 'id_patient', null );
     	
     	if($date_select != null){
